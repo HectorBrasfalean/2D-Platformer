@@ -7,11 +7,17 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de array die level 1 zal voorstellen
+    /// </summary>
     class Level1 : Level
     {
         public Level1(ContentManager content) : base(content)
         {
         }
+        /// <summary>
+        /// Maakt een array voor level 1 aan
+        /// </summary>
         protected override void CreateArray()
         {
             TileArray = new byte[,]

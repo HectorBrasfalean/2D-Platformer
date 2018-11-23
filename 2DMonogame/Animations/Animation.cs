@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _2DMonogame.Collision;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Afhankelijk voor managen van de animatie
+    /// </summary>
     abstract class Animation
     {
         public List<AnimationFrame> frames;
@@ -21,20 +25,21 @@ namespace _2DMonogame
             frames = new List<AnimationFrame>();
             AddAnimation();
         }
-        public void Reset()
-        {
-            CurrentFrame = frames[0];
-        }
+        /// <summary>
+        /// Voegt een frame toe aan de frames array
+        /// </summary>
+        /// <param name="aFrame"></param>
         public void AddFrame(AnimationFrame aFrame)
         {
             frames.Add(aFrame);
-            Reset();
+            CurrentFrame = frames[0];
         }
-        public void Update(GameTime gameTime,Hero hero = null)
+        /// <summary>
+        /// Zal de animatie afspelen afhankelijk van de snelheid die is ingesteld
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public void Update(GameTime gameTime)
         {
-            if (hero != null) {
-                CheckWhichAnimation(hero);
-            }
 
             intervalTime += Speed * gameTime.ElapsedGameTime.Milliseconds / 100;
             if (intervalTime >= 100)
@@ -47,41 +52,11 @@ namespace _2DMonogame
                 intervalTime = 0;
             }
         }
-        private void CheckWhichAnimation(Hero hero)
-        {
-            if (hero.movement.Jump)
-            {
-                if (hero.movement.Right)
-                    hero.isLookingLeft = false;
-                if (hero.movement.Left)
-                    hero.isLookingLeft = true;
-                hero.currentAnimation = hero.jumpAnimation;
-            }
-            else if (hero.movement.Right)
-            {
-                hero.isLookingLeft = false;
-                if (hero.Velocity.Y == 0)
-                    hero.currentAnimation = hero.runAnimation;
-            }
-            else if (hero.movement.Left)
-            {
-                hero.isLookingLeft = true;
-                if (hero.Velocity.Y == 0)
-                    hero.currentAnimation = hero.runAnimation;
-            }
-            else if (hero.movement.Attack && hero.Velocity.Y == 0)
-            {
-                hero.currentAnimation = hero.attackAnimation;
-      
-            }
-            else
-            {
-                if (hero.Velocity.Y == 0)
-                    hero.currentAnimation = hero.idleAnimation;
-            }
-        }
+        
 
-
+        /// <summary>
+        /// Voegt een animatie toe
+        /// </summary>
         protected abstract void AddAnimation();
     }
 }

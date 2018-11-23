@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _2DMonogame.Collision;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -10,48 +11,47 @@ namespace _2DMonogame
 {
     class MovementArrowKeys : Movement
     {
-
-        
-        public override void Update(Hero hero)
+        public override void Update(IMovingCollide hero)
         {
+            ReadButtonInput(hero);
+            if (hero.Velocity.Y != 0)
+            {
+                hero.ChangeVelocity(null, hero.Velocity.Y + 0.2f);
+            }
+            hero.Position += hero.Velocity;
+            if (!hero.TouchingGround && hero.Velocity.Y == 0)
+            {
+                hero.ChangeVelocity(null, 0.2f);
+            }
+        }
 
+        private void ReadButtonInput(IMovingCollide hero)
+        {
             KeyboardState stateKey = Keyboard.GetState();
 
             if (stateKey.IsKeyUp(Keys.Right))
             {
-                if(Right == true)
-                    hero.currentAnimation.Reset();
                 Right = false;
-                hero.Velocity.X = 0;
+                hero.ChangeVelocity(0, null);
             }
             if (stateKey.IsKeyUp(Keys.Left))
             {
-                if (Left == true)
-                    hero.currentAnimation.Reset();
                 Left = false;
-                hero.Velocity.X = 0;
+                hero.ChangeVelocity(0, null);
             }
-            if (stateKey.IsKeyDown(Keys.Left) && Right != true )
+            if (stateKey.IsKeyDown(Keys.Left) && Right != true)
             {
                 Left = true;
-                hero.Velocity.X = -movementSpeed;
-            }
-            if (hero.currentAnimation == hero.jumpAnimation && hero.Velocity.Y == 0) ////////////////////////////////////////////////////
-            {
-                hero.currentAnimation.Reset();
+                hero.ChangeVelocity(-movementSpeed, null);
             }
             if (stateKey.IsKeyDown(Keys.Up) && hero.Velocity.Y == 0)
             {
-                hero.Velocity.Y = -8f;
+                hero.ChangeVelocity(null, -8);
                 Jump = true;
             }
             if (stateKey.IsKeyUp(Keys.Up))
             {
                 Jump = false;
-            }
-            if(stateKey.IsKeyDown(Keys.Down))
-            {
-                hero.currentAnimation = hero.deathAnimation;
             }
             if (stateKey.IsKeyDown(Keys.Space))
             {
@@ -59,23 +59,12 @@ namespace _2DMonogame
             }
             if (stateKey.IsKeyUp(Keys.Space))
             {
-                if (Attack == true)
-                    hero.currentAnimation.Reset();
                 Attack = false;
             }
-            if (stateKey.IsKeyDown(Keys.Right) && Left != true )
+            if (stateKey.IsKeyDown(Keys.Right) && Left != true)
             {
                 Right = true;
-                hero.Velocity.X = movementSpeed;
-            }
-            if (hero.Velocity.Y != 0)
-            {
-                hero.Velocity.Y += 0.2f;
-            }
-            hero.Position += hero.Velocity;
-            if (!hero.TouchingGround && hero.Velocity.Y == 0)
-            {
-                hero.Velocity.Y = 0.2f;
+                hero.ChangeVelocity(movementSpeed, null);
             }
         }
     }

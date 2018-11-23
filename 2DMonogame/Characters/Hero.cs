@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _2DMonogame.Collision;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,16 +13,74 @@ using System.Threading.Tasks;
 namespace _2DMonogame
 {
   
-    class Hero : CollisionObject
+    class Hero : IMovingCollide
     {
         public bool HasShot = false;
-        public bool isLookingLeft,TouchingGround;
+        public bool isLookingLeft;
         public Animation idleAnimation,runAnimation,attackAnimation,jumpAnimation,deathAnimation,currentAnimation;
+        public Texture2D Texture;
         public Projectile Fireball;
         public Movement movement;
-        public Vector2 Velocity;
         public float FireballDelay;
         public List<Fireball> FireballList;
+
+        public Rectangle CollisionRectangle
+        {
+            get { return new Rectangle((int)Position.X + 10, (int)Position.Y + 25, 80, 60); }
+        }
+
+        private Vector2 position;
+        public Vector2 Position
+        {
+            get
+            {
+                return position;
+            }
+            set
+            {
+                position = value;
+            }
+        }
+        public bool TouchingLeft { get; set; }
+        public bool TouchingRight { get; set; }
+        public bool TouchingTop { get; set; }
+
+        private Vector2 velocity;
+
+        public Vector2 Velocity {
+            get
+            {
+                return velocity;
+            }
+            set
+            {
+                velocity = value;
+            }
+        }
+        public void ChangeVelocity(float? x, float? y)
+        {
+            if (x != null) {
+                velocity.X = (float)x;
+            }
+            if (y != null)
+            {
+                velocity.Y= (float)y;
+            }
+
+        }
+        public void ChangePosition(float? x, float? y)
+        {
+            if (x != null)
+            {
+                position.X = (float)x;
+            }
+            if (y != null)
+            {
+                position.Y = (float)y;
+            }
+        }
+        public bool TouchingGround { get; set; }
+        public float MovingSpeed { get { return movement.movementSpeed; }  }
 
         public Hero(ContentManager content, Vector2 startPositionHero, Movement movement)
         {
@@ -30,9 +89,11 @@ namespace _2DMonogame
             this.Texture = content.Load<Texture2D>("HeroSprite");
             Position = startPositionHero;
             this.movement = movement;
+            
             Fireball = new Fireball();
-            currentAnimation = new HeroIdleAnimation();
+
             idleAnimation = new HeroIdleAnimation();
+            currentAnimation = idleAnimation;
             runAnimation = new HeroRunAnimation();
             jumpAnimation = new HeroJumpAnimation();
             attackAnimation = new HeroAttackAnimation();
@@ -40,11 +101,9 @@ namespace _2DMonogame
             Fireball.Texture = content.Load<Texture2D>("fireball_0");
         }
 
-        public void Update(GameTime gameTime,List<CollisionObject> collisionObjects)
+        public void Update(GameTime gameTime,List<ICollide> collisionObjects)
         {
-            CollisionRectangle = new Rectangle((int)Position.X+10, (int)Position.Y+25, 80, 60);
-            CollisionDetect(collisionObjects,this);
-            currentAnimation.Update(gameTime, this);
+            CheckWhichAnimation();
             movement.Update(this);
             if (movement.Attack)
                 Shoot();
@@ -54,9 +113,43 @@ namespace _2DMonogame
             {
                 ball.Update(gameTime);
             }
-
+            currentAnimation.Update(gameTime);
         }
-        
+        private void CheckWhichAnimation()
+        {
+            if (movement.Jump)
+            {
+                if (Velocity.X > 0)
+                    isLookingLeft = false;
+                if (Velocity.X < 0)
+                    isLookingLeft = true;
+                currentAnimation = jumpAnimation;
+            }
+            else if (movement.Right)
+            {
+                isLookingLeft = false;
+                if (Velocity.Y == 0)
+                    currentAnimation = runAnimation;
+            }
+            else if (movement.Left)
+            {
+                isLookingLeft = true;
+                if (Velocity.Y == 0)
+                    currentAnimation = runAnimation;
+            }
+            else if (movement.Attack && Velocity.Y == 0)
+            {
+                currentAnimation = attackAnimation;
+            }
+            else
+            {
+                if(Velocity.Y == 0)
+                currentAnimation = idleAnimation;
+            }
+            
+        }
+ 
+
         public void Draw(SpriteBatch spriteBatch)
         {
              spriteBatch.Draw(Texture, Position, currentAnimation.CurrentFrame.RectangleSelector, Color.AliceBlue, 0f, Vector2.Zero, currentAnimation.CurrentFrame.scale, isLookingLeft?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f);
@@ -88,5 +181,7 @@ namespace _2DMonogame
                 FireballDelay = 65;
             }
         }
+
+        
     }
 }

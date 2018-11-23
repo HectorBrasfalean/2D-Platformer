@@ -1,4 +1,5 @@
 ﻿using _2DMonogame.Blocks;
+using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,7 +26,7 @@ namespace _2DMonogame
             levelFactory = new LevelFactory();
         }
         protected abstract void CreateArray();
-        public void CreateWorld(ContentManager content,List<CollisionObject> collisionObjects)
+        public void CreateWorld(ContentManager content,List<ICollide> collisionObjects)
         {
             for (int x = 0; x < TileArray.GetLength(0); x++)
             {

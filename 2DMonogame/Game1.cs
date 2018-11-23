@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _2DMonogame.Collision;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -13,12 +14,13 @@ namespace _2DMonogame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Background background;
+        CollisionObject collider;
         int ScreenWidth;
         int ScreenHeight;
         Hero hero;
         Level level;
         Camera2D camera;
-        List<CollisionObject> collisionObjects;
+        List<ICollide> collisionObjects;
         //List<Block> blocks;
 
         public Game1()
@@ -37,9 +39,9 @@ namespace _2DMonogame
         /// </summary>
         protected override void Initialize()
         {
-            collisionObjects = new List<CollisionObject>();
+            collider = new CollisionObject();
+            collisionObjects = new List<ICollide>();
             collisionObjects.Clear();
-
             ScreenWidth = graphics.PreferredBackBufferWidth;
             ScreenHeight = graphics.PreferredBackBufferHeight;
 
@@ -49,7 +51,7 @@ namespace _2DMonogame
 
             level = new Level1(Content);
             camera = new Camera2D() { ScreenHeight = ScreenHeight, ScreenWidth = ScreenWidth ,Zoom = 0.75f};
-            background = new Background(new Vector2(-150,-350));
+            background = new Background(new Vector2(-150,-550));
             base.Initialize();
         }
 
@@ -81,6 +83,8 @@ namespace _2DMonogame
         protected override void Update(GameTime gameTime)
         {
             camera.Follow(hero);
+            background.Update(hero.Position.X);
+            collider.CollisionDetect(collisionObjects, hero);
             hero.Update(gameTime,collisionObjects);
             //level.CreateWorld(Content,collisionObjects);
             base.Update(gameTime);

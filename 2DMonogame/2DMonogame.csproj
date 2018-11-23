@@ -51,6 +51,7 @@
     <Compile Include="Characters\Scorpion.cs" />
     <Compile Include="Characters\Sprite.cs" />
     <Compile Include="Collision\ICollide.cs" />
+    <Compile Include="Collision\IMovingCollide.cs" />
     <Compile Include="Factory\AbstractLevelFactory.cs" />
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationFrame.cs" />

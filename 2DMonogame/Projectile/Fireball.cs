@@ -10,27 +10,37 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor het fireball object 
+    /// </summary>
     class Fireball : Projectile
     {
         Animation fireballAnimation;
         public Fireball()
-        {
-            
+        {            
             speed = 5;
             IsVisible = false;
             fireballAnimation = new FireballAnimation();
         }
 
+        /// <summary>
+        /// Tekent de fireball op het scherm
+        /// </summary>
+        /// <param name="sprite"></param>
         public override void Draw(SpriteBatch sprite)
         {
             sprite.Draw(Texture, Position,fireballAnimation.CurrentFrame.RectangleSelector, Color.AliceBlue);
         }
 
+        /// <summary>
+        /// Update de positie van de fireball
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            CollisionRectangle = new Rectangle((int)Position.X, (int)Position.Y, 72, 42);
             fireballAnimation.Update(gameTime);
-            Position.X += speed;
+            ChangeVelocity(speed, null);
+            Position += Velocity;
         }
     }
 }

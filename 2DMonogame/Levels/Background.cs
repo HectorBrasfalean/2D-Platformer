@@ -16,10 +16,15 @@ namespace _2DMonogame
         {
             this.position = position;
         }
+        public void Update(float position)
+        {
+            this.position.X = position - 1000;
+           
 
+        }
         public void Draw(SpriteBatch spriteBatch,GraphicsDevice graphics)
         {
-            spriteBatch.Draw(backgroundTexture, position, null, Color.AliceBlue, 0f, Vector2.Zero,0.43f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(backgroundTexture, position, null, Color.AliceBlue, 0f, Vector2.Zero,1f, SpriteEffects.None, 0f);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _2DMonogame.Collision;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace _2DMonogame
 {
     abstract class AbstractLevelFactory
     {
-        public Block GetBlockLevel(int id, ContentManager content, int x, int y,List<CollisionObject> collisionObjects)
+        public Block GetBlockLevel(int id, ContentManager content, int x, int y,List<ICollide> collisionObjects)
         {
             
             Block block = CreateBlock(id, content);
