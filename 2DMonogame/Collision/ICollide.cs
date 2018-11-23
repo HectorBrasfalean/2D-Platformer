@@ -12,7 +12,7 @@ namespace _2DMonogame.Collision
     /// </summary>
     public interface ICollide 
     {
-        Vector2 Position { get; set; }
+
         Rectangle CollisionRectangle { get; }
 
     }

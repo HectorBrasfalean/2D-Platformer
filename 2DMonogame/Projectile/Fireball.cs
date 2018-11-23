@@ -1,4 +1,5 @@
 ﻿using _2DMonogame.Animations;
+using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,9 +16,12 @@ namespace _2DMonogame
     /// </summary>
     class Fireball : Projectile
     {
+        
+        //CollisionObject collisionChecker;
         Animation fireballAnimation;
         public Fireball()
-        {            
+        {
+            //collisionChecker = new CollisionObject();
             speed = 5;
             IsVisible = false;
             fireballAnimation = new FireballAnimation();
@@ -29,17 +33,19 @@ namespace _2DMonogame
         /// <param name="sprite"></param>
         public override void Draw(SpriteBatch sprite)
         {
-            sprite.Draw(Texture, Position,fireballAnimation.CurrentFrame.RectangleSelector, Color.AliceBlue);
+            sprite.Draw(Texture,Position,fireballAnimation.CurrentFrame.RectangleSelector,Color.AliceBlue,0f,Vector2.Zero,1f,GoesLeft?SpriteEffects.FlipHorizontally:SpriteEffects.None,0);
         }
+
 
         /// <summary>
         /// Update de positie van de fireball
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime/*, List<ICollide> collisionObjects*/)
         {
+            //collisionChecker.CollisionDetect(collisionObjects, this);
             fireballAnimation.Update(gameTime);
-            ChangeVelocity(speed, null);
+            ChangeVelocity(GoesLeft?-speed:speed, null);
             Position += Velocity;
         }
     }

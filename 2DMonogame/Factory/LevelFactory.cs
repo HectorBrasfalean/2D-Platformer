@@ -1,4 +1,5 @@
 ﻿using _2DMonogame.Blocks;
+using _2DMonogame.Blocks.RunThroughBlocks;
 using _2DMonogame.Blocks.StaticBlocks;
 using Microsoft.Xna.Framework.Content;
 using System;
@@ -11,9 +12,9 @@ namespace _2DMonogame
 {
     class LevelFactory : AbstractLevelFactory
     {
-        protected override StaticBlock CreateBlock(int id, ContentManager content)
+        protected override Block CreateBlock(int id, ContentManager content)
         {
-            StaticBlock b = null;
+            Block b = null;
             if (id == 1)
                 b = new DirtBlock(content, "01");
             else if (id == 2)
@@ -38,7 +39,18 @@ namespace _2DMonogame
                 b = new RightBottomCornerBlock(content, "09");
             else if (id == 12)
                 b = new PlatformBlock(content, "plate1");
-            
+            else if (id == 13)
+                b = new BoxFirstVariant(content, "box1");
+            else if (id == 14)
+                b = new BoxSecondVariant(content, "box2");
+            else if (id == 15)
+                b = new Scarecrow(content, "scarecrow");
+            else if (id == 16)
+                b = new Pointer(content, "pointer");
+            else if (id == 17)
+                b = new OrangeTree(content, "tree1");
+            else if (id == 18)
+                b = new YellowTree(content, "tree2");
             return b;
         }
     }

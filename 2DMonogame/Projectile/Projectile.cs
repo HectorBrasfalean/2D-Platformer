@@ -14,7 +14,7 @@ namespace _2DMonogame
     {
         public Texture2D Texture;
         public float speed;
-        public bool IsVisible;
+        public bool IsVisible,GoesLeft;
 
         private Vector2 velocity;
         public Vector2 Velocity
@@ -38,7 +38,7 @@ namespace _2DMonogame
 
         public float MovingSpeed { get { return 5; } }
 
-        public abstract void Update(GameTime gameTime);
+        public abstract void Update(GameTime gameTime/*,List<ICollide> collisionObjects*/);
         public abstract void Draw(SpriteBatch sprite);
 
         public void ChangeVelocity(float? x, float? y)

@@ -42,7 +42,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Animations\FireballAnimation.cs" />
+    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\RunThroughBlocks\OrangeTree.cs" />
+    <Compile Include="Blocks\RunThroughBlocks\Pointer.cs" />
     <Compile Include="Blocks\RunThroughBlocks\RunThroughBlocks.cs" />
+    <Compile Include="Blocks\RunThroughBlocks\Scarecrow.cs" />
+    <Compile Include="Blocks\RunThroughBlocks\YellowTree.cs" />
+    <Compile Include="Blocks\StaticBlocks\BoxFirstVariant.cs" />
+    <Compile Include="Blocks\StaticBlocks\BoxSecondVariant.cs" />
     <Compile Include="Blocks\StaticBlocks\LeftBottomCornerBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\PlatformBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\RightBottomCornerBlock.cs" />

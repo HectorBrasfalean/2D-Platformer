@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using _2DMonogame.Collision;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +10,14 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks.RunThroughBlocks
 {
-    abstract class RunThroughBlocks
-    {
-        public void Update()
-        {
 
-        }
-        public void Draw(SpriteBatch sprite)
+    abstract class RunThroughBlocks : Block
+    {
+
+        public RunThroughBlocks(ContentManager content,string name) : base(content,name)
         {
-            //sprite.Draw
+            
         }
+
     }
 }

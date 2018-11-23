@@ -65,7 +65,6 @@ namespace _2DMonogame
                     _object.ChangeVelocity(null,0);
                     _object.TouchingGround = true;
                 }
-
                 if (_object.Velocity.Y < 0 && IsTouchingBottom(currentObject, _object))
                 {
                     _object.ChangeVelocity(null, 0.1f);

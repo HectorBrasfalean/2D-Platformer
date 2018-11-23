@@ -8,27 +8,18 @@ using System.Threading.Tasks;
 using Microsoft.Xna;
 using Microsoft.Xna.Framework.Content;
 using _2DMonogame.Collision;
+using _2DMonogame.Blocks;
 
 namespace _2DMonogame
 {
-    abstract class StaticBlock : ICollide
+    abstract class StaticBlock : Block,ICollide
     {
-        public Vector2 Position { get; set; }
-        public Texture2D Texture;
         public Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
-        public StaticBlock(ContentManager content,string name)
+        public StaticBlock(ContentManager content,string name) : base(content,name)
         {
-            Texture = content.Load<Texture2D>(name);
+            
         }
-        public void Initialize(Vector2 position,List<ICollide> collisionObjects)
-        {
-            Position = position;
-            collisionObjects.Add(this);
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Position,Color.AliceBlue);
-        }
+
 
     }
 }

@@ -15,14 +15,13 @@ namespace _2DMonogame
   
     class Hero : IMovingCollide
     {
-        public bool HasShot = false;
-        public bool isLookingLeft,PositionHasChanged;
+
+        public bool isLookingLeft,HasShot;
         public Animation idleAnimation,runAnimation,attackAnimation,jumpAnimation,deathAnimation,currentAnimation;
         public Texture2D Texture;
         public Projectile Fireball;
         public Movement movement;
-        public float FireballDelay;
-        public List<Fireball> FireballList;
+        public List<Projectile> fireballs;
 
         public Rectangle CollisionRectangle
         {
@@ -94,8 +93,7 @@ namespace _2DMonogame
 
         public Hero(ContentManager content, Vector2 startPositionHero, Movement movement)
         {
-            FireballList = new List<Fireball>();
-            FireballDelay = 65;
+            fireballs = new List<Projectile>();
             this.Texture = content.Load<Texture2D>("HeroSprite");
             Position = startPositionHero;
             this.movement = movement;
@@ -121,13 +119,31 @@ namespace _2DMonogame
             movement.Update(this);
             if (movement.Attack)
                 Shoot();
-            if (!movement.Attack)
-                FireballDelay = 65;
-            foreach (Fireball ball in FireballList)
+            foreach (Projectile ball in fireballs)
             {
-                ball.Update(gameTime);
+                ball.Update(gameTime/*,collisionObjects*/);
             }
             currentAnimation.Update(gameTime);
+        }
+        /// <summary>
+        /// Laat de hero schieten
+        /// </summary>
+        private void Shoot()
+        {
+            if (HasShot != true && currentAnimation.CurrentFrame == attackAnimation.frames[attackAnimation.frames.Count - 1])
+            {
+                HasShot = true;
+                Projectile fireBall = new Fireball() { Texture = Fireball.Texture };
+                fireBall.GoesLeft = isLookingLeft;
+                fireBall.Position = new Vector2(fireBall.GoesLeft?Position.X-10:Position.X+72, Position.Y + 30);
+                fireBall.IsVisible = true;
+
+                fireballs.Add(fireBall);
+            }
+            if (currentAnimation.CurrentFrame != attackAnimation.frames[attackAnimation.frames.Count - 1])
+            {
+                HasShot = false;
+            }
         }
         /// <summary>
         /// Controleert welke animatie we momenteel moeten afspelen
@@ -172,34 +188,15 @@ namespace _2DMonogame
         /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
-             spriteBatch.Draw(Texture, Position, currentAnimation.CurrentFrame.RectangleSelector, Color.AliceBlue, 0f, Vector2.Zero, currentAnimation.CurrentFrame.scale, isLookingLeft?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f);
-            foreach (Fireball ball in FireballList)
+            spriteBatch.Draw(Texture, Position, currentAnimation.CurrentFrame.RectangleSelector, Color.AliceBlue, 0f, Vector2.Zero, currentAnimation.CurrentFrame.scale, isLookingLeft?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f);
+            foreach (Projectile ball in fireballs)
             {
                 ball.Draw(spriteBatch);
             }
+
         }
-        /// <summary>
-        /// Laat de hero schieten
-        /// </summary>
-        public void Shoot()
-        {
-            if (HasShot)
-                FireballDelay--;
-            if (HasShot != true && currentAnimation.CurrentFrame == currentAnimation.frames[4])
-            {
-                HasShot = true;
-                Fireball fireBall = new Fireball() { Texture = Fireball.Texture };
-                fireBall.Position = new Vector2(Position.X + 72, Position.Y + 30);
-                fireBall.IsVisible = true;
-    
-                FireballList.Add(fireBall);
-            }
-            if(FireballDelay == 0)
-            {
-                HasShot = false;
-                FireballDelay = 65;
-            }
-        }
+
+  
 
         
     }
