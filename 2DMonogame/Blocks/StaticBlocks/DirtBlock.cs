@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +7,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace _2DMonogame.Blocks
+namespace _2DMonogame
 {
-    class AcidMudBottomBlock : Block
+    class DirtBlock : StaticBlock
     {
-        public AcidMudBottomBlock(ContentManager content, string name) : base(content, name)
+        public DirtBlock(ContentManager content,string name) : base(content, name)
         {
 
         }
+
+
     }
 }

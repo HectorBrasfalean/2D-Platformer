@@ -11,16 +11,16 @@ namespace _2DMonogame
 {
     abstract class AbstractLevelFactory
     {
-        public Block GetBlockLevel(int id, ContentManager content, int x, int y,List<ICollide> collisionObjects)
+        public StaticBlock GetBlockLevel(int id, ContentManager content, int x, int y,List<ICollide> collisionObjects)
         {
             
-            Block block = CreateBlock(id, content);
-            if (block != null)
+            StaticBlock block = CreateBlock(id, content);
+            if (block is StaticBlock)
                  block.Initialize(new Vector2(y*100,x*100),collisionObjects);
             return block;
             
             
         }
-        protected abstract Block CreateBlock(int id, ContentManager content);
+        protected abstract StaticBlock CreateBlock(int id, ContentManager content);
     }
 }

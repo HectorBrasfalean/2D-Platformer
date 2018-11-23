@@ -16,12 +16,12 @@ namespace _2DMonogame
         protected ContentManager content;
         protected AbstractLevelFactory levelFactory;
         protected byte[,] TileArray;
-        protected Block[,] BlockArray;
+        protected StaticBlock[,] BlockArray;
                 
         public Level(ContentManager content)
         {
             CreateArray();
-            BlockArray = new Block[TileArray.GetLength(0), TileArray.GetLength(1)];
+            BlockArray = new StaticBlock[TileArray.GetLength(0), TileArray.GetLength(1)];
             this.content = content;
             levelFactory = new LevelFactory();
         }

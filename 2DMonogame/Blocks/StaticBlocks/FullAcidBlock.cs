@@ -9,13 +9,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame.Blocks
 {
-    class AcidMudLeftAndBottomBlock : Block
+    class FullAcidBlock : StaticBlock
     {
-        public AcidMudLeftAndBottomBlock(ContentManager content,string name) : base(content, name)
+        public FullAcidBlock(ContentManager content, string name) : base(content, name)
         {
 
         }
 
-  
+    
     }
 }

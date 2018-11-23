@@ -9,13 +9,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame
 {
-    class GrassTopBlock : Block
+    class LeftTopCornerBlock : StaticBlock
     {
-        public GrassTopBlock(ContentManager content,string name) : base(content, name)
+        public LeftTopCornerBlock(ContentManager content, string name) : base(content, name)
         {
 
         }
 
-  
+
     }
 }

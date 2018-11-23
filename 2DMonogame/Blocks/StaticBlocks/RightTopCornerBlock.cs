@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame
 {
-    class RightTopCornerBlock : Block
+    class RightTopCornerBlock : StaticBlock
     {
 
         public RightTopCornerBlock(ContentManager content, string name) : base(content, name)

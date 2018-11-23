@@ -16,7 +16,7 @@ namespace _2DMonogame
     class Hero : IMovingCollide
     {
         public bool HasShot = false;
-        public bool isLookingLeft;
+        public bool isLookingLeft,PositionHasChanged;
         public Animation idleAnimation,runAnimation,attackAnimation,jumpAnimation,deathAnimation,currentAnimation;
         public Texture2D Texture;
         public Projectile Fireball;
@@ -57,6 +57,11 @@ namespace _2DMonogame
                 velocity = value;
             }
         }
+        /// <summary>
+        /// Past de velocity aan van het hero object
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null) {
@@ -68,6 +73,11 @@ namespace _2DMonogame
             }
 
         }
+        /// <summary>
+        /// Past de positie aan van het hero object
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -100,7 +110,11 @@ namespace _2DMonogame
             deathAnimation = new HeroDeathAnimation();
             Fireball.Texture = content.Load<Texture2D>("fireball_0");
         }
-
+        /// <summary>
+        /// Update het hero object
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="collisionObjects"></param>
         public void Update(GameTime gameTime,List<ICollide> collisionObjects)
         {
             CheckWhichAnimation();
@@ -115,6 +129,9 @@ namespace _2DMonogame
             }
             currentAnimation.Update(gameTime);
         }
+        /// <summary>
+        /// Controleert welke animatie we momenteel moeten afspelen
+        /// </summary>
         private void CheckWhichAnimation()
         {
             if (movement.Jump)
@@ -149,7 +166,10 @@ namespace _2DMonogame
             
         }
  
-
+        /// <summary>
+        /// Tekent de hero op het scherm
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
              spriteBatch.Draw(Texture, Position, currentAnimation.CurrentFrame.RectangleSelector, Color.AliceBlue, 0f, Vector2.Zero, currentAnimation.CurrentFrame.scale, isLookingLeft?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f);
@@ -158,7 +178,9 @@ namespace _2DMonogame
                 ball.Draw(spriteBatch);
             }
         }
-
+        /// <summary>
+        /// Laat de hero schieten
+        /// </summary>
         public void Shoot()
         {
             if (HasShot)
@@ -167,13 +189,10 @@ namespace _2DMonogame
             {
                 HasShot = true;
                 Fireball fireBall = new Fireball() { Texture = Fireball.Texture };
-                fireBall.Position = new Vector2(Position.X + 102, Position.Y + 30);
+                fireBall.Position = new Vector2(Position.X + 72, Position.Y + 30);
                 fireBall.IsVisible = true;
-                
-                if(FireballList.Count() < 20)
-                {
-                    FireballList.Add(fireBall);
-                }
+    
+                FireballList.Add(fireBall);
             }
             if(FireballDelay == 0)
             {

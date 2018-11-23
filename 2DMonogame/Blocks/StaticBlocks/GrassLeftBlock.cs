@@ -7,15 +7,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace _2DMonogame.Blocks
+namespace _2DMonogame
 {
-    class AcidMudRightAndBottomBlock : Block
+    class GrassLeftBlock : StaticBlock
     {
-        public AcidMudRightAndBottomBlock(ContentManager content, string name) : base(content, name)
+        public GrassLeftBlock(ContentManager content, string name) : base(content, name)
         {
 
         }
 
-  
+   
     }
 }

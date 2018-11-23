@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks
 {
-    class LeftBottomCornerBlock : Block
+    class LeftBottomCornerBlock : StaticBlock
     {
         public LeftBottomCornerBlock(ContentManager content, string name) : base(content, name)
         {

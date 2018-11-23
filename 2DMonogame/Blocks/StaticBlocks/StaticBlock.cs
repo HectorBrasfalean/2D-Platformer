@@ -11,12 +11,12 @@ using _2DMonogame.Collision;
 
 namespace _2DMonogame
 {
-    abstract class Block : ICollide
+    abstract class StaticBlock : ICollide
     {
         public Vector2 Position { get; set; }
         public Texture2D Texture;
         public Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
-        public Block(ContentManager content,string name)
+        public StaticBlock(ContentManager content,string name)
         {
             Texture = content.Load<Texture2D>(name);
         }

@@ -44,7 +44,7 @@ namespace _2DMonogame
         }
         public void CollisionDetect(List<ICollide> collideObjects, IMovingCollide _object)
         {
-            foreach (ICollide currentObject in collideObjects.OfType<Block>())
+            foreach (ICollide currentObject in collideObjects.OfType<StaticBlock>())
             {
                 ResetState(_object);
                 if (_object.Velocity.X > 0 && IsTouchingLeft(currentObject, _object))
