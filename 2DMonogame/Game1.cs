@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace _2DMonogame
 {
@@ -11,13 +12,23 @@ namespace _2DMonogame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Background background;
+        int ScreenWidth;
+        int ScreenHeight;
+        Hero hero;
+        Level level;
+        Camera2D camera;
+        List<CollisionObject> collisionObjects;
+        //List<Block> blocks;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 780;
+            graphics.PreferredBackBufferWidth = 1280;
             Content.RootDirectory = "Content";
         }
-
+      
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -26,8 +37,19 @@ namespace _2DMonogame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            collisionObjects = new List<CollisionObject>();
+            collisionObjects.Clear();
 
+            ScreenWidth = graphics.PreferredBackBufferWidth;
+            ScreenHeight = graphics.PreferredBackBufferHeight;
+
+            hero = new Hero(Content, new Vector2(150, 300), new MovementArrowKeys());
+
+            collisionObjects.Add(hero);
+
+            level = new Level1(Content);
+            camera = new Camera2D() { ScreenHeight = ScreenHeight, ScreenWidth = ScreenWidth ,Zoom = 0.75f};
+            background = new Background(new Vector2(-150,-350));
             base.Initialize();
         }
 
@@ -37,10 +59,9 @@ namespace _2DMonogame
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            background.backgroundTexture = Content.Load<Texture2D>("AangepasteBackground");
+            level.CreateWorld(Content, collisionObjects);
         }
 
         /// <summary>
@@ -59,11 +80,9 @@ namespace _2DMonogame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-
+            camera.Follow(hero);
+            hero.Update(gameTime,collisionObjects);
+            //level.CreateWorld(Content,collisionObjects);
             base.Update(gameTime);
         }
 
@@ -73,9 +92,19 @@ namespace _2DMonogame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin(transformMatrix:camera.Transform);
+            background.Draw(spriteBatch,GraphicsDevice);
+            /*foreach (Block block in blocks)
+            {
+                block.Draw(spriteBatch);
+            }*/
+            level.DrawWorld(spriteBatch);
+            hero.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
