@@ -16,12 +16,9 @@ namespace _2DMonogame
     /// </summary>
     class Fireball : Projectile
     {
-        
-        //CollisionObject collisionChecker;
         Animation fireballAnimation;
         public Fireball()
         {
-            //collisionChecker = new CollisionObject();
             speed = 5;
             IsVisible = false;
             fireballAnimation = new FireballAnimation();
@@ -41,9 +38,8 @@ namespace _2DMonogame
         /// Update de positie van de fireball
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime/*, List<ICollide> collisionObjects*/)
+        public override void Update(GameTime gameTime)
         {
-            //collisionChecker.CollisionDetect(collisionObjects, this);
             fireballAnimation.Update(gameTime);
             ChangeVelocity(GoesLeft?-speed:speed, null);
             Position += Velocity;

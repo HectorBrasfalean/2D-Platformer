@@ -15,13 +15,11 @@ namespace _2DMonogame
         SpriteBatch spriteBatch;
         Background background;
         CollisionObject collider;
-        int ScreenWidth;
-        int ScreenHeight;
+        int ScreenWidth,ScreenHeight;
         Hero hero;
         Level level;
         Camera2D camera;
         List<ICollide> collisionObjects;
-        //List<Block> blocks;
 
         public Game1()
         {
@@ -84,9 +82,9 @@ namespace _2DMonogame
         {
             camera.Follow(hero);
             background.Update(hero.Position.X);
-            collider.CollisionDetect(collisionObjects, hero);
-            hero.Update(gameTime,collisionObjects);
-            //level.CreateWorld(Content,collisionObjects);
+            //collider.CollisionDetect(collisionObjects, hero);
+            hero.Update(gameTime,collisionObjects,collider);
+
             base.Update(gameTime);
         }
 

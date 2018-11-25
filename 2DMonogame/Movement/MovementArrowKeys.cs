@@ -13,6 +13,20 @@ namespace _2DMonogame
     {
         public override void Update(IMovingCollide hero)
         {
+            if (hero.TouchingGround)
+                hero.ChangeVelocity(null, 0);
+            if (hero.TouchingLeft)
+            {
+                hero.ChangePosition(hero.Position.X + hero.MovingSpeed, null);
+                hero.ChangeVelocity(0, null);
+            }
+            if(hero.TouchingRight)
+            {
+                hero.ChangeVelocity(0, null);
+                hero.ChangePosition(hero.Position.X - hero.MovingSpeed, null);
+            }
+            if (hero.TouchingTop)
+                hero.ChangeVelocity(null, 0.1f);
             ReadButtonInput(hero);
             if (hero.Velocity.Y != 0)
             {
@@ -23,6 +37,7 @@ namespace _2DMonogame
             {
                 hero.ChangeVelocity(null, 0.2f);
             }
+
         }
 
         private void ReadButtonInput(IMovingCollide hero)

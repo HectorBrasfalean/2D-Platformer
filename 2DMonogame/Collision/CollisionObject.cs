@@ -44,30 +44,32 @@ namespace _2DMonogame
         }
         public void CollisionDetect(List<ICollide> collideObjects, IMovingCollide _object)
         {
+            ResetState(_object);
+            //_object.TouchingGround = false;
             foreach (ICollide currentObject in collideObjects.OfType<StaticBlock>())
             {
-                ResetState(_object);
+                
                 if (_object.Velocity.X > 0 && IsTouchingLeft(currentObject, _object))
                 {
-                    _object.ChangeVelocity(0,null);
-                    _object.ChangePosition(_object.Position.X - _object.MovingSpeed, null);
+                    //_object.ChangeVelocity(0,null);
+                    //_object.ChangePosition(_object.Position.X - _object.MovingSpeed, null);
                     _object.TouchingRight = true;
                 }
 
                 if (_object.Velocity.X < 0 && IsTouchingRight(currentObject, _object))
                 {
-                    _object.ChangePosition(_object.Position.X + _object.MovingSpeed, null);
-                    _object.ChangeVelocity(0, null);
+                    //_object.ChangePosition(_object.Position.X + _object.MovingSpeed, null);
+                    //_object.ChangeVelocity(0, null);
                     _object.TouchingLeft = true;
                 }
                 if (_object.Velocity.Y > 0 && IsTouchingTop(currentObject, _object))
                 {
-                    _object.ChangeVelocity(null,0);
+                    //_object.ChangeVelocity(null,0);
                     _object.TouchingGround = true;
                 }
                 if (_object.Velocity.Y < 0 && IsTouchingBottom(currentObject, _object))
                 {
-                    _object.ChangeVelocity(null, 0.1f);
+                    //_object.ChangeVelocity(null, 0.1f);
                     _object.TouchingTop = true;
                 }
             }

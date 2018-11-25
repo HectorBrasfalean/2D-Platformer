@@ -97,7 +97,6 @@ namespace _2DMonogame
             this.Texture = content.Load<Texture2D>("HeroSprite");
             Position = startPositionHero;
             this.movement = movement;
-            
             Fireball = new Fireball();
 
             idleAnimation = new HeroIdleAnimation();
@@ -113,17 +112,25 @@ namespace _2DMonogame
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="collisionObjects"></param>
-        public void Update(GameTime gameTime,List<ICollide> collisionObjects)
+        public void Update(GameTime gameTime,List<ICollide> collisionObjects,CollisionObject collisionCheck)
         {
+            collisionCheck.CollisionDetect(collisionObjects, this);
             CheckWhichAnimation();
             movement.Update(this);
+            //if (TouchingGround && currentAnimation == jumpAnimation)
+            //    jumpAnimation.Reset();
             if (movement.Attack)
-                Shoot();
-            foreach (Projectile ball in fireballs)
+               Shoot();
+            foreach (Projectile ball in fireballs.Reverse<Projectile>())
             {
-                ball.Update(gameTime/*,collisionObjects*/);
+                collisionCheck.CollisionDetect(collisionObjects, ball);
+                if (ball.Position.X > Position.X + 500 || ball.Position.X < Position.X - 500 || ball.TouchingRight || ball.TouchingLeft)
+                    fireballs.Remove(ball);
+                ball.Update(gameTime);
+
             }
             currentAnimation.Update(gameTime);
+
         }
         /// <summary>
         /// Laat de hero schieten
@@ -140,7 +147,7 @@ namespace _2DMonogame
 
                 fireballs.Add(fireBall);
             }
-            if (currentAnimation.CurrentFrame != attackAnimation.frames[attackAnimation.frames.Count - 1])
+            if (currentAnimation.CurrentFrame != attackAnimation.frames[attackAnimation.frames.Count - 1] && currentAnimation == attackAnimation)
             {
                 HasShot = false;
             }

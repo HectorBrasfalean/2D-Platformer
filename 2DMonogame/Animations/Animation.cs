@@ -25,6 +25,11 @@ namespace _2DMonogame
             frames = new List<AnimationFrame>();
             AddAnimation();
         }
+        /*public void Reset()
+        {
+            CurrentFrame = frames[0];
+        }*/
+
         /// <summary>
         /// Voegt een frame toe aan de frames array
         /// </summary>
@@ -32,7 +37,7 @@ namespace _2DMonogame
         public void AddFrame(AnimationFrame aFrame)
         {
             frames.Add(aFrame);
-            CurrentFrame = frames[0];
+            CurrentFrame = frames[0];//Reset();
         }
         /// <summary>
         /// Zal de animatie afspelen afhankelijk van de snelheid die is ingesteld
