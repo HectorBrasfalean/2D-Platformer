@@ -1,4 +1,5 @@
-﻿using _2DMonogame.Collision;
+﻿using _2DMonogame.Characters;
+using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,9 +15,10 @@ namespace _2DMonogame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Background background;
-        CollisionObject collider;
+        Collider collider;
         int ScreenWidth,ScreenHeight;
         Hero hero;
+        Enemy GreenGoblin;
         Level level;
         Camera2D camera;
         List<ICollide> collisionObjects;
@@ -37,19 +39,21 @@ namespace _2DMonogame
         /// </summary>
         protected override void Initialize()
         {
-            collider = new CollisionObject();
+            collider = new Collider();
             collisionObjects = new List<ICollide>();
             collisionObjects.Clear();
             ScreenWidth = graphics.PreferredBackBufferWidth;
             ScreenHeight = graphics.PreferredBackBufferHeight;
 
-            hero = new Hero(Content, new Vector2(150, 300), new MovementArrowKeys());
+            hero = new Hero(Content, new Vector2(150, 600), new MovementArrowKeys());
+            GreenGoblin = new GreenGoblin(Content, new Vector2(150, 590));
 
+            collisionObjects.Add(GreenGoblin);
             collisionObjects.Add(hero);
 
             level = new Level1(Content);
             camera = new Camera2D() { ScreenHeight = ScreenHeight, ScreenWidth = ScreenWidth ,Zoom = 0.75f};
-            background = new Background(new Vector2(-150,-550));
+            background = new Background(new Vector2(-150,-250));
             base.Initialize();
         }
 
@@ -82,8 +86,9 @@ namespace _2DMonogame
         {
             camera.Follow(hero);
             background.Update(hero.Position.X);
-            //collider.CollisionDetect(collisionObjects, hero);
             hero.Update(gameTime,collisionObjects,collider);
+            GreenGoblin.Update(gameTime,collider,collisionObjects);
+            level.Update(collisionObjects, collider);
 
             base.Update(gameTime);
         }
@@ -98,13 +103,13 @@ namespace _2DMonogame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin(transformMatrix:camera.Transform);
+
             background.Draw(spriteBatch,GraphicsDevice);
-            /*foreach (Block block in blocks)
-            {
-                block.Draw(spriteBatch);
-            }*/
+
             level.DrawWorld(spriteBatch);
             hero.Draw(spriteBatch);
+
+            GreenGoblin.Draw(spriteBatch);
 
             spriteBatch.End();
 

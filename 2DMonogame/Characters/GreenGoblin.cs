@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _2DMonogame.Animations;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,9 +15,10 @@ namespace _2DMonogame.Characters
         public GreenGoblin(ContentManager content, Vector2 startPositionEnemy) : base(content,startPositionEnemy)
         {
             Texture = content.Load<Texture2D>("GreenGoblinSprite");
-            //DeathAnimation = new GreenGoblinDeathAnimation();
-            //RunAnimation = new GreenGoblinRunAnimation();
-            //AttackAnimation = new GreenGoblinAttackAnimation();
+            DeathAnimation = new GreenGoblinDeathAnimation();
+            RunAnimation = new GreenGoblinRunAnimation();
+            AttackAnimation = new GreenGoblinAttackAnimation();
+            currentAnimation = RunAnimation;
         }
     }
 }

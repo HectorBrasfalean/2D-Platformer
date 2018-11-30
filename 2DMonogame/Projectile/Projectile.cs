@@ -38,6 +38,8 @@ namespace _2DMonogame
 
         public float MovingSpeed { get { return 5; } }
 
+        public IMovingCollide currentCollisionBlock { get; set; }
+
         public abstract void Update(GameTime gameTime/*,List<ICollide> collisionObjects*/);
         public abstract void Draw(SpriteBatch sprite);
 

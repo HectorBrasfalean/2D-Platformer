@@ -15,5 +15,10 @@ namespace _2DMonogame.Blocks
         {
 
         }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Texture, Position, Color.AliceBlue);
+        }
     }
 }

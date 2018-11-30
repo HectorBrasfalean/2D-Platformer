@@ -1,4 +1,7 @@
-﻿using _2DMonogame.Collision;
+﻿using _2DMonogame.Blocks;
+using _2DMonogame.Blocks.Collectable;
+using _2DMonogame.Characters;
+using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
-    class CollisionObject
+    class Collider
     {
-        private bool IsTouchingLeft(ICollide sprite,IMovingCollide _object)
+        private bool IsTouchingLeft(ICollide sprite, IMovingCollide _object)
         {
             return _object.CollisionRectangle.Right + _object.Velocity.X > sprite.CollisionRectangle.Left &&
               _object.CollisionRectangle.Left < sprite.CollisionRectangle.Left &&
@@ -45,31 +48,55 @@ namespace _2DMonogame
         public void CollisionDetect(List<ICollide> collideObjects, IMovingCollide _object)
         {
             ResetState(_object);
-            //_object.TouchingGround = false;
-            foreach (ICollide currentObject in collideObjects.OfType<StaticBlock>())
+            DetectBlock(collideObjects, _object);
+            foreach (Enemy currentEnemy in collideObjects.OfType<Enemy>())
             {
-                
-                if (_object.Velocity.X > 0 && IsTouchingLeft(currentObject, _object))
+                if(_object is Hero && _object.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
                 {
-                    //_object.ChangeVelocity(0,null);
-                    //_object.ChangePosition(_object.Position.X - _object.MovingSpeed, null);
+                    currentEnemy.TouchedHero = true;
+                }
+                if (_object is Projectile && _object.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
+                {
+                    _object.TouchingLeft = true;
+                    currentEnemy.IsHit = true;
+                }
+            }
+            foreach (ICollectable collectable in collideObjects.OfType<ICollectable>())
+            {
+                if (_object is Hero && _object.CollisionRectangle.Intersects(collectable.CollisionRectangle))
+                {
+                    collectable.IsCollected = true;
+                }
+
+            }
+        }
+        private void DetectBlock(List<ICollide> collideObjects, IMovingCollide _object)
+        {
+            foreach (ICollide currentBlock in collideObjects.OfType<StaticBlock>())
+            {
+                if (currentBlock is ICollectable)
+                    continue;
+                if (_object.Velocity.X > 0 && IsTouchingLeft(currentBlock, _object))
+                {
+                   
+                    if(currentBlock is IMove)
+                        _object.currentCollisionBlock = (IMove)currentBlock;
                     _object.TouchingRight = true;
                 }
 
-                if (_object.Velocity.X < 0 && IsTouchingRight(currentObject, _object))
+                if (_object.Velocity.X < 0 && IsTouchingRight(currentBlock, _object))
                 {
-                    //_object.ChangePosition(_object.Position.X + _object.MovingSpeed, null);
-                    //_object.ChangeVelocity(0, null);
+                    
+                    if (currentBlock is IMove)
+                        _object.currentCollisionBlock = (IMove)currentBlock;
                     _object.TouchingLeft = true;
                 }
-                if (_object.Velocity.Y > 0 && IsTouchingTop(currentObject, _object))
+                if (_object.Velocity.Y > 0 && IsTouchingTop(currentBlock, _object))
                 {
-                    //_object.ChangeVelocity(null,0);
                     _object.TouchingGround = true;
                 }
-                if (_object.Velocity.Y < 0 && IsTouchingBottom(currentObject, _object))
+                if (_object.Velocity.Y < 0 && IsTouchingBottom(currentBlock, _object))
                 {
-                    //_object.ChangeVelocity(null, 0.1f);
                     _object.TouchingTop = true;
                 }
             }

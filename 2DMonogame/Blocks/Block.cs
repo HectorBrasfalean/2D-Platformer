@@ -1,4 +1,5 @@
-﻿using _2DMonogame.Collision;
+﻿using _2DMonogame.Blocks.Collectable;
+using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +13,7 @@ namespace _2DMonogame.Blocks
 {
     abstract class Block
     {
+
         public Vector2 Position { get; set; }
         public Texture2D Texture;
         public Block(ContentManager content, string name)
@@ -22,9 +24,7 @@ namespace _2DMonogame.Blocks
         {
             Position = position;
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Position, Color.AliceBlue);
-        }
+        public abstract void Draw(SpriteBatch spriteBatch);
+       
     }
 }

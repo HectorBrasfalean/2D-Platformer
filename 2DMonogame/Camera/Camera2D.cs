@@ -13,7 +13,7 @@ namespace _2DMonogame
             Matrix scale = Matrix.CreateScale(Zoom, Zoom, 1);
             var position = Matrix.CreateTranslation(
                 -hero.Position.X/2 - (hero.CollisionRectangle.X/2),
-                0,
+                -300,
                 0);
 
             var offset = Matrix.CreateTranslation(

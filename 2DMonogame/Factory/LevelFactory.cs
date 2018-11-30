@@ -1,6 +1,9 @@
 ﻿using _2DMonogame.Blocks;
+using _2DMonogame.Blocks.Collectable;
+using _2DMonogame.Blocks.MovingBlocks;
 using _2DMonogame.Blocks.RunThroughBlocks;
 using _2DMonogame.Blocks.StaticBlocks;
+using _2DMonogame.Collision;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -51,7 +54,15 @@ namespace _2DMonogame
                 b = new OrangeTree(content, "tree1");
             else if (id == 18)
                 b = new YellowTree(content, "tree2");
+            else if (id == 19)
+                b = new MovingBlock(content, "plate1");
+            else if (id == 20)
+                b = new MovingBlock(content, "plate1") { Invert = true };
+            else if (id == 21)
+                b = new CoinCollectable(content, "star");
             return b;
         }
+
+ 
     }
 }

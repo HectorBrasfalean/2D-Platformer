@@ -91,6 +91,8 @@ namespace _2DMonogame
         public bool TouchingGround { get; set; }
         public float MovingSpeed { get { return movement.movementSpeed; }  }
 
+        public IMovingCollide currentCollisionBlock { get; set; }
+
         public Hero(ContentManager content, Vector2 startPositionHero, Movement movement)
         {
             fireballs = new List<Projectile>();
@@ -112,7 +114,7 @@ namespace _2DMonogame
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="collisionObjects"></param>
-        public void Update(GameTime gameTime,List<ICollide> collisionObjects,CollisionObject collisionCheck)
+        public void Update(GameTime gameTime,List<ICollide> collisionObjects,Collider collisionCheck)
         {
             collisionCheck.CollisionDetect(collisionObjects, this);
             CheckWhichAnimation();

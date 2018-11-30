@@ -42,8 +42,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Animations\FireballAnimation.cs" />
+    <Compile Include="Animations\GreenGoblinAttackAnimation.cs" />
     <Compile Include="Animations\GreenGoblinDeathAnimation.cs" />
+    <Compile Include="Animations\GreenGoblinRunAnimation.cs" />
     <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\Collectable\CoinCollectable.cs" />
+    <Compile Include="Blocks\Collectable\ICollectable.cs" />
+    <Compile Include="Blocks\IMove.cs" />
+    <Compile Include="Blocks\MovingBlocks\MovingBlock.cs" />
     <Compile Include="Blocks\RunThroughBlocks\OrangeTree.cs" />
     <Compile Include="Blocks\RunThroughBlocks\Pointer.cs" />
     <Compile Include="Blocks\RunThroughBlocks\RunThroughBlocks.cs" />
@@ -64,7 +70,7 @@
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationFrame.cs" />
     <Compile Include="Animations\HeroAttackAnimation.cs" />
-    <Compile Include="Collision\CollisionObject.cs" />
+    <Compile Include="Collision\Collider.cs" />
     <Compile Include="Projectile\Fireball.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Factory\LevelFactory.cs" />

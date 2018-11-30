@@ -1,4 +1,5 @@
 ﻿using _2DMonogame.Blocks;
+using _2DMonogame.Blocks.Collectable;
 using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -35,6 +36,17 @@ namespace _2DMonogame
                     BlockArray[x,y] = levelFactory.GetBlockLevel((int)TileArray[x, y], content, x, y,collisionObjects);
                 }
             }
+        }
+        public void Update(List<ICollide> collisionObjects,Collider collider)
+        {
+            foreach (IMove currentBlock in collisionObjects.OfType<IMove>())
+            {
+                currentBlock.Update(collisionObjects, collider);
+            }
+            /*foreach (ICollectable collectable in collisionObjects.OfType<ICollectable>())
+            {
+                collectable.Update(collisionObjects, collider);
+            }*/
         }
         public void DrawWorld(SpriteBatch spriteBatch)
         {
