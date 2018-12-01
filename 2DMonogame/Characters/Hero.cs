@@ -17,6 +17,8 @@ namespace _2DMonogame
     {
 
         public bool isLookingLeft,HasShot;
+        public int amountOfStarsCollected;
+        public Vector2 RespawnLocation;
         public Animation idleAnimation,runAnimation,attackAnimation,jumpAnimation,deathAnimation,currentAnimation;
         public Texture2D Texture;
         public Projectile Fireball;
@@ -92,12 +94,14 @@ namespace _2DMonogame
         public float MovingSpeed { get { return movement.movementSpeed; }  }
 
         public IMovingCollide currentCollisionBlock { get; set; }
+        public bool HasTouchedCollectable { get; set; }
 
         public Hero(ContentManager content, Vector2 startPositionHero, Movement movement)
         {
             fireballs = new List<Projectile>();
             this.Texture = content.Load<Texture2D>("HeroSprite");
             Position = startPositionHero;
+            RespawnLocation = startPositionHero;
             this.movement = movement;
             Fireball = new Fireball();
 
@@ -121,6 +125,11 @@ namespace _2DMonogame
             movement.Update(this);
             //if (TouchingGround && currentAnimation == jumpAnimation)
             //    jumpAnimation.Reset();
+            if (HasTouchedCollectable)
+            {
+                amountOfStarsCollected++;
+                HasTouchedCollectable = false;
+            }
             if (movement.Attack)
                Shoot();
             foreach (Projectile ball in fireballs.Reverse<Projectile>())

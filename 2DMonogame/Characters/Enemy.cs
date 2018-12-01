@@ -59,6 +59,7 @@ namespace _2DMonogame.Characters
         public Rectangle CollisionRectangle => new Rectangle((int)Position.X,(int)Position.Y,currentAnimation.CurrentFrame.RectangleSelector.Width-10, currentAnimation.CurrentFrame.RectangleSelector.Height-20);
 
         public IMovingCollide currentCollisionBlock { get; set; }
+        public bool HasTouchedCollectable { get; set; }
 
         public void ChangePosition(float? x, float? y)
         {

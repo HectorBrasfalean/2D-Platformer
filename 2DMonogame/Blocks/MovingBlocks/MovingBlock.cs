@@ -37,6 +37,7 @@ namespace _2DMonogame.Blocks.MovingBlocks
         public bool TouchingGround { get; set; }
         public bool TouchingTop { get; set; }
         public IMovingCollide currentCollisionBlock { get; set; }
+        public bool HasTouchedCollectable { get; set; }
 
         public void ChangePosition(float? x, float? y)
         {

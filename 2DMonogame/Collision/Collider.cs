@@ -49,7 +49,7 @@ namespace _2DMonogame
         {
             ResetState(_object);
             DetectBlock(collideObjects, _object);
-            foreach (Enemy currentEnemy in collideObjects.OfType<Enemy>())
+            foreach (Enemy currentEnemy in collideObjects.OfType<Enemy>().ToList<Enemy>())
             {
                 if(_object is Hero && _object.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
                 {
@@ -59,13 +59,16 @@ namespace _2DMonogame
                 {
                     _object.TouchingLeft = true;
                     currentEnemy.IsHit = true;
+                    collideObjects.Remove(currentEnemy);
                 }
             }
-            foreach (ICollectable collectable in collideObjects.OfType<ICollectable>())
+            foreach (ICollectable collectable in collideObjects.OfType<ICollectable>().ToList<ICollectable>())
             {
                 if (_object is Hero && _object.CollisionRectangle.Intersects(collectable.CollisionRectangle))
                 {
                     collectable.IsCollected = true;
+                    _object.HasTouchedCollectable = true;
+                    collideObjects.Remove(collectable);
                 }
 
             }

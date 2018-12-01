@@ -10,6 +10,7 @@ namespace _2DMonogame.Collision
     public interface IMovingCollide : ICollide
     {
         IMovingCollide currentCollisionBlock { get; set; }
+        bool HasTouchedCollectable { get; set; }
         Vector2 Position { get; set; }
         float MovingSpeed { get; }
         Vector2 Velocity { get; set; }

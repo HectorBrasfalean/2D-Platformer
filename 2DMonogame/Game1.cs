@@ -22,6 +22,7 @@ namespace _2DMonogame
         Level level;
         Camera2D camera;
         List<ICollide> collisionObjects;
+        SpriteFont scoreFont;
 
         public Game1()
         {
@@ -65,6 +66,7 @@ namespace _2DMonogame
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             background.backgroundTexture = Content.Load<Texture2D>("AangepasteBackground");
+            scoreFont = Content.Load<SpriteFont>("Points");
             level.CreateWorld(Content, collisionObjects);
         }
 
@@ -110,6 +112,8 @@ namespace _2DMonogame
             hero.Draw(spriteBatch);
 
             GreenGoblin.Draw(spriteBatch);
+
+            spriteBatch.DrawString(scoreFont, "Stars collected : " + hero.amountOfStarsCollected,new Vector2(hero.Position.X-820,-200), Color.Black);
 
             spriteBatch.End();
 

@@ -445,3 +445,10 @@
 /processorParam:TextureFormat=Color
 /build:star.png
 
+#begin Points.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Points.spritefont
+
