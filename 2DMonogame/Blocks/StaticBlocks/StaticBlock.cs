@@ -12,7 +12,7 @@ using _2DMonogame.Blocks;
 
 namespace _2DMonogame
 {
-    abstract class StaticBlock : Block,ICollide
+    abstract class StaticBlock : GameObject,ICollide
     {
         public Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
         public StaticBlock(ContentManager content,string name) : base(content,name)

@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks
 {
-    abstract class Block
+    abstract class GameObject
     {
 
         public Vector2 Position { get; set; }
         public Texture2D Texture;
-        public Block(ContentManager content, string name)
+        public GameObject(ContentManager content, string name)
         {
             Texture = content.Load<Texture2D>(name);
         }

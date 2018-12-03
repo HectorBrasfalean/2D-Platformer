@@ -10,7 +10,7 @@ namespace _2DMonogame.Characters
 {
     class Giant : Enemy
     {
-        public Giant(ContentManager content, Vector2 startPositionEnemy) : base(content, startPositionEnemy)
+        public Giant(ContentManager content, string name) : base(content, name)
         {
         }
     }

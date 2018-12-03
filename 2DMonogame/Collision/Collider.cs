@@ -1,5 +1,6 @@
 ﻿using _2DMonogame.Blocks;
 using _2DMonogame.Blocks.Collectable;
+using _2DMonogame.Blocks.DeathBlocks;
 using _2DMonogame.Characters;
 using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
@@ -48,21 +49,27 @@ namespace _2DMonogame
         public void CollisionDetect(List<ICollide> collideObjects, IMovingCollide _object)
         {
             ResetState(_object);
-            DetectBlock(collideObjects, _object);
-            foreach (Enemy currentEnemy in collideObjects.OfType<Enemy>().ToList<Enemy>())
+            if(_object is Hero)
+                DetectHeroDeath(collideObjects,(IDie) _object);
+            DetectStaticBlocks(collideObjects, _object);
+            DetectEnemy(collideObjects, _object);
+            DetectCollectable(collideObjects, _object);
+        }
+
+        private static void DetectHeroDeath(List<ICollide> collideObjects, IDie _object)
+        {
+            foreach (IDeathBlock deathBlock in collideObjects.OfType<IDeathBlock>())
             {
-                if(_object is Hero && _object.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
+                if ( _object.CollisionRectangle.Intersects(deathBlock.CollisionRectangle))
                 {
-                    currentEnemy.TouchedHero = true;
-                }
-                if (_object is Projectile && _object.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
-                {
-                    _object.TouchingLeft = true;
-                    currentEnemy.IsHit = true;
-                    collideObjects.Remove(currentEnemy);
+                    _object.IsHit = true;
                 }
             }
-            foreach (ICollectable collectable in collideObjects.OfType<ICollectable>().ToList<ICollectable>())
+        }
+
+        private static void DetectCollectable(List<ICollide> collideObjects, IMovingCollide _object)
+        {
+            foreach (ICollectable collectable in collideObjects.OfType<ICollectable>().ToList())
             {
                 if (_object is Hero && _object.CollisionRectangle.Intersects(collectable.CollisionRectangle))
                 {
@@ -73,23 +80,37 @@ namespace _2DMonogame
 
             }
         }
-        private void DetectBlock(List<ICollide> collideObjects, IMovingCollide _object)
+
+        private static void DetectEnemy(List<ICollide> collideObjects, IMovingCollide _object)
+        {
+            foreach (Enemy currentEnemy in collideObjects.OfType<Enemy>().ToList())
+            {
+                if (_object is Hero && _object.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
+                {
+                    currentEnemy.TouchedHero = true;
+                }
+                if (_object is Projectile && _object.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
+                {
+                    _object.TouchingLeft = true;
+                    currentEnemy.IsHit = true;
+                }
+            }
+        }
+
+        private void DetectStaticBlocks(List<ICollide> collideObjects, IMovingCollide _object)
         {
             foreach (ICollide currentBlock in collideObjects.OfType<StaticBlock>())
             {
-                if (currentBlock is ICollectable)
+                if (currentBlock is ICollectable || currentBlock is IDeathBlock)
                     continue;
                 if (_object.Velocity.X > 0 && IsTouchingLeft(currentBlock, _object))
                 {
-                   
                     if(currentBlock is IMove)
                         _object.currentCollisionBlock = (IMove)currentBlock;
                     _object.TouchingRight = true;
                 }
-
                 if (_object.Velocity.X < 0 && IsTouchingRight(currentBlock, _object))
                 {
-                    
                     if (currentBlock is IMove)
                         _object.currentCollisionBlock = (IMove)currentBlock;
                     _object.TouchingLeft = true;

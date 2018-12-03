@@ -13,15 +13,16 @@ namespace _2DMonogame
 {
     abstract class AbstractLevelFactory
     {
-        public Block GetBlockLevel(int id, ContentManager content, int x, int y,List<ICollide> collisionObjects)
+        public GameObject GetGameObjectsLevel(int id, ContentManager content, int x, int y,List<ICollide> collisionObjects)
         {
-            Block block = CreateBlock(id, content);
-            if (block is ICollide)
-                collisionObjects.Add((ICollide)block);
-            if (block != null)
-                block.Initialize(new Vector2(y * 100, x * 100));
-            return block;
+            GameObject gameObject = CreateBlock(id, content);
+
+            if (gameObject is ICollide)
+                collisionObjects.Add((ICollide)gameObject);
+            if (gameObject != null)
+                gameObject.Initialize(new Vector2(y * 100, x * 100));
+            return gameObject;
         }
-        protected abstract Block CreateBlock(int id, ContentManager content);
+        protected abstract GameObject CreateBlock(int id, ContentManager content);
     }
 }

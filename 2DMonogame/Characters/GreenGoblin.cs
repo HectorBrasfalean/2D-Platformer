@@ -12,9 +12,8 @@ namespace _2DMonogame.Characters
 {
     class GreenGoblin : Enemy
     {
-        public GreenGoblin(ContentManager content, Vector2 startPositionEnemy) : base(content,startPositionEnemy)
+        public GreenGoblin(ContentManager content, string name) : base(content,name)
         {
-            Texture = content.Load<Texture2D>("GreenGoblinSprite");
             DeathAnimation = new GreenGoblinDeathAnimation();
             RunAnimation = new GreenGoblinRunAnimation();
             AttackAnimation = new GreenGoblinAttackAnimation();

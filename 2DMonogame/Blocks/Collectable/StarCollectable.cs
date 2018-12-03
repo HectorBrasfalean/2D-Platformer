@@ -10,9 +10,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame.Blocks.Collectable
 {
-    class CoinCollectable : StaticBlock,ICollectable
+    class StarCollectable : StaticBlock,ICollectable
     {
-        public CoinCollectable(ContentManager content, string name) : base(content,name)
+        public StarCollectable(ContentManager content, string name) : base(content,name)
         {
             
         }
@@ -21,14 +21,7 @@ namespace _2DMonogame.Blocks.Collectable
         public override void Draw(SpriteBatch spriteBatch)
         {
             if(!IsCollected)
-                spriteBatch.Draw(Texture, Position, Color.AliceBlue);
+                spriteBatch.Draw(Texture,new Vector2(Position.X+25,Position.Y), Color.AliceBlue);
         }
-
-        /*public void Update(List<ICollide> collisionObjects, Collider collider)
-        {
-            collider.CollisionDetect(collisionObjects,(IMovingCollide) this);
-        }*/
-
-
     }
 }

@@ -3,6 +3,7 @@ using _2DMonogame.Blocks.Collectable;
 using _2DMonogame.Blocks.MovingBlocks;
 using _2DMonogame.Blocks.RunThroughBlocks;
 using _2DMonogame.Blocks.StaticBlocks;
+using _2DMonogame.Characters;
 using _2DMonogame.Collision;
 using Microsoft.Xna.Framework.Content;
 using System;
@@ -15,9 +16,9 @@ namespace _2DMonogame
 {
     class LevelFactory : AbstractLevelFactory
     {
-        protected override Block CreateBlock(int id, ContentManager content)
+        protected override GameObject CreateBlock(int id, ContentManager content)
         {
-            Block b = null;
+            GameObject b = null;
             if (id == 1)
                 b = new DirtBlock(content, "01");
             else if (id == 2)
@@ -59,7 +60,9 @@ namespace _2DMonogame
             else if (id == 20)
                 b = new MovingBlock(content, "plate1") { Invert = true };
             else if (id == 21)
-                b = new CoinCollectable(content, "star");
+                b = new StarCollectable(content, "star");
+            else if (id == 30)
+                b = new GreenGoblin(content, "GreenGoblinSprite");
             return b;
         }
 

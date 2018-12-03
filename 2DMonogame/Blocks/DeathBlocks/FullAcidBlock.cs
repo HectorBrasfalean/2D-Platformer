@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _2DMonogame.Blocks.DeathBlocks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame.Blocks
 {
-    class AcidMudLeftBlock : StaticBlock
+    class FullAcidBlock : StaticBlock, IDeathBlock
     {
-        public AcidMudLeftBlock(ContentManager content, string name) : base(content, name)
+        public FullAcidBlock(ContentManager content, string name) : base(content, name)
         {
 
         }

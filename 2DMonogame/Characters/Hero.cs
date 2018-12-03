@@ -1,4 +1,5 @@
-﻿using _2DMonogame.Collision;
+﻿using _2DMonogame.Characters;
+using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,9 +14,9 @@ using System.Threading.Tasks;
 namespace _2DMonogame
 {
   
-    class Hero : IMovingCollide
+    class Hero : IMovingCollide,IDie
     {
-
+        private int amountOfLifes = 3;
         public bool isLookingLeft,HasShot;
         public int amountOfStarsCollected;
         public Vector2 RespawnLocation;
@@ -95,6 +96,8 @@ namespace _2DMonogame
 
         public IMovingCollide currentCollisionBlock { get; set; }
         public bool HasTouchedCollectable { get; set; }
+        public bool IsHit { get; set; }
+        public int Lifes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Hero(ContentManager content, Vector2 startPositionHero, Movement movement)
         {
@@ -120,28 +123,44 @@ namespace _2DMonogame
         /// <param name="collisionObjects"></param>
         public void Update(GameTime gameTime,List<ICollide> collisionObjects,Collider collisionCheck)
         {
-            collisionCheck.CollisionDetect(collisionObjects, this);
-            CheckWhichAnimation();
-            movement.Update(this);
-            //if (TouchingGround && currentAnimation == jumpAnimation)
-            //    jumpAnimation.Reset();
-            if (HasTouchedCollectable)
+            if (IsHit)
+                amountOfLifes--;
+            if (amountOfLifes > 0)
             {
-                amountOfStarsCollected++;
-                HasTouchedCollectable = false;
+                collisionCheck.CollisionDetect(collisionObjects, this);
+                CheckWhichAnimation();
+                movement.Update(this);
+                if (HasTouchedCollectable)
+                {
+                    amountOfStarsCollected++;
+                    HasTouchedCollectable = false;
+                }
+                if (movement.Attack)
+                    Shoot();
+                foreach (Projectile ball in fireballs.Reverse<Projectile>())
+                {
+                    collisionCheck.CollisionDetect(collisionObjects, ball);
+                    if (ball.Position.X > Position.X + 500 || ball.Position.X < Position.X - 500 || ball.TouchingRight || ball.TouchingLeft)
+                        fireballs.Remove(ball);
+                    ball.Update(gameTime);
+                }
+                currentAnimation.Update(gameTime);
             }
-            if (movement.Attack)
-               Shoot();
-            foreach (Projectile ball in fireballs.Reverse<Projectile>())
+            else
             {
-                collisionCheck.CollisionDetect(collisionObjects, ball);
-                if (ball.Position.X > Position.X + 500 || ball.Position.X < Position.X - 500 || ball.TouchingRight || ball.TouchingLeft)
-                    fireballs.Remove(ball);
-                ball.Update(gameTime);
+                currentAnimation = deathAnimation;
+                if (currentAnimation.CurrentFrame != deathAnimation.frames[deathAnimation.frames.Count - 1])
+                {
+                    currentAnimation.Update(gameTime);
+                }
+                else
+                {
+                    Position = RespawnLocation;
+                    amountOfLifes++;
+                    IsHit = false;
+                }
 
             }
-            currentAnimation.Update(gameTime);
-
         }
         /// <summary>
         /// Laat de hero schieten
@@ -155,7 +174,6 @@ namespace _2DMonogame
                 fireBall.GoesLeft = isLookingLeft;
                 fireBall.Position = new Vector2(fireBall.GoesLeft?Position.X-10:Position.X+72, Position.Y + 30);
                 fireBall.IsVisible = true;
-
                 fireballs.Add(fireBall);
             }
             if (currentAnimation.CurrentFrame != attackAnimation.frames[attackAnimation.frames.Count - 1] && currentAnimation == attackAnimation)
@@ -197,7 +215,6 @@ namespace _2DMonogame
                 if(Velocity.Y == 0)
                 currentAnimation = idleAnimation;
             }
-            
         }
  
         /// <summary>

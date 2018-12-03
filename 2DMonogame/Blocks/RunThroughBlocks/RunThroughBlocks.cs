@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace _2DMonogame.Blocks.RunThroughBlocks
 {
 
-    abstract class RunThroughBlocks : Block
+    abstract class RunThroughBlocks : GameObject
     {
 
         public RunThroughBlocks(ContentManager content,string name) : base(content,name)

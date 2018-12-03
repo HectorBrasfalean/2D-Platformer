@@ -1,5 +1,6 @@
 ﻿using _2DMonogame.Blocks;
 using _2DMonogame.Blocks.Collectable;
+using _2DMonogame.Characters;
 using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -17,12 +18,12 @@ namespace _2DMonogame
         protected ContentManager content;
         protected AbstractLevelFactory levelFactory;
         protected byte[,] TileArray;
-        protected Block[,] BlockArray;
+        protected GameObject[,] GameObjectsArray;
                 
         public Level(ContentManager content)
         {
             CreateArray();
-            BlockArray = new Block[TileArray.GetLength(0), TileArray.GetLength(1)];
+            GameObjectsArray = new GameObject[TileArray.GetLength(0), TileArray.GetLength(1)];
             this.content = content;
             levelFactory = new LevelFactory();
         }
@@ -33,20 +34,22 @@ namespace _2DMonogame
             {
                 for (int y = 0; y < TileArray.GetLength(1); y++)
                 {
-                    BlockArray[x,y] = levelFactory.GetBlockLevel((int)TileArray[x, y], content, x, y,collisionObjects);
+                    GameObjectsArray[x,y] = levelFactory.GetGameObjectsLevel((int)TileArray[x, y], content, x, y,collisionObjects);
                 }
             }
         }
-        public void Update(List<ICollide> collisionObjects,Collider collider)
+        public void Update(GameTime gameTime,List<ICollide> collisionObjects,Collider collider)
         {
             foreach (IMove currentBlock in collisionObjects.OfType<IMove>())
             {
                 currentBlock.Update(collisionObjects, collider);
             }
-            /*foreach (ICollectable collectable in collisionObjects.OfType<ICollectable>())
+            foreach (Enemy enemy in collisionObjects.OfType<Enemy>().ToList())
             {
-                collectable.Update(collisionObjects, collider);
-            }*/
+                enemy.Update(gameTime, collider, collisionObjects);
+                if (enemy.currentAnimation == enemy.DeathAnimation && enemy.currentAnimation.CurrentFrame == enemy.DeathAnimation.frames[enemy.DeathAnimation.frames.Count - 1])
+                    collisionObjects.Remove(enemy);
+            }
         }
         public void DrawWorld(SpriteBatch spriteBatch)
         {
@@ -54,9 +57,9 @@ namespace _2DMonogame
             {
                 for (int y = 0; y < TileArray.GetLength(1); y++)
                 {
-                    if (BlockArray[x, y] != null)
+                    if (GameObjectsArray[x, y] != null)
                     {
-                        BlockArray[x, y].Draw(spriteBatch);
+                        GameObjectsArray[x, y].Draw(spriteBatch);
                     }
                 }
             }

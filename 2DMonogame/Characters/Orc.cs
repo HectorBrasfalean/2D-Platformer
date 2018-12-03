@@ -10,7 +10,7 @@ namespace _2DMonogame.Characters
 {
     class Orc : Enemy
     {
-        public Orc(ContentManager content, Vector2 startPositionEnemy) : base(content, startPositionEnemy)
+        public Orc(ContentManager content,string name) : base(content, name)
         {
         }
     }
