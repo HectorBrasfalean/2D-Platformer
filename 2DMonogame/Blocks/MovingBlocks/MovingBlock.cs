@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame.Blocks.MovingBlocks
 {
-    class MovingBlock : StaticBlock, IMove
+    class MovingBlock : StaticBlock, IMoveBlock
     {
         public bool Invert;
         public MovingBlock(ContentManager content, string name) : base(content, name)
@@ -65,8 +65,8 @@ namespace _2DMonogame.Blocks.MovingBlocks
 
         public void Update(List<ICollide> collisionObjects,Collider collider)
         {
-            collider.CollisionDetect(collisionObjects, this);
-            if (currentCollisionBlock is IMove)
+            collider.CollisionDetect(collisionObjects,(IMovingCollide) this);
+            if (currentCollisionBlock is IMoveBlock)
             {
                 currentCollisionBlock.ChangeVelocity(-velocity.X, null);
             }

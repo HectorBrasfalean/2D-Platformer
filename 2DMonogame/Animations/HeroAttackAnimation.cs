@@ -11,7 +11,7 @@ namespace _2DMonogame
     {
         public HeroAttackAnimation()
         {
-            Speed = 50;
+            Speed = 60;
         }
         protected override void AddAnimation()
         {

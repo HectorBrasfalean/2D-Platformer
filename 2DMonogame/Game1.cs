@@ -107,7 +107,8 @@ namespace _2DMonogame
             level.DrawWorld(spriteBatch);
             hero.Draw(spriteBatch);
 
-            spriteBatch.DrawString(scoreFont, "Stars collected : " + hero.amountOfStarsCollected,new Vector2(hero.Position.X-820,-200), Color.Black);
+            spriteBatch.DrawString(scoreFont, "Stars collected : " + hero.amountOfStarsCollected, new Vector2(hero.Position.X - 830, -200), Color.Black);
+            spriteBatch.DrawString(scoreFont, "Number of lives : " + hero.AmountOfLives, new Vector2(hero.Position.X - 830, -150), Color.Black);
 
             spriteBatch.End();
 

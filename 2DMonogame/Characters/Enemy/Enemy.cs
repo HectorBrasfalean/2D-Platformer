@@ -42,11 +42,16 @@ namespace _2DMonogame.Characters
         public bool TouchingGround { get; set; }
         public bool TouchingTop { get; set; }
 
-        public Rectangle CollisionRectangle => new Rectangle((int)Position.X,(int)Position.Y,currentAnimation.CurrentFrame.RectangleSelector.Width-10, currentAnimation.CurrentFrame.RectangleSelector.Height-10);
-
-        public IMovingCollide currentCollisionBlock { get; set; }
-        public bool HasTouchedCollectable { get; set; }
-
+        public Rectangle CollisionRectangle => new Rectangle((int)Position.X,(int)Position.Y+30,currentAnimation.CurrentFrame.RectangleSelector.Width-10, currentAnimation.CurrentFrame.RectangleSelector.Height-40);
+        /// <summary>
+        /// //////////
+        /// </summary>
+        public IMovingCollide currentCollisionBlock { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        /// <summary>
+        /// ///
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -90,6 +95,8 @@ namespace _2DMonogame.Characters
                 currentAnimation = DeathAnimation;
             }
             Position += Velocity;
+            if (currentAnimation.CurrentFrame == DeathAnimation.frames[DeathAnimation.frames.Count - 1])
+                collisionObjects.Remove(this);
             currentAnimation.Update(gameTime);
         }
         public override void Draw(SpriteBatch sprite)

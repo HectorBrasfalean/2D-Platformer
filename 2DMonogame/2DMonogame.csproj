@@ -49,7 +49,7 @@
     <Compile Include="Blocks\Collectable\StarCollectable.cs" />
     <Compile Include="Blocks\Collectable\ICollectable.cs" />
     <Compile Include="Blocks\DeathBlocks\IDeathBlock.cs" />
-    <Compile Include="Blocks\IMove.cs" />
+    <Compile Include="Blocks\IMoveBlock.cs" />
     <Compile Include="Blocks\MovingBlocks\MovingBlock.cs" />
     <Compile Include="Blocks\RunThroughBlocks\OrangeTree.cs" />
     <Compile Include="Blocks\RunThroughBlocks\Pointer.cs" />
@@ -61,11 +61,12 @@
     <Compile Include="Blocks\StaticBlocks\LeftBottomCornerBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\PlatformBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\RightBottomCornerBlock.cs" />
-    <Compile Include="Characters\Enemy.cs" />
-    <Compile Include="Characters\Giant.cs" />
-    <Compile Include="Characters\GreenGoblin.cs" />
+    <Compile Include="Characters\Enemy\Enemy.cs" />
+    <Compile Include="Characters\Enemy\Giant.cs" />
+    <Compile Include="Characters\Enemy\GreenGoblin.cs" />
+    <Compile Include="Characters\ICanCollect.cs" />
     <Compile Include="Characters\IDie.cs" />
-    <Compile Include="Characters\Orc.cs" />
+    <Compile Include="Characters\Enemy\Orc.cs" />
     <Compile Include="Collision\ICollide.cs" />
     <Compile Include="Collision\IMovingCollide.cs" />
     <Compile Include="Factory\AbstractLevelFactory.cs" />

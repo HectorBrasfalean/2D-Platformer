@@ -53,7 +53,8 @@ namespace _2DMonogame
                 DetectHeroDeath(collideObjects,(IDie) _object);
             DetectStaticBlocks(collideObjects, _object);
             DetectEnemy(collideObjects, _object);
-            DetectCollectable(collideObjects, _object);
+            if(_object is Hero)
+                DetectCollectable(collideObjects,(ICanCollect) _object);
         }
 
         private static void DetectHeroDeath(List<ICollide> collideObjects, IDie _object)
@@ -61,23 +62,25 @@ namespace _2DMonogame
             foreach (IDeathBlock deathBlock in collideObjects.OfType<IDeathBlock>())
             {
                 if ( _object.CollisionRectangle.Intersects(deathBlock.CollisionRectangle))
-                {
                     _object.IsHit = true;
-                }
+            }
+            foreach (Enemy enemy in collideObjects.OfType<Enemy>())
+            {
+                if (_object.CollisionRectangle.Intersects(enemy.CollisionRectangle))
+                    _object.IsHit = true;
             }
         }
 
-        private static void DetectCollectable(List<ICollide> collideObjects, IMovingCollide _object)
+        private static void DetectCollectable(List<ICollide> collideObjects, ICanCollect _object)
         {
             foreach (ICollectable collectable in collideObjects.OfType<ICollectable>().ToList())
             {
-                if (_object is Hero && _object.CollisionRectangle.Intersects(collectable.CollisionRectangle))
+                if (_object is ICanCollect && _object.CollisionRectangle.Intersects(collectable.CollisionRectangle))
                 {
                     collectable.IsCollected = true;
                     _object.HasTouchedCollectable = true;
                     collideObjects.Remove(collectable);
                 }
-
             }
         }
 
@@ -105,14 +108,14 @@ namespace _2DMonogame
                     continue;
                 if (_object.Velocity.X > 0 && IsTouchingLeft(currentBlock, _object))
                 {
-                    if(currentBlock is IMove)
-                        _object.currentCollisionBlock = (IMove)currentBlock;
+                    if(currentBlock is IMoveBlock)
+                        _object.currentCollisionBlock = (IMoveBlock)currentBlock;
                     _object.TouchingRight = true;
                 }
                 if (_object.Velocity.X < 0 && IsTouchingRight(currentBlock, _object))
                 {
-                    if (currentBlock is IMove)
-                        _object.currentCollisionBlock = (IMove)currentBlock;
+                    if (currentBlock is IMoveBlock )
+                        _object.currentCollisionBlock = (IMoveBlock)currentBlock;
                     _object.TouchingLeft = true;
                 }
                 if (_object.Velocity.Y > 0 && IsTouchingTop(currentBlock, _object))

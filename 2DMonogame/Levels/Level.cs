@@ -40,7 +40,7 @@ namespace _2DMonogame
         }
         public void Update(GameTime gameTime,List<ICollide> collisionObjects,Collider collider)
         {
-            foreach (IMove currentBlock in collisionObjects.OfType<IMove>())
+            foreach (IMoveBlock currentBlock in collisionObjects.OfType<IMoveBlock>())
             {
                 currentBlock.Update(collisionObjects, collider);
             }

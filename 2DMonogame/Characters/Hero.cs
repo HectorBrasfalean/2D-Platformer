@@ -14,9 +14,8 @@ using System.Threading.Tasks;
 namespace _2DMonogame
 {
   
-    class Hero : IMovingCollide,IDie
+    class Hero : IMovingCollide,IDie,ICanCollect
     {
-        private int amountOfLifes = 3;
         public bool isLookingLeft,HasShot;
         public int amountOfStarsCollected;
         public Vector2 RespawnLocation;
@@ -97,7 +96,13 @@ namespace _2DMonogame
         public IMovingCollide currentCollisionBlock { get; set; }
         public bool HasTouchedCollectable { get; set; }
         public bool IsHit { get; set; }
-        public int Lifes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private int amountOfLives = 3;
+
+        public int AmountOfLives
+        {
+            get { return amountOfLives; }
+            private set { amountOfLives = value; }
+        }
 
         public Hero(ContentManager content, Vector2 startPositionHero, Movement movement)
         {
@@ -123,9 +128,7 @@ namespace _2DMonogame
         /// <param name="collisionObjects"></param>
         public void Update(GameTime gameTime,List<ICollide> collisionObjects,Collider collisionCheck)
         {
-            if (IsHit)
-                amountOfLifes--;
-            if (amountOfLifes > 0)
+            if (!IsHit)
             {
                 collisionCheck.CollisionDetect(collisionObjects, this);
                 CheckWhichAnimation();
@@ -137,31 +140,48 @@ namespace _2DMonogame
                 }
                 if (movement.Attack)
                     Shoot();
-                foreach (Projectile ball in fireballs.Reverse<Projectile>())
-                {
-                    collisionCheck.CollisionDetect(collisionObjects, ball);
-                    if (ball.Position.X > Position.X + 500 || ball.Position.X < Position.X - 500 || ball.TouchingRight || ball.TouchingLeft)
-                        fireballs.Remove(ball);
-                    ball.Update(gameTime);
-                }
+                UpdateAllFireballs(gameTime, collisionObjects, collisionCheck);
+                currentAnimation.Update(gameTime);
+            }
+            else
+                SetHeroDeathAnimation(gameTime);
+        }
+
+        private void UpdateAllFireballs(GameTime gameTime, List<ICollide> collisionObjects, Collider collisionCheck)
+        {
+            foreach (Projectile ball in fireballs.ToList())
+            {
+                collisionCheck.CollisionDetect(collisionObjects, ball);
+                if (ball.Position.X > Position.X + 500 || ball.Position.X < Position.X - 500 || ball.TouchingRight || ball.TouchingLeft)
+                    fireballs.Remove(ball);
+                ball.Update(gameTime);
+            }
+        }
+
+        private void SetHeroDeathAnimation(GameTime gameTime)
+        {
+            currentAnimation = deathAnimation;
+            if (currentAnimation.CurrentFrame != deathAnimation.frames[deathAnimation.frames.Count - 1])
+            {
                 currentAnimation.Update(gameTime);
             }
             else
             {
-                currentAnimation = deathAnimation;
-                if (currentAnimation.CurrentFrame != deathAnimation.frames[deathAnimation.frames.Count - 1])
-                {
-                    currentAnimation.Update(gameTime);
-                }
-                else
-                {
-                    Position = RespawnLocation;
-                    amountOfLifes++;
-                    IsHit = false;
-                }
+                CheckIfDeath();
+            }
 
+        }
+
+        private void CheckIfDeath()
+        {
+            if (amountOfLives > 0)
+            {
+                amountOfLives--;
+                IsHit = false;
+                Position = RespawnLocation;
             }
         }
+
         /// <summary>
         /// Laat de hero schieten
         /// </summary>
@@ -215,6 +235,7 @@ namespace _2DMonogame
                 if(Velocity.Y == 0)
                 currentAnimation = idleAnimation;
             }
+            deathAnimation.Reset();
         }
  
         /// <summary>
