@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks.RunThroughBlocks
 {
-
+    /// <summary>
+    /// Verantwoordelijk voor elk object waar we kunnen door lopen
+    /// </summary>
     abstract class RunThroughBlocks : GameObject
     {
 
