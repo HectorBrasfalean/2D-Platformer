@@ -34,7 +34,7 @@ namespace _2DMonogame
         public bool TouchingTop { get; set; }
         public Vector2 Position { get; set; }
         private Vector2 position;
-        public Rectangle CollisionRectangle { get { return new Rectangle((int)Position.X, (int)Position.Y, 52, 42); } }
+        public Rectangle CollisionRectangle { get { return new Rectangle((int)Position.X, (int)Position.Y, 60, 42); } }
 
         public float MovingSpeed { get { return 5; } }
 

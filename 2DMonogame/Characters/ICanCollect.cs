@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Characters
 {
+    /// <summary>
+    /// Verantwoordelijk voor elk object die collectables kan collecteren
+    /// </summary>
     interface ICanCollect : IMovingCollide
     {
         bool HasTouchedCollectable { get; set; }

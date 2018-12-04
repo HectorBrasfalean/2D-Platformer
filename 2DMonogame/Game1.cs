@@ -110,6 +110,12 @@ namespace _2DMonogame
             spriteBatch.DrawString(scoreFont, "Stars collected : " + hero.amountOfStarsCollected, new Vector2(hero.Position.X - 830, -200), Color.Black);
             spriteBatch.DrawString(scoreFont, "Number of lives : " + hero.AmountOfLives, new Vector2(hero.Position.X - 830, -150), Color.Black);
 
+
+            if(hero.amountOfStarsCollected == 30)
+            {
+                spriteBatch.DrawString(scoreFont, "You won! On to the next level.", new Vector2(hero.Position.X - 60, hero.Position.Y - 150), Color.Black);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

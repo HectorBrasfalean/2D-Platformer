@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks
 {
+    /// <summary>
+    /// Verantwoordelijk voor elke bewegende blok
+    /// </summary>
     interface IMoveBlock : IMovingCollide
     {
-        //IMovingCollide currentCollisionBlock { get; set; }
         void Update(List<ICollide> collisionObjects, Collider collider);
     }
 }

@@ -13,5 +13,7 @@ namespace _2DMonogame.Characters
         public Orc(ContentManager content,string name) : base(content, name)
         {
         }
+
+        public override float MovingSpeed => 1.5f;
     }
 }

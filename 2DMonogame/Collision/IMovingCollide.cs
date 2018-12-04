@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Collision
 {
+    /// <summary>
+    /// Verantwoordelijk voor elke bewegende collision
+    /// </summary>
     public interface IMovingCollide : ICollide
     {
         IMovingCollide currentCollisionBlock { get; set; }

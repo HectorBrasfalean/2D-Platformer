@@ -13,5 +13,7 @@ namespace _2DMonogame.Characters
         public Giant(ContentManager content, string name) : base(content, name)
         {
         }
+
+        public override float MovingSpeed => 1f;
     }
 }

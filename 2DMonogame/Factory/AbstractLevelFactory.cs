@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor het halen van
+    /// alle gameobjecten voor het level
+    /// </summary>
     abstract class AbstractLevelFactory
     {
         public GameObject GetGameObjectsLevel(int id, ContentManager content, int x, int y,List<ICollide> collisionObjects)

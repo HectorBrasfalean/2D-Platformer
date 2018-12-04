@@ -19,5 +19,7 @@ namespace _2DMonogame.Characters
             AttackAnimation = new GreenGoblinAttackAnimation();
             currentAnimation = RunAnimation;
         }
+
+        public override float MovingSpeed => 2;
     }
 }

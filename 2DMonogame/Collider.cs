@@ -1,6 +1,7 @@
 ﻿using _2DMonogame.Blocks;
 using _2DMonogame.Blocks.Collectable;
 using _2DMonogame.Blocks.DeathBlocks;
+using _2DMonogame.Blocks.InvisibleBlocks;
 using _2DMonogame.Characters;
 using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
@@ -85,6 +86,16 @@ namespace _2DMonogame
             DetectEnemy(collideObjects, _object);
             if(_object is Hero)
                 DetectCollectable(collideObjects,(ICanCollect) _object);
+            if (_object is Enemy)
+                DetectInvisibleBlock(collideObjects);
+        }
+
+        private static void DetectInvisibleBlock(List<ICollide> collideObjects)
+        {
+            foreach (IInvisible currentInvisibleBlock in collideObjects.OfType<IInvisible>())
+            {
+
+            }
         }
 
         /// <summary>

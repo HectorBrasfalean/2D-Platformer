@@ -1,5 +1,6 @@
 ﻿using _2DMonogame.Blocks;
 using _2DMonogame.Blocks.Collectable;
+using _2DMonogame.Blocks.InvisibleBlocks;
 using _2DMonogame.Blocks.MovingBlocks;
 using _2DMonogame.Blocks.RunThroughBlocks;
 using _2DMonogame.Blocks.StaticBlocks;
@@ -63,6 +64,8 @@ namespace _2DMonogame
                 b = new StarCollectable(content, "star");
             else if (id == 30)
                 b = new GreenGoblin(content, "GreenGoblinSprite");
+            else if (id == 40)
+                b = new InvisibleBlock(content, "box1");
             return b;
         }
 

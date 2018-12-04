@@ -11,9 +11,12 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Characters
 {
-    abstract class Enemy : GameObject,IMovingCollide
+    /// <summary>
+    /// Verantwoordelijk voor elke handeling van de enemy
+    /// </summary>
+    abstract class Enemy : GameObject,IMovingCollide,IDie
     {
-        public bool IsLookingLeft,IsHit,Death,TouchedHero;
+        public bool IsLookingLeft,Death,TouchedHero,Attack;
         private Vector2 position;
         private Vector2 velocity;
         public Animation RunAnimation;
@@ -24,7 +27,7 @@ namespace _2DMonogame.Characters
         {
             ChangeVelocity(null, Velocity.Y + 5f);
         }
-        public float MovingSpeed => 2;
+        public abstract float MovingSpeed { get; }
 
         public Vector2 Velocity
         {
@@ -37,18 +40,19 @@ namespace _2DMonogame.Characters
                 velocity = value;
             }
         }
+
         public bool TouchingLeft { get; set; }
         public bool TouchingRight { get; set; }
         public bool TouchingGround { get; set; }
         public bool TouchingTop { get; set; }
+        public bool IsHit { get; set; }
 
-        public Rectangle CollisionRectangle => new Rectangle((int)Position.X,(int)Position.Y+30,currentAnimation.CurrentFrame.RectangleSelector.Width-10, currentAnimation.CurrentFrame.RectangleSelector.Height-40);
+        public Rectangle CollisionRectangle => new Rectangle((int)Position.X+20,(int)Position.Y+30,currentAnimation.CurrentFrame.RectangleSelector.Width-30, currentAnimation.CurrentFrame.RectangleSelector.Height-40);
+
+        public IMovingCollide currentCollisionBlock { get; set; }
+
         /// <summary>
-        /// //////////
-        /// </summary>
-        public IMovingCollide currentCollisionBlock { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        /// <summary>
-        /// ///
+        /// Verandert de positie van de enemy
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -64,6 +68,11 @@ namespace _2DMonogame.Characters
             }
         }
 
+        /// <summary>
+        /// Verandert de velocity van de enemy
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null)
@@ -75,6 +84,13 @@ namespace _2DMonogame.Characters
                 velocity.Y = (float)y;
             }
         }
+
+        /// <summary>
+        /// Update de enemy
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="collider"></param>
+        /// <param name="collisionObjects"></param>
         public void Update(GameTime gameTime,Collider collider,List<ICollide> collisionObjects)
         {
             collider.CollisionDetect(collisionObjects, this);
@@ -83,22 +99,42 @@ namespace _2DMonogame.Characters
             if (TouchingLeft && Velocity.Y == 0)
             {
                 IsLookingLeft = false;
-                ChangeVelocity(-velocity.X, null);
+                ChangeVelocity(MovingSpeed, null);
             }
             if (TouchingRight && Velocity.Y == 0)
             {
                 IsLookingLeft = true;
-                ChangeVelocity(-velocity.X, null);
+                ChangeVelocity(-MovingSpeed, null);
             }
             if (IsHit)
             {
                 currentAnimation = DeathAnimation;
+            }
+            if (Attack)
+            {
+                currentAnimation = AttackAnimation;
+                //ChangeVelocity(0,null);
+                if (currentAnimation.CurrentFrame == AttackAnimation.frames[AttackAnimation.frames.Count - 1])
+                {
+                    Attack = false;
+                    currentAnimation = RunAnimation;
+                }
+                 
+            }
+            else
+            {
+                AttackAnimation.Reset();
             }
             Position += Velocity;
             if (currentAnimation.CurrentFrame == DeathAnimation.frames[DeathAnimation.frames.Count - 1])
                 collisionObjects.Remove(this);
             currentAnimation.Update(gameTime);
         }
+
+        /// <summary>
+        /// Tekent de enemy
+        /// </summary>
+        /// <param name="sprite"></param>
         public override void Draw(SpriteBatch sprite)
         {
             if (Death == false && !(currentAnimation == DeathAnimation && currentAnimation.CurrentFrame == DeathAnimation.frames[DeathAnimation.frames.Count - 1]))

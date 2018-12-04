@@ -13,7 +13,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
-  
+  /// <summary>
+  /// Verantwoordelijk voor het gedrag van het hero object
+  /// </summary>
     class Hero : IMovingCollide,IDie,ICanCollect
     {
         public bool isLookingLeft,HasShot;
@@ -147,6 +149,12 @@ namespace _2DMonogame
                 SetHeroDeathAnimation(gameTime);
         }
 
+        /// <summary>
+        /// Update alle fireballs
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="collisionObjects"></param>
+        /// <param name="collisionCheck"></param>
         private void UpdateAllFireballs(GameTime gameTime, List<ICollide> collisionObjects, Collider collisionCheck)
         {
             foreach (Projectile ball in fireballs.ToList())
@@ -158,6 +166,10 @@ namespace _2DMonogame
             }
         }
 
+        /// <summary>
+        /// Zet de hero deathanimation als de momentele animation
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void SetHeroDeathAnimation(GameTime gameTime)
         {
             currentAnimation = deathAnimation;
@@ -172,6 +184,9 @@ namespace _2DMonogame
 
         }
 
+        /// <summary>
+        /// Controleert of de hero dood is
+        /// </summary>
         private void CheckIfDeath()
         {
             if (amountOfLives > 0)
