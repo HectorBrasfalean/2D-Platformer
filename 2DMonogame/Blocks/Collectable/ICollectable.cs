@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks.Collectable
 {
+    /// <summary>
+    /// Verantwoordelijk voor elk Icollectable object
+    /// </summary>
     interface ICollectable : ICollide
     {
         bool IsCollected { get; set; }
-        //void Update(List<ICollide> collisionObjects,Collider collider);
     }
 }
