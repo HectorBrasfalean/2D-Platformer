@@ -111,6 +111,7 @@ namespace _2DMonogame.Characters
             {
                 AmountOfHitsEnemyCanTake--;
                 IsHit = false;
+                ChangeVelocity(0, null);
                 if(AmountOfHitsEnemyCanTake <= 0)
                     CurrentAnimation = DeathAnimation;
                 else CurrentAnimation = HurtAnimation;
@@ -118,16 +119,22 @@ namespace _2DMonogame.Characters
             if (HurtAnimation != null && CurrentAnimation.CurrentFrame == HurtAnimation.frames[HurtAnimation.frames.Count - 1])
             {
                 CurrentAnimation = RunAnimation;
+                if (IsLookingLeft)
+                    ChangeVelocity(-MovingSpeed, null);
+                else ChangeVelocity(MovingSpeed, null);
                 HurtAnimation.Reset();
             }
             if (Attack)
             {
                 CurrentAnimation = AttackAnimation;
-                //ChangeVelocity(0,null);
+                ChangeVelocity(0,null);
                 if (CurrentAnimation.CurrentFrame == AttackAnimation.frames[AttackAnimation.frames.Count - 1])
                 {
                     Attack = false;
                     CurrentAnimation = RunAnimation;
+                    if (IsLookingLeft)
+                        ChangeVelocity(-MovingSpeed, null);
+                    else ChangeVelocity(MovingSpeed, null);
                 }
                  
             }

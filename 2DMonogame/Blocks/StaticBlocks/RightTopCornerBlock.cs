@@ -20,6 +20,8 @@ namespace _2DMonogame
 
         }
 
+        public override Rectangle CollisionRectangle => new Rectangle((int) Position.X, (int) Position.Y, Texture.Width, Texture.Height);
+
         /// <summary>
         /// Tekent de righttopcorner blok
         /// </summary>

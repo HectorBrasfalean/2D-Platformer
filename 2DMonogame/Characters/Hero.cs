@@ -194,7 +194,6 @@ namespace _2DMonogame
                 Position = RespawnLocation;
             }
         }
-
         /// <summary>
         /// Laat de hero schieten
         /// </summary>

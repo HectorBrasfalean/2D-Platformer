@@ -17,7 +17,7 @@ namespace _2DMonogame
     /// </summary>
     abstract class StaticBlock : GameObject,ICollide
     {
-        public Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+        public abstract Rectangle CollisionRectangle { get; }
         public StaticBlock(ContentManager content,string name) : base(content,name)
         {
             

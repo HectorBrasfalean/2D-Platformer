@@ -15,7 +15,6 @@ namespace _2DMonogame
         public Texture2D Texture;
         public float speed;
         public bool IsVisible,GoesLeft;
-
         private Vector2 velocity;
         public Vector2 Velocity
         {

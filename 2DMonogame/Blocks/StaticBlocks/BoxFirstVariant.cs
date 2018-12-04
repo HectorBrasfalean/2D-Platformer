@@ -17,6 +17,9 @@ namespace _2DMonogame.Blocks.StaticBlocks
         public BoxFirstVariant(ContentManager content, string name) : base(content, name)
         {
         }
+
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+
         /// <summary>
         /// Tekent de eerste variant van de box
         /// </summary>

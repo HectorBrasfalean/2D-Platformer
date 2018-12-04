@@ -1,5 +1,6 @@
 ﻿using _2DMonogame.Blocks;
 using _2DMonogame.Blocks.Collectable;
+using _2DMonogame.Blocks.DeathBlocks;
 using _2DMonogame.Characters;
 using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
@@ -49,6 +50,10 @@ namespace _2DMonogame
                 enemy.Update(gameTime, collider, collisionObjects);
                 if (enemy.CurrentAnimation == enemy.DeathAnimation && enemy.CurrentAnimation.CurrentFrame == enemy.DeathAnimation.frames[enemy.DeathAnimation.frames.Count - 1])
                     collisionObjects.Remove(enemy);
+            }
+            foreach (BouncingAcidBall ball in collisionObjects.OfType<BouncingAcidBall>())
+            {
+                ball.Update(gameTime, collider, collisionObjects);
             }
         }
         public void DrawWorld(SpriteBatch spriteBatch)

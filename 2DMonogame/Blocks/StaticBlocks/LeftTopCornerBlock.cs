@@ -19,6 +19,8 @@ namespace _2DMonogame
 
         }
 
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+
         /// <summary>
         /// Verantwoordelijk voor de lefttopcorner blok
         /// </summary>

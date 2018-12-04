@@ -88,7 +88,21 @@ namespace _2DMonogame
                 DetectCollectable(collideObjects,(ICanCollect) _object);
             if (_object is Enemy)
                 DetectInvisibleBlock(collideObjects,(Enemy) _object);
+            if (_object is IDeathBlock)
+                DetectDeathBlocks(collideObjects,_object);
         }
+
+        private static void DetectDeathBlocks(List<ICollide> collideObjects,IMovingCollide _object)
+        {
+            foreach (IInvisible invisibleBlock in collideObjects.OfType<IInvisible>())
+            {
+                if (_object.CollisionRectangle.Intersects(invisibleBlock.CollisionRectangle))
+                {
+                    _object.TouchingGround = true;
+                }
+            }
+        }
+
         private static void DetectInvisibleBlock(List<ICollide> collideObjects,Enemy enemy)
         {
             foreach (IInvisible currentInvisibleBlock in collideObjects.OfType<IInvisible>())
@@ -98,6 +112,8 @@ namespace _2DMonogame
                     if (enemy.IsLookingLeft)
                         enemy.TouchingLeft = true;
                     else enemy.TouchingRight = true;
+                    enemy.TouchingTop = true;
+                    enemy.TouchingGround = true;
                 }
 
             }
@@ -175,7 +191,7 @@ namespace _2DMonogame
         {
             foreach (ICollide currentBlock in collideObjects.OfType<StaticBlock>())
             {
-                if (currentBlock is ICollectable || currentBlock is IDeathBlock)
+                if (currentBlock is ICollectable || currentBlock is IDeathBlock || _object is IDeathBlock)
                     continue;
                 if (_object.Velocity.X > 0 && IsTouchingLeft(currentBlock, _object))
                 {

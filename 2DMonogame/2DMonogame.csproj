@@ -41,14 +41,23 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Animations\BlueGoblin\BlueGoblinAttackAnimation.cs" />
+    <Compile Include="Animations\BlueGoblin\BlueGoblinDieAnimation.cs" />
+    <Compile Include="Animations\BlueGoblin\BlueGoblinRunAnimation.cs" />
     <Compile Include="Animations\Giant\GiantDieAnimation.cs" />
     <Compile Include="Animations\Giant\GiantHurtAnimation.cs" />
     <Compile Include="Animations\Giant\GiantRunAnimation.cs" />
+    <Compile Include="Animations\Orc\OrcAttackAnimation.cs" />
+    <Compile Include="Animations\Orc\OrcDieAnimation.cs" />
+    <Compile Include="Animations\Orc\OrcRunAnimation.cs" />
     <Compile Include="Animations\Projectile\FireballAnimation.cs" />
     <Compile Include="Animations\Giant\GiantAttackAnimation.cs" />
     <Compile Include="Animations\Green Goblin\GreenGoblinAttackAnimation.cs" />
     <Compile Include="Animations\Green Goblin\GreenGoblinDeathAnimation.cs" />
     <Compile Include="Animations\Green Goblin\GreenGoblinRunAnimation.cs" />
+    <Compile Include="Animations\Projectile\GreenAcidBallDownUpAnimation.cs" />
+    <Compile Include="Animations\Projectile\GreenAcidBallSwitchAnimation.cs" />
+    <Compile Include="Blocks\DeathBlocks\BouncingAcidBall.cs" />
     <Compile Include="Blocks\GameObject.cs" />
     <Compile Include="Blocks\Collectable\StarCollectable.cs" />
     <Compile Include="Blocks\Collectable\ICollectable.cs" />
@@ -67,12 +76,13 @@
     <Compile Include="Blocks\StaticBlocks\LeftBottomCornerBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\PlatformBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\RightBottomCornerBlock.cs" />
-    <Compile Include="Characters\Enemy\Enemy.cs" />
-    <Compile Include="Characters\Enemy\Giant.cs" />
-    <Compile Include="Characters\Enemy\GreenGoblin.cs" />
+    <Compile Include="Characters\Enemies\BlueGoblin.cs" />
+    <Compile Include="Characters\Enemies\Enemy.cs" />
+    <Compile Include="Characters\Enemies\Giant.cs" />
+    <Compile Include="Characters\Enemies\GreenGoblin.cs" />
     <Compile Include="Characters\ICanCollect.cs" />
     <Compile Include="Characters\IDie.cs" />
-    <Compile Include="Characters\Enemy\Orc.cs" />
+    <Compile Include="Characters\Enemies\Orc.cs" />
     <Compile Include="Collider.cs" />
     <Compile Include="Collision\ICollide.cs" />
     <Compile Include="Collision\IMovingCollide.cs" />

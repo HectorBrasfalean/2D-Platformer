@@ -18,6 +18,8 @@ namespace _2DMonogame.Blocks.StaticBlocks
         {
         }
 
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+
         /// <summary>
         /// Tekent de tweede variant van de box
         /// </summary>

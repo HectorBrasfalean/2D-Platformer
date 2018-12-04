@@ -21,6 +21,8 @@ namespace _2DMonogame.Blocks.Collectable
         }
         public bool IsCollected { get; set; }
 
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+
         /// <summary>
         /// Tekenen van de ster op het scherm
         /// </summary>

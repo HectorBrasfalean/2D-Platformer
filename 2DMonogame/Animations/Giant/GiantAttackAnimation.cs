@@ -14,7 +14,7 @@ namespace _2DMonogame.Animations
     {
         public GiantAttackAnimation()
         {
-            PlaySpeed = 300;
+            PlaySpeed = 250;
         }
         /// <summary>
         /// Voegt de volledige aanval animatie toe aan de hand van verschillende frames

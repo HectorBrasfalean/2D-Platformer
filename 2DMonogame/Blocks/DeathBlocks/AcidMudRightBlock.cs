@@ -19,6 +19,9 @@ namespace _2DMonogame.Blocks
         { 
 
         }
+
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+
         /// <summary>
         /// Tekent de acidmudright blok
         /// </summary>

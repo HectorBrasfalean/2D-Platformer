@@ -42,6 +42,8 @@ namespace _2DMonogame.Blocks.MovingBlocks
         public IMovingCollide currentCollisionBlock { get; set; }
         public bool HasTouchedCollectable { get; set; }
 
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+
         /// <summary>
         /// Verandert de positie
         /// </summary>
