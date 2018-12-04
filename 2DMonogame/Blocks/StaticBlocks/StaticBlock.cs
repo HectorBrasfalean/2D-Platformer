@@ -12,6 +12,9 @@ using _2DMonogame.Blocks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor elke static blok
+    /// </summary>
     abstract class StaticBlock : GameObject,ICollide
     {
         public Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);

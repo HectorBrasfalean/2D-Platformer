@@ -11,19 +11,26 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks
 {
+    /// <summary>
+    /// Verantwoordelijk voor het gameobject
+    /// </summary>
     abstract class GameObject
     {
-
         public Vector2 Position { get; set; }
         public Texture2D Texture;
         public GameObject(ContentManager content, string name)
         {
             Texture = content.Load<Texture2D>(name);
         }
+        /// <summary>
+        /// Initialiseerd door middel van het een positie te geven
+        /// </summary>
+        /// <param name="position"></param>
         public void Initialize(Vector2 position)
         {
             Position = position;
         }
+
         public abstract void Draw(SpriteBatch spriteBatch);
        
     }

@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de righttopcorner blok
+    /// </summary>
     class RightTopCornerBlock : StaticBlock
     {
 
@@ -17,6 +20,10 @@ namespace _2DMonogame
 
         }
 
+        /// <summary>
+        /// Tekent de righttopcorner blok
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Color.AliceBlue);

@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de grassleft blok
+    /// </summary>
     class GrassLeftBlock : StaticBlock
     {
         public GrassLeftBlock(ContentManager content, string name) : base(content, name)
@@ -16,6 +19,10 @@ namespace _2DMonogame
 
         }
 
+        /// <summary>
+        /// Tekent de grassleft blok
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Color.AliceBlue);

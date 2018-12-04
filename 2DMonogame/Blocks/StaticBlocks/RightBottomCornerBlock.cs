@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks
 {
+    /// <summary>
+    /// Verantwoordelijk voor de rightbottomcorner blok
+    /// </summary>
     class RightBottomCornerBlock : StaticBlock
     {
         public RightBottomCornerBlock(ContentManager content, string name) : base(content, name)
@@ -16,6 +19,10 @@ namespace _2DMonogame.Blocks
 
         }
 
+        /// <summary>
+        /// Tekent de rightbottomcorner blok
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Color.AliceBlue);
