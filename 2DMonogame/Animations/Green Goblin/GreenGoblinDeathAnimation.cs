@@ -14,7 +14,7 @@ namespace _2DMonogame.Animations
     {
         public GreenGoblinDeathAnimation()
         {
-            Speed = 400;
+            PlaySpeed = 400;
         }
         /// <summary>
         /// Voegt een dood animatie toe aan het animatie object door middel van bepaalde frames

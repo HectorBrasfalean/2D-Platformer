@@ -45,7 +45,7 @@ namespace _2DMonogame
             ScreenWidth = graphics.PreferredBackBufferWidth;
             ScreenHeight = graphics.PreferredBackBufferHeight;
 
-            hero = new Hero(Content, new Vector2(150, 600), new MovementArrowKeys());
+            hero = new Hero(Content, new Vector2(6500, 600), new MovementArrowKeys()); // 150
 
             collisionObjects.Add(hero);
 

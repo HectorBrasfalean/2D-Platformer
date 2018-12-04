@@ -118,7 +118,7 @@ namespace _2DMonogame
             {
                 if (_object.CollisionRectangle.Intersects(enemy.CollisionRectangle))
                 {
-                    if (enemy.currentAnimation != enemy.DeathAnimation)
+                    if (enemy.CurrentAnimation != enemy.DeathAnimation)
                     {
                         _object.IsHit = true;
                         enemy.Attack = true;

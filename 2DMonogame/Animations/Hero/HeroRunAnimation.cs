@@ -14,7 +14,7 @@ namespace _2DMonogame
     {
         public HeroRunAnimation()
         {
-            Speed = 100;
+            PlaySpeed = 100;
         }
         /// <summary>
         /// Voegt een run animatie toe aan het animatie object door middel van bepaalde frames

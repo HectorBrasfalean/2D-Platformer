@@ -39,9 +39,8 @@ namespace _2DMonogame
         public float MovingSpeed { get { return 5; } }
 
         public IMovingCollide currentCollisionBlock { get; set; }
-        public bool HasTouchedCollectable { get; set; }
 
-        public abstract void Update(GameTime gameTime/*,List<ICollide> collisionObjects*/);
+        public abstract void Update(GameTime gameTime);
         public abstract void Draw(SpriteBatch sprite);
 
         public void ChangeVelocity(float? x, float? y)

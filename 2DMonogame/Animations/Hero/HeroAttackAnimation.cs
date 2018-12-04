@@ -14,7 +14,7 @@ namespace _2DMonogame
     {
         public HeroAttackAnimation()
         {
-            Speed = 60;
+            PlaySpeed = 60;
         }
         /// <summary>
         /// Voegt een aanval animatie toe aan het animatie object door middel van bepaalde frames

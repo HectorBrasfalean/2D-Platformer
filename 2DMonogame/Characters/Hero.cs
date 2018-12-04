@@ -161,7 +161,10 @@ namespace _2DMonogame
             {
                 collisionCheck.CollisionDetect(collisionObjects, ball);
                 if (ball.Position.X > Position.X + 500 || ball.Position.X < Position.X - 500 || ball.TouchingRight || ball.TouchingLeft)
+                {
+                    collisionObjects.Remove(ball);
                     fireballs.Remove(ball);
+                }
                 ball.Update(gameTime);
             }
         }

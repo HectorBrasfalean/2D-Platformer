@@ -18,7 +18,7 @@ namespace _2DMonogame
         public List<AnimationFrame> frames;
         double intervalTime = 0;
         int index = 0;
-        public int Speed { get; set; }
+        public int PlaySpeed { get; set; }
         public AnimationFrame CurrentFrame { get; set; }
         public Animation()
         {
@@ -49,7 +49,7 @@ namespace _2DMonogame
         public void Update(GameTime gameTime)
         {
 
-            intervalTime += Speed * gameTime.ElapsedGameTime.Milliseconds / 100;
+            intervalTime += PlaySpeed * gameTime.ElapsedGameTime.Milliseconds / 100;
             if (intervalTime >= 100)
             {
                 index++;

@@ -14,7 +14,7 @@ namespace _2DMonogame.Animations
         /// </summary>
         public GreenGoblinAttackAnimation()
         {
-            Speed = 300;
+            PlaySpeed = 300;
         }
         /// <summary>
         /// Voegt een aanval animatie toe aan het animatie object door middel van bepaalde frames

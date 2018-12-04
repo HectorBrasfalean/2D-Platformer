@@ -14,7 +14,7 @@ namespace _2DMonogame
     {
         public HeroDeathAnimation()
         {
-            Speed = 50;
+            PlaySpeed = 50;
         }
         /// <summary>
         /// Voegt een dood animatie toe aan het animatie object door middel van bepaalde frames

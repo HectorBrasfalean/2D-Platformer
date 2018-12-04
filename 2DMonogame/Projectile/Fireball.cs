@@ -40,6 +40,7 @@ namespace _2DMonogame
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
+            
             fireballAnimation.Update(gameTime);
             ChangeVelocity(GoesLeft?-speed:speed, null);
             Position += Velocity;

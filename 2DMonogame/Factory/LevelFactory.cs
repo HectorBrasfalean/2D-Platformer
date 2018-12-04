@@ -64,6 +64,8 @@ namespace _2DMonogame
                 b = new StarCollectable(content, "star");
             else if (id == 30)
                 b = new GreenGoblin(content, "GreenGoblinSprite");
+            else if (id == 31)
+                b = new Giant(content, "GiantSprite");
             else if (id == 40)
                 b = new InvisibleBlock(content, "legeBlok");
             return b;

@@ -14,7 +14,7 @@ namespace _2DMonogame
     {
         public HeroJumpAnimation()
         {
-            Speed = 40;
+            PlaySpeed = 40;
         }
         /// <summary>
         /// Voegt een jump animatie toe aan het animatie object door middel van bepaalde frames

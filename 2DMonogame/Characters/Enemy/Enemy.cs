@@ -16,13 +16,14 @@ namespace _2DMonogame.Characters
     /// </summary>
     abstract class Enemy : GameObject,IMovingCollide,IDie
     {
+        public int AmountOfHitsEnemyCanTake { get; protected set; }
         public bool IsLookingLeft,Death,TouchedHero,Attack;
         private Vector2 position;
         private Vector2 velocity;
-        public Animation RunAnimation;
-        public Animation AttackAnimation;
-        public Animation DeathAnimation;
-        public Animation currentAnimation;
+        public Animation RunAnimation, AttackAnimation, DeathAnimation, HurtAnimation, CurrentAnimation;
+        private double widthOfFrame;
+        private double heightOfFrame;
+
         public Enemy(ContentManager content,string name) : base(content,name)
         {
             ChangeVelocity(null, Velocity.Y + 5f);
@@ -47,7 +48,7 @@ namespace _2DMonogame.Characters
         public bool TouchingTop { get; set; }
         public bool IsHit { get; set; }
 
-        public Rectangle CollisionRectangle => new Rectangle((int)Position.X+20,(int)Position.Y+30,currentAnimation.CurrentFrame.RectangleSelector.Width-30, currentAnimation.CurrentFrame.RectangleSelector.Height-40);
+        public Rectangle CollisionRectangle => new Rectangle((int)Position.X+40,(int)Position.Y+30,(int)widthOfFrame-60,(int) heightOfFrame-40);
 
         public IMovingCollide currentCollisionBlock { get; set; }
 
@@ -108,16 +109,25 @@ namespace _2DMonogame.Characters
             }
             if (IsHit)
             {
-                currentAnimation = DeathAnimation;
+                AmountOfHitsEnemyCanTake--;
+                IsHit = false;
+                if(AmountOfHitsEnemyCanTake <= 0)
+                    CurrentAnimation = DeathAnimation;
+                else CurrentAnimation = HurtAnimation;
+            }
+            if (HurtAnimation != null && CurrentAnimation.CurrentFrame == HurtAnimation.frames[HurtAnimation.frames.Count - 1])
+            {
+                CurrentAnimation = RunAnimation;
+                HurtAnimation.Reset();
             }
             if (Attack)
             {
-                currentAnimation = AttackAnimation;
+                CurrentAnimation = AttackAnimation;
                 //ChangeVelocity(0,null);
-                if (currentAnimation.CurrentFrame == AttackAnimation.frames[AttackAnimation.frames.Count - 1])
+                if (CurrentAnimation.CurrentFrame == AttackAnimation.frames[AttackAnimation.frames.Count - 1])
                 {
                     Attack = false;
-                    currentAnimation = RunAnimation;
+                    CurrentAnimation = RunAnimation;
                 }
                  
             }
@@ -126,9 +136,11 @@ namespace _2DMonogame.Characters
                 AttackAnimation.Reset();
             }
             Position += Velocity;
-            if (currentAnimation.CurrentFrame == DeathAnimation.frames[DeathAnimation.frames.Count - 1])
+            if (CurrentAnimation.CurrentFrame == DeathAnimation.frames[DeathAnimation.frames.Count - 1])
                 collisionObjects.Remove(this);
-            currentAnimation.Update(gameTime);
+            widthOfFrame = CurrentAnimation.CurrentFrame.scale * CurrentAnimation.CurrentFrame.RectangleSelector.Width;
+            heightOfFrame = CurrentAnimation.CurrentFrame.scale * CurrentAnimation.CurrentFrame.RectangleSelector.Height;
+            CurrentAnimation.Update(gameTime);
         }
 
         /// <summary>
@@ -137,9 +149,9 @@ namespace _2DMonogame.Characters
         /// <param name="sprite"></param>
         public override void Draw(SpriteBatch sprite)
         {
-            if (Death == false && !(currentAnimation == DeathAnimation && currentAnimation.CurrentFrame == DeathAnimation.frames[DeathAnimation.frames.Count - 1]))
+            if (Death == false && !(CurrentAnimation == DeathAnimation && CurrentAnimation.CurrentFrame == DeathAnimation.frames[DeathAnimation.frames.Count - 1]))
             {
-                sprite.Draw(Texture, Position, currentAnimation.CurrentFrame.RectangleSelector, Color.AliceBlue, 0f, Vector2.Zero, currentAnimation.CurrentFrame.scale, IsLookingLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                sprite.Draw(Texture, Position, CurrentAnimation.CurrentFrame.RectangleSelector, Color.AliceBlue, 0f, Vector2.Zero, CurrentAnimation.CurrentFrame.scale, IsLookingLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
             }
             else Death = true;
 

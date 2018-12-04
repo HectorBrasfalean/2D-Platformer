@@ -14,7 +14,7 @@ namespace _2DMonogame.Animations
     {
         public GreenGoblinRunAnimation()
         {
-            Speed = 200;
+            PlaySpeed = 200;
         }
         /// <summary>
         /// Voegt een run animatie toe aan het animatie object door middel van bepaalde frames

@@ -14,7 +14,7 @@ namespace _2DMonogame
     {
         public HeroIdleAnimation()
         {
-            Speed = 50;
+            PlaySpeed = 50;
         }
         /// <summary>
         /// Voegt een idle animatie toe aan het animatie object door middel van bepaalde frames

@@ -17,7 +17,8 @@ namespace _2DMonogame.Characters
             DeathAnimation = new GreenGoblinDeathAnimation();
             RunAnimation = new GreenGoblinRunAnimation();
             AttackAnimation = new GreenGoblinAttackAnimation();
-            currentAnimation = RunAnimation;
+            CurrentAnimation = RunAnimation;
+            AmountOfHitsEnemyCanTake = 1;
         }
 
         public override float MovingSpeed => 2;

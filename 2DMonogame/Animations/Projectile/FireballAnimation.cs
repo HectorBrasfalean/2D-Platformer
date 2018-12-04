@@ -14,7 +14,7 @@ namespace _2DMonogame.Animations
         /// </summary>
         public FireballAnimation()
         {
-            Speed = 50;
+            PlaySpeed = 50;
         }
         /// <summary>
         /// Voegt een fireball animatie toe aan het animatie object door middel van bepaalde frames

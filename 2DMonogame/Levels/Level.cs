@@ -47,7 +47,7 @@ namespace _2DMonogame
             foreach (Enemy enemy in collisionObjects.OfType<Enemy>().ToList())
             {
                 enemy.Update(gameTime, collider, collisionObjects);
-                if (enemy.currentAnimation == enemy.DeathAnimation && enemy.currentAnimation.CurrentFrame == enemy.DeathAnimation.frames[enemy.DeathAnimation.frames.Count - 1])
+                if (enemy.CurrentAnimation == enemy.DeathAnimation && enemy.CurrentAnimation.CurrentFrame == enemy.DeathAnimation.frames[enemy.DeathAnimation.frames.Count - 1])
                     collisionObjects.Remove(enemy);
             }
         }

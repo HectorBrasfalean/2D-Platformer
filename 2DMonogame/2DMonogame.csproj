@@ -41,10 +41,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Animations\FireballAnimation.cs" />
-    <Compile Include="Animations\GreenGoblinAttackAnimation.cs" />
-    <Compile Include="Animations\GreenGoblinDeathAnimation.cs" />
-    <Compile Include="Animations\GreenGoblinRunAnimation.cs" />
+    <Compile Include="Animations\Giant\GiantDieAnimation.cs" />
+    <Compile Include="Animations\Giant\GiantHurtAnimation.cs" />
+    <Compile Include="Animations\Giant\GiantRunAnimation.cs" />
+    <Compile Include="Animations\Projectile\FireballAnimation.cs" />
+    <Compile Include="Animations\Giant\GiantAttackAnimation.cs" />
+    <Compile Include="Animations\Green Goblin\GreenGoblinAttackAnimation.cs" />
+    <Compile Include="Animations\Green Goblin\GreenGoblinDeathAnimation.cs" />
+    <Compile Include="Animations\Green Goblin\GreenGoblinRunAnimation.cs" />
     <Compile Include="Blocks\GameObject.cs" />
     <Compile Include="Blocks\Collectable\StarCollectable.cs" />
     <Compile Include="Blocks\Collectable\ICollectable.cs" />
@@ -75,7 +79,7 @@
     <Compile Include="Factory\AbstractLevelFactory.cs" />
     <Compile Include="Animations\Animation.cs" />
     <Compile Include="Animations\AnimationFrame.cs" />
-    <Compile Include="Animations\HeroAttackAnimation.cs" />
+    <Compile Include="Animations\Hero\HeroAttackAnimation.cs" />
     <Compile Include="Level1.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="Projectile\Fireball.cs" />
@@ -90,21 +94,21 @@
     <Compile Include="Blocks\StaticBlocks\StaticBlock.cs" />
     <Compile Include="Blocks\DeathBlocks\FullAcidBlock.cs" />
     <Compile Include="Camera\Camera2D.cs" />
-    <Compile Include="Animations\HeroDeathAnimation.cs" />
+    <Compile Include="Animations\Hero\HeroDeathAnimation.cs" />
     <Compile Include="Blocks\StaticBlocks\DirtBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\GrassTopBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\GrassLeftBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\GrassRightBlock.cs" />
     <Compile Include="Characters\Hero.cs" />
-    <Compile Include="Animations\HeroIdleAnimation.cs" />
-    <Compile Include="Animations\HeroJumpAnimation.cs" />
+    <Compile Include="Animations\Hero\HeroIdleAnimation.cs" />
+    <Compile Include="Animations\Hero\HeroJumpAnimation.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Blocks\StaticBlocks\LeftTopCornerBlock.cs" />
     <Compile Include="Movement\Movement.cs" />
     <Compile Include="Movement\MovementArrowKeys.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Animations\HeroRunAnimation.cs" />
+    <Compile Include="Animations\Hero\HeroRunAnimation.cs" />
     <Compile Include="Blocks\StaticBlocks\RightTopCornerBlock.cs" />
   </ItemGroup>
   <ItemGroup>
