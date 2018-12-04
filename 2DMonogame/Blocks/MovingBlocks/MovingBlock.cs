@@ -10,6 +10,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame.Blocks.MovingBlocks
 {
+    /// <summary>
+    /// Verantwoordelijk voor de bewegende blokken
+    /// </summary>
     class MovingBlock : StaticBlock, IMoveBlock
     {
         public bool Invert;
@@ -39,6 +42,11 @@ namespace _2DMonogame.Blocks.MovingBlocks
         public IMovingCollide currentCollisionBlock { get; set; }
         public bool HasTouchedCollectable { get; set; }
 
+        /// <summary>
+        /// Verandert de positie
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -51,6 +59,11 @@ namespace _2DMonogame.Blocks.MovingBlocks
             }
         }
 
+        /// <summary>
+        /// Verandert de velocity
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null)
@@ -63,6 +76,11 @@ namespace _2DMonogame.Blocks.MovingBlocks
             }
         }
 
+        /// <summary>
+        /// Update de bewegende blok
+        /// </summary>
+        /// <param name="collisionObjects"></param>
+        /// <param name="collider"></param>
         public void Update(List<ICollide> collisionObjects,Collider collider)
         {
             collider.CollisionDetect(collisionObjects,(IMovingCollide) this);
@@ -78,6 +96,10 @@ namespace _2DMonogame.Blocks.MovingBlocks
             Position += velocity;
         }
 
+        /// <summary>
+        /// Tekent de bewegende blok
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Color.AliceBlue);
