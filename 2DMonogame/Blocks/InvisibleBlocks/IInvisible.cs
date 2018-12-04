@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks.InvisibleBlocks
 {
+    /// <summary>
+    /// Verantwoordelijk voor elk invisible object
+    /// </summary>
     interface IInvisible : ICollide
     {
     }
