@@ -9,11 +9,16 @@ namespace _2DMonogame.Animations
 {
     class GreenGoblinAttackAnimation : Animation
     {
+        /// <summary>
+        /// Verantwoordelijk voor de groene goblin aanval animatie
+        /// </summary>
         public GreenGoblinAttackAnimation()
         {
             Speed = 300;
         }
-
+        /// <summary>
+        /// Voegt een aanval animatie toe aan het animatie object door middel van bepaalde frames
+        /// </summary>
         protected override void AddAnimation()
         {
             AddFrame(new AnimationFrame() { RectangleSelector = new Rectangle(0, 0, 132, 119) });

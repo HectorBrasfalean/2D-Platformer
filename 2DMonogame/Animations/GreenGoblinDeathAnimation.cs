@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Animations
 {
+    /// <summary>
+    /// Verantwoordelijk voor de groene goblin dood animatie
+    /// </summary>
     class GreenGoblinDeathAnimation : Animation
     {
         public GreenGoblinDeathAnimation()
         {
             Speed = 400;
         }
+        /// <summary>
+        /// Voegt een dood animatie toe aan het animatie object door middel van bepaalde frames
+        /// </summary>
         protected override void AddAnimation()
         {
             AddFrame(new AnimationFrame() { RectangleSelector = new Rectangle(660, 119, 132, 119) });

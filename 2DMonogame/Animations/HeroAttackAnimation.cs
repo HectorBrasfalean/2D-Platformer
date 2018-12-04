@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de hero aanval animatie
+    /// </summary>
     class HeroAttackAnimation : Animation
     {
         public HeroAttackAnimation()
         {
             Speed = 60;
         }
+        /// <summary>
+        /// Voegt een aanval animatie toe aan het animatie object door middel van bepaalde frames
+        /// </summary>
         protected override void AddAnimation()
         {
             this.AddFrame(new AnimationFrame() { scale = 0.25f, RectangleSelector = new Rectangle(804, 1302,440, 434) });

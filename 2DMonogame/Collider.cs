@@ -87,17 +87,21 @@ namespace _2DMonogame
             if(_object is Hero)
                 DetectCollectable(collideObjects,(ICanCollect) _object);
             if (_object is Enemy)
-                DetectInvisibleBlock(collideObjects);
+                DetectInvisibleBlock(collideObjects,(Enemy) _object);
         }
-
-        private static void DetectInvisibleBlock(List<ICollide> collideObjects)
+        private static void DetectInvisibleBlock(List<ICollide> collideObjects,Enemy enemy)
         {
             foreach (IInvisible currentInvisibleBlock in collideObjects.OfType<IInvisible>())
             {
+                if (enemy.CollisionRectangle.Intersects(currentInvisibleBlock.CollisionRectangle))
+                {
+                    if (enemy.IsLookingLeft)
+                        enemy.TouchingLeft = true;
+                    else enemy.TouchingRight = true;
+                }
 
             }
         }
-
         /// <summary>
         /// Kijkt of de hero iets dodelijk heeft aangeraakt
         /// </summary>
@@ -114,10 +118,12 @@ namespace _2DMonogame
             {
                 if (_object.CollisionRectangle.Intersects(enemy.CollisionRectangle))
                 {
-                    _object.IsHit = true;
-                    enemy.Attack = true;
+                    if (enemy.currentAnimation != enemy.DeathAnimation)
+                    {
+                        _object.IsHit = true;
+                        enemy.Attack = true;
+                    }
                 }
-                   
             }
         }
 

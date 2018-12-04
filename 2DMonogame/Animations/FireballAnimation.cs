@@ -9,10 +9,16 @@ namespace _2DMonogame.Animations
 {
     class FireballAnimation : Animation
     {
+        /// <summary>
+        /// Verantwoordelijk voor de fireball animatie
+        /// </summary>
         public FireballAnimation()
         {
             Speed = 50;
         }
+        /// <summary>
+        /// Voegt een fireball animatie toe aan het animatie object door middel van bepaalde frames
+        /// </summary>
         protected override void AddAnimation()
         {
             this.AddFrame(new AnimationFrame() { scale = 0.25f, RectangleSelector = new Rectangle(0, 275, 64, 19) });

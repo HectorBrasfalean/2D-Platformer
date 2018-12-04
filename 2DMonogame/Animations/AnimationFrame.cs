@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de animationframe
+    /// </summary>
     class AnimationFrame
     {
         public float scale = 1;

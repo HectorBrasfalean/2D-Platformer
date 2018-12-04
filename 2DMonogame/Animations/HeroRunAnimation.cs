@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de hero run animatie
+    /// </summary>
     class HeroRunAnimation : Animation
     {
         public HeroRunAnimation()
         {
             Speed = 100;
         }
+        /// <summary>
+        /// Voegt een run animatie toe aan het animatie object door middel van bepaalde frames
+        /// </summary>
         protected override void AddAnimation()
         {
             this.AddFrame(new AnimationFrame() { scale = 0.24f, RectangleSelector = new Rectangle(0, 370, 488, 370) });

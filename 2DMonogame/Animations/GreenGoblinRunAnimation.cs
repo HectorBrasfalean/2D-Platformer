@@ -7,13 +7,18 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Animations
 {
+    /// <summary>
+    /// Verantwoordelijk voor het groene goblin loop animatie
+    /// </summary>
     class GreenGoblinRunAnimation : Animation
     {
         public GreenGoblinRunAnimation()
         {
             Speed = 200;
         }
-
+        /// <summary>
+        /// Voegt een run animatie toe aan het animatie object door middel van bepaalde frames
+        /// </summary>
         protected override void AddAnimation()
         {
             AddFrame(new AnimationFrame() { RectangleSelector = new Rectangle(1320, 238, 132, 119) });

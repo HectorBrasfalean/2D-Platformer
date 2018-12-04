@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace _2DMonogame
 {
     /// <summary>
-    /// Afhankelijk voor managen van de animatie
+    /// Verantwoordelijk voor het managen van de animatie
     /// </summary>
     abstract class Animation
     {
@@ -25,6 +25,9 @@ namespace _2DMonogame
             frames = new List<AnimationFrame>();
             AddAnimation();
         }
+        /// <summary>
+        /// Reset de animatie
+        /// </summary>
         public void Reset()
         {
             CurrentFrame = frames[0];

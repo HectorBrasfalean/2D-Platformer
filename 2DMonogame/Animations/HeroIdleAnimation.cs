@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de hero idle animatie
+    /// </summary>
     class HeroIdleAnimation : Animation
     {
         public HeroIdleAnimation()
         {
             Speed = 50;
         }
+        /// <summary>
+        /// Voegt een idle animatie toe aan het animatie object door middel van bepaalde frames
+        /// </summary>
         protected override void AddAnimation()
         {
             this.AddFrame(new AnimationFrame() { scale = 0.25f, RectangleSelector = new Rectangle(0, 0, 387, 350) });

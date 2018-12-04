@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de hero dood animatie
+    /// </summary>
     class HeroDeathAnimation : Animation
     {
         public HeroDeathAnimation()
         {
             Speed = 50;
         }
+        /// <summary>
+        /// Voegt een dood animatie toe aan het animatie object door middel van bepaalde frames
+        /// </summary>
         protected override void AddAnimation()
         {
             this.AddFrame(new AnimationFrame() { scale = 0.25f, RectangleSelector = new Rectangle(0, 3028, 381, 363) });

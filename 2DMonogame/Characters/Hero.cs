@@ -174,13 +174,8 @@ namespace _2DMonogame
         {
             currentAnimation = deathAnimation;
             if (currentAnimation.CurrentFrame != deathAnimation.frames[deathAnimation.frames.Count - 1])
-            {
                 currentAnimation.Update(gameTime);
-            }
-            else
-            {
-                CheckIfDeath();
-            }
+            else CheckIfDeath();
 
         }
 
@@ -211,7 +206,7 @@ namespace _2DMonogame
                 fireBall.IsVisible = true;
                 fireballs.Add(fireBall);
             }
-            if (currentAnimation.CurrentFrame != attackAnimation.frames[attackAnimation.frames.Count - 1] && currentAnimation == attackAnimation)
+            if (currentAnimation.CurrentFrame != attackAnimation.frames[attackAnimation.frames.Count - 1])
             {
                 HasShot = false;
             }
@@ -249,6 +244,7 @@ namespace _2DMonogame
             {
                 if(Velocity.Y == 0)
                 currentAnimation = idleAnimation;
+
             }
             deathAnimation.Reset();
         }

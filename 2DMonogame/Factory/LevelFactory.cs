@@ -65,7 +65,7 @@ namespace _2DMonogame
             else if (id == 30)
                 b = new GreenGoblin(content, "GreenGoblinSprite");
             else if (id == 40)
-                b = new InvisibleBlock(content, "box1");
+                b = new InvisibleBlock(content, "legeBlok");
             return b;
         }
 
