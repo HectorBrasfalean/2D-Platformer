@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Blocks.DeathBlocks
 {
+    /// <summary>
+    /// Verantwoordelijk voor elk blok dat je kan vermoorden
+    /// </summary>
     interface IDeathBlock : ICollide
     {
 

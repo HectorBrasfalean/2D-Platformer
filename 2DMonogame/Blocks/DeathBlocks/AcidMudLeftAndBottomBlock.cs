@@ -10,6 +10,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _2DMonogame.Blocks
 {
+    /// <summary>
+    /// Verantwoordelijk voor het acidmudleftandbottom blok
+    /// </summary>
     class AcidMudLeftAndBottomBlock : StaticBlock, IDeathBlock
     {
         public AcidMudLeftAndBottomBlock(ContentManager content,string name) : base(content, name)
@@ -17,6 +20,10 @@ namespace _2DMonogame.Blocks
 
         }
 
+        /// <summary>
+        /// Tekent de acidmudleftandbottom blok
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Color.AliceBlue);
