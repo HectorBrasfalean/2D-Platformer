@@ -1,4 +1,5 @@
 ﻿using _2DMonogame.Animations.BlueGoblin;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace _2DMonogame.Characters
         }
 
         public override float MovingSpeed => 4f;
+
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X + 40, (int)Position.Y + 30, (int)widthOfFrame - 60, (int)heightOfFrame - 40);
     }
  }
 

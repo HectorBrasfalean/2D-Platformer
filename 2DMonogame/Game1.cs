@@ -18,7 +18,7 @@ namespace _2DMonogame
         Collider collider;
         int ScreenWidth,ScreenHeight;
         Hero hero;
-        Level level;
+        Level currentLevel;
         Camera2D camera;
         List<ICollide> collisionObjects;
         SpriteFont scoreFont;
@@ -49,7 +49,7 @@ namespace _2DMonogame
 
             collisionObjects.Add(hero);
 
-            level = new Level1(Content);
+            currentLevel = new Level1(Content);
             camera = new Camera2D() { ScreenHeight = ScreenHeight, ScreenWidth = ScreenWidth ,Zoom = 0.75f};
             background = new Background(new Vector2(-150,-250));
             base.Initialize();
@@ -64,7 +64,7 @@ namespace _2DMonogame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             background.backgroundTexture = Content.Load<Texture2D>("AangepasteBackground");
             scoreFont = Content.Load<SpriteFont>("Points");
-            level.CreateWorld(Content, collisionObjects);
+            currentLevel.CreateWorld(Content, collisionObjects);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace _2DMonogame
             camera.Follow(hero);
             background.Update(hero.Position.X);
             hero.Update(gameTime,collisionObjects,collider);
-            level.Update(gameTime,collisionObjects, collider);
+            currentLevel.Update(gameTime,collisionObjects, collider);
 
             base.Update(gameTime);
         }
@@ -104,7 +104,7 @@ namespace _2DMonogame
 
             background.Draw(spriteBatch,GraphicsDevice);
 
-            level.DrawWorld(spriteBatch);
+            currentLevel.DrawWorld(spriteBatch);
             hero.Draw(spriteBatch);
 
             spriteBatch.DrawString(scoreFont, "Stars collected : " + hero.amountOfStarsCollected, new Vector2(hero.Position.X - 830, -200), Color.Black);

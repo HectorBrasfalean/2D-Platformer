@@ -21,8 +21,8 @@ namespace _2DMonogame.Characters
         private Vector2 position;
         private Vector2 velocity;
         public Animation RunAnimation, AttackAnimation, DeathAnimation, HurtAnimation, CurrentAnimation;
-        private double widthOfFrame;
-        private double heightOfFrame;
+        protected double widthOfFrame;
+        protected double heightOfFrame;
 
         public Enemy(ContentManager content,string name) : base(content,name)
         {
@@ -48,7 +48,7 @@ namespace _2DMonogame.Characters
         public bool TouchingTop { get; set; }
         public bool IsHit { get; set; }
 
-        public Rectangle CollisionRectangle => new Rectangle((int)Position.X+40,(int)Position.Y+30,(int)widthOfFrame-60,(int) heightOfFrame-40);
+        public abstract Rectangle CollisionRectangle { get; }
 
         public IMovingCollide currentCollisionBlock { get; set; }
 

@@ -23,5 +23,7 @@ namespace _2DMonogame.Characters
         }
 
         public override float MovingSpeed => 1f;
+
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X + 30, (int)Position.Y + 30, (int)widthOfFrame - 60, (int)heightOfFrame - 40);
     }
 }
