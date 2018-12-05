@@ -15,7 +15,6 @@ namespace _2DMonogame
         public Texture2D Texture;
         public float speed;
         public bool IsVisible,GoesLeft;
-
         private Vector2 velocity;
         public Vector2 Velocity
         {
@@ -34,14 +33,13 @@ namespace _2DMonogame
         public bool TouchingTop { get; set; }
         public Vector2 Position { get; set; }
         private Vector2 position;
-        public Rectangle CollisionRectangle { get { return new Rectangle((int)Position.X, (int)Position.Y, 52, 42); } }
+        public Rectangle CollisionRectangle { get { return new Rectangle((int)Position.X, (int)Position.Y, 60, 42); } }
 
         public float MovingSpeed { get { return 5; } }
 
         public IMovingCollide currentCollisionBlock { get; set; }
-        public bool HasTouchedCollectable { get; set; }
 
-        public abstract void Update(GameTime gameTime/*,List<ICollide> collisionObjects*/);
+        public abstract void Update(GameTime gameTime);
         public abstract void Draw(SpriteBatch sprite);
 
         public void ChangeVelocity(float? x, float? y)
