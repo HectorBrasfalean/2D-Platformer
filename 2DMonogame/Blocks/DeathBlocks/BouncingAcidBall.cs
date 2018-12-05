@@ -18,7 +18,6 @@ namespace _2DMonogame.Blocks.DeathBlocks
         private Vector2 velocity;
         private Vector2 position;
         Animation CurrentAnimation;
-        Animation switchFireballDirectionAnimation;
         Animation flyingAcidBallAnimation;
 
         public IMovingCollide currentCollisionBlock { get; set; }
@@ -46,7 +45,6 @@ namespace _2DMonogame.Blocks.DeathBlocks
         public BouncingAcidBall(ContentManager content, string name) : base(content, name)
         {
             flyingAcidBallAnimation = new GreenAcidBallDownUpAnimation();
-            switchFireballDirectionAnimation = new GreenAcidBallSwitchAnimation();
             CurrentAnimation = flyingAcidBallAnimation;
             ChangeVelocity(null, bounceHeight);
         }
