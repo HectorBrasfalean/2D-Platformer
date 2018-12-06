@@ -76,6 +76,7 @@
     <Compile Include="Blocks\StaticBlocks\LeftBottomCornerBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\PlatformBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\RightBottomCornerBlock.cs" />
+    <Compile Include="Button\ButtonScreen.cs" />
     <Compile Include="Characters\Enemies\BlueGoblin.cs" />
     <Compile Include="Characters\Enemies\Enemy.cs" />
     <Compile Include="Characters\Enemies\Giant.cs" />
@@ -120,6 +121,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Animations\Hero\HeroRunAnimation.cs" />
     <Compile Include="Blocks\StaticBlocks\RightTopCornerBlock.cs" />
+    <Compile Include="Screens\ControlsScreen.cs" />
+    <Compile Include="Screens\MainScreen.cs" />
+    <Compile Include="Screens\PlayScreen.cs" />
+    <Compile Include="Screens\ScreenManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
