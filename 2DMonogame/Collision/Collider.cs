@@ -205,14 +205,12 @@ namespace _2DMonogame
                 {
                     if(currentBlock is IMoveBlock)
                         _object.currentCollisionBlock = (IMoveBlock)currentBlock;
-                    else _object.currentCollisionBlock = null;
                     _object.TouchingRight = true;
                 }
                 if (_object.Velocity.X < 0 && IsTouchingRight(currentBlock, _object))
                 {
-                    if (currentBlock is IMoveBlock)
+                    if (currentBlock is IMoveBlock )
                         _object.currentCollisionBlock = (IMoveBlock)currentBlock;
-                    else _object.currentCollisionBlock = null;
                     _object.TouchingLeft = true;
                 }
                 if (_object.Velocity.Y > 0 && IsTouchingTop(currentBlock, _object))
@@ -227,7 +225,7 @@ namespace _2DMonogame
         }
 
         /// <summary>
-        /// Reset alle states
+        /// Reset alle booleans
         /// </summary>
         /// <param name="_object">collision object dat beweeegt</param>
         private static void ResetState(IMovingCollide _object)

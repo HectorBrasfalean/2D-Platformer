@@ -18,7 +18,6 @@ namespace _2DMonogame.Characters
     {
         public int AmountOfHitsEnemyCanTake { get; protected set; }
         public bool IsLookingLeft,Death,TouchedHero,Attack;
-        bool positionChanged;
         private Vector2 position;
         private Vector2 velocity;
         public Animation RunAnimation, AttackAnimation, DeathAnimation, HurtAnimation, CurrentAnimation;
@@ -108,66 +107,47 @@ namespace _2DMonogame.Characters
                 IsLookingLeft = true;
                 ChangeVelocity(-MovingSpeed, null);
             }
-            CheckIfHit();
-            ReturnToWalkingAnimationWhenHurt();
-            UseAttackAnimation();
+            if (IsHit)
+            {
+                AmountOfHitsEnemyCanTake--;
+                IsHit = false;
+                ChangeVelocity(0, null);
+                if(AmountOfHitsEnemyCanTake <= 0)
+                    CurrentAnimation = DeathAnimation;
+                else CurrentAnimation = HurtAnimation;
+            }
+            if (HurtAnimation != null && CurrentAnimation.CurrentFrame == HurtAnimation.frames[HurtAnimation.frames.Count - 1])
+            {
+                CurrentAnimation = RunAnimation;
+                if (IsLookingLeft)
+                    ChangeVelocity(-MovingSpeed, null);
+                else ChangeVelocity(MovingSpeed, null);
+                HurtAnimation.Reset();
+            }
+            if (Attack)
+            {
+                CurrentAnimation = AttackAnimation;
+                ChangeVelocity(0,null);
+                if (CurrentAnimation.CurrentFrame == AttackAnimation.frames[AttackAnimation.frames.Count - 1])
+                {
+                    Attack = false;
+                    CurrentAnimation = RunAnimation;
+                    if (IsLookingLeft)
+                        ChangeVelocity(-MovingSpeed, null);
+                    else ChangeVelocity(MovingSpeed, null);
+                }
+                 
+            }
+            else
+            {
+                AttackAnimation.Reset();
+            }
             Position += Velocity;
             if (CurrentAnimation.CurrentFrame == DeathAnimation.frames[DeathAnimation.frames.Count - 1])
                 collisionObjects.Remove(this);
             widthOfFrame = CurrentAnimation.CurrentFrame.scale * CurrentAnimation.CurrentFrame.RectangleSelector.Width;
             heightOfFrame = CurrentAnimation.CurrentFrame.scale * CurrentAnimation.CurrentFrame.RectangleSelector.Height;
             CurrentAnimation.Update(gameTime);
-        }
-
-        private void UseAttackAnimation()
-        {
-            if (Attack)
-            {
-                CurrentAnimation = AttackAnimation;
-                ChangeVelocity(0, null);
-                if (CurrentAnimation.CurrentFrame == AttackAnimation.frames[AttackAnimation.frames.Count - 1])
-                {
-                    Attack = false;
-                    ResetWalkingSpeed();
-                }
-
-            }
-            else
-            {
-                AttackAnimation.Reset();
-            }
-        }
-
-        private void ReturnToWalkingAnimationWhenHurt()
-        {
-            if (HurtAnimation != null && CurrentAnimation.CurrentFrame == HurtAnimation.frames[HurtAnimation.frames.Count - 1])
-            {
-                ResetWalkingSpeed();
-                HurtAnimation.Reset();
-            }
-        }
-
-        private void ResetWalkingSpeed()
-        {
-            CurrentAnimation = RunAnimation;
-            if (IsLookingLeft)
-                ChangeVelocity(-MovingSpeed, null);
-            else ChangeVelocity(MovingSpeed, null);
-        }
-
-        private void CheckIfHit()
-        {
-            if (IsHit)
-            {
-                AmountOfHitsEnemyCanTake--;
-                IsHit = false;
-                ChangeVelocity(0, null);
-                if (AmountOfHitsEnemyCanTake <= 0)
-                {
-                    CurrentAnimation = DeathAnimation;
-                }
-                else CurrentAnimation = HurtAnimation;
-            }
         }
 
         /// <summary>

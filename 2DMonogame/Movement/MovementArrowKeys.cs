@@ -17,17 +17,13 @@ namespace _2DMonogame
                 hero.ChangeVelocity(null, 0);
             if (hero.TouchingLeft)
             {
-                if(hero.currentCollisionBlock != null)
-                    hero.ChangePosition(hero.Position.X + hero.MovingSpeed + hero.currentCollisionBlock.MovingSpeed, null);
-                else hero.ChangePosition(hero.Position.X + hero.MovingSpeed, null);
+                hero.ChangePosition(hero.Position.X + hero.MovingSpeed, null);
                 hero.ChangeVelocity(0, null);
             }
             if(hero.TouchingRight)
             {
-                if (hero.currentCollisionBlock != null)
-                    hero.ChangePosition(hero.Position.X - hero.MovingSpeed - hero.currentCollisionBlock.MovingSpeed, null);
-                else hero.ChangePosition(hero.Position.X - hero.MovingSpeed, null);
                 hero.ChangeVelocity(0, null);
+                hero.ChangePosition(hero.Position.X - hero.MovingSpeed, null);
             }
             if (hero.TouchingTop)
                 hero.ChangeVelocity(null, 0.1f);
