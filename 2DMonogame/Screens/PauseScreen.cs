@@ -1,28 +1,30 @@
-﻿using _2DMonogame.Button;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using _2DMonogame.Button;
 using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
 
 namespace _2DMonogame.Screens
 {
-    class ControlsScreen : IScreenState
+    class PauseScreen : IScreenState
     {
-        ButtonScreen mainMenuButton;
-        Texture2D mainScreenImage, mainMenuText, leftArrow, rightArrow, upArrow, spaceTexture;
-        SpriteFont movementText, shootText;
+        Texture2D mainScreenImage, pausedText, resumeText, quitText;
+        ButtonScreen resumeButton, quitButton;
         ScreenManager screenManager;
-        public ControlsScreen(ScreenManager screenManager)
+        public PauseScreen(ScreenManager screenManager)
         {
             this.screenManager = screenManager;
         }
 
         public void Draw(SpriteBatch spriteBatch, Hero hero, Camera2D camera, Level currentLevel, GraphicsDevice graphicsDevice,Background background, SpriteFont scoreFont)
         {
-
+          
         }
 
         public void Load(ContentManager content, List<ICollide> collisionObjects, Level currentLevel,Background background)

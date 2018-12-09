@@ -19,8 +19,6 @@ namespace _2DMonogame
         public void Update(float position)
         {
             this.position.X = position - 1000;
-           
-
         }
         public void Draw(SpriteBatch spriteBatch,GraphicsDevice graphics)
         {

@@ -13,7 +13,7 @@ namespace _2DMonogame
     abstract class Projectile : IMovingCollide
     {
         public Texture2D Texture;
-        public float speed;
+        public float speed,ShotStartPosition;
         public bool IsVisible,GoesLeft;
         private Vector2 velocity;
         public Vector2 Velocity

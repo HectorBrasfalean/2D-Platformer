@@ -103,7 +103,7 @@ namespace _2DMonogame
         public int AmountOfLives
         {
             get { return amountOfLives; }
-            private set { amountOfLives = value; }
+            set { amountOfLives = value; }
         }
 
         public Hero(ContentManager content, Vector2 startPositionHero, Movement movement)
@@ -160,7 +160,8 @@ namespace _2DMonogame
             foreach (Projectile ball in fireballs.ToList())
             {
                 collisionCheck.CollisionDetect(collisionObjects, ball);
-                if (ball.Position.X > Position.X + 500 || ball.Position.X < Position.X - 500 || ball.TouchingRight || ball.TouchingLeft)
+                
+                if (ball.Position.X > ball.ShotStartPosition + 500 || ball.Position.X < ball.ShotStartPosition - 500 || ball.TouchingRight || ball.TouchingLeft)
                 {
                     collisionObjects.Remove(ball);
                     fireballs.Remove(ball);
@@ -204,6 +205,7 @@ namespace _2DMonogame
                 HasShot = true;
                 Projectile fireBall = new Fireball() { Texture = Fireball.Texture };
                 fireBall.GoesLeft = isLookingLeft;
+                fireBall.ShotStartPosition = Position.X;
                 fireBall.Position = new Vector2(fireBall.GoesLeft?Position.X-10:Position.X+72, Position.Y + 30);
                 fireBall.IsVisible = true;
                 fireballs.Add(fireBall);

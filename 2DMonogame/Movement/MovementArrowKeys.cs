@@ -1,4 +1,5 @@
-﻿using _2DMonogame.Collision;
+﻿using _2DMonogame.Blocks;
+using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -17,13 +18,20 @@ namespace _2DMonogame
                 hero.ChangeVelocity(null, 0);
             if (hero.TouchingLeft)
             {
-                hero.ChangePosition(hero.Position.X + hero.MovingSpeed, null);
+                if(hero.currentCollisionBlock is IMoveBlock)
+                    hero.ChangePosition(hero.Position.X + hero.MovingSpeed + hero.currentCollisionBlock.MovingSpeed, null);
+                else
+                    hero.ChangePosition(hero.Position.X + hero.MovingSpeed, null);
                 hero.ChangeVelocity(0, null);
             }
             if(hero.TouchingRight)
             {
+                if (hero.currentCollisionBlock is IMoveBlock)
+                    hero.ChangePosition(hero.Position.X - hero.MovingSpeed - hero.currentCollisionBlock.MovingSpeed, null);
+                else
+                    hero.ChangePosition(hero.Position.X - hero.MovingSpeed, null);
                 hero.ChangeVelocity(0, null);
-                hero.ChangePosition(hero.Position.X - hero.MovingSpeed, null);
+        
             }
             if (hero.TouchingTop)
                 hero.ChangeVelocity(null, 0.1f);

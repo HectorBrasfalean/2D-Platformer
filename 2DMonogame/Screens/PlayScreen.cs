@@ -3,21 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace _2DMonogame.Screens
 {
-    class PlayScreen : ScreenManager
+    class PlayScreen : IScreenState
     {
-        public override void Draw(SpriteBatch sprite)
+        ScreenManager screenManager;
+        KeyboardState keyboardState = Keyboard.GetState();
+        public PlayScreen(ScreenManager screenManager)
         {
-            throw new NotImplementedException();
+            this.screenManager = screenManager;
         }
 
-        public override void Update(GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch,Hero hero,Camera2D camera,Level currentLevel,GraphicsDevice graphicsDevice,Background background,SpriteFont scoreFont)
         {
-            throw new NotImplementedException();
+
+
+        }
+
+        public void Load(ContentManager content,List<ICollide> collisionObjects,Level currentLevel,Background background)
+        {
+            
+
+        }
+
+        public void Update(GameTime gameTime, MouseState mouseState, MouseState prevMouseState, List<ICollide> collisionObjects , Hero hero,Camera2D camera,Collider collider,Level currentLevel, Background background)
+        {
+
         }
     }
 }

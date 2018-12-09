@@ -92,6 +92,7 @@
     <Compile Include="Animations\AnimationFrame.cs" />
     <Compile Include="Animations\Hero\HeroAttackAnimation.cs" />
     <Compile Include="Levels\Level1.cs" />
+    <Compile Include="Levels\Level2.cs" />
     <Compile Include="Projectile\Projectile.cs" />
     <Compile Include="Projectile\Fireball.cs" />
     <Compile Include="Game1.cs" />
@@ -122,7 +123,10 @@
     <Compile Include="Animations\Hero\HeroRunAnimation.cs" />
     <Compile Include="Blocks\StaticBlocks\RightTopCornerBlock.cs" />
     <Compile Include="Screens\ControlsScreen.cs" />
-    <Compile Include="Screens\MainScreen.cs" />
+    <Compile Include="Screens\GameOverScreen.cs" />
+    <Compile Include="Screens\IScreenState.cs" />
+    <Compile Include="Screens\MainMenuScreen.cs" />
+    <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\PlayScreen.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
   </ItemGroup>
