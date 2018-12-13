@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DMonogame.Levels
 {
+    /// <summary>
+    /// Verantwoordelijk voor de array van level2
+    /// </summary>
     class Level2 : Level
     {
         public Level2(ContentManager content) : base(content)
@@ -14,6 +17,9 @@ namespace _2DMonogame.Levels
 
         }
 
+        /// <summary>
+        /// Maakt nieuwe array aan voor level 2 
+        /// </summary>
         protected override void CreateArray()
         {
             TileArray = new byte[,]

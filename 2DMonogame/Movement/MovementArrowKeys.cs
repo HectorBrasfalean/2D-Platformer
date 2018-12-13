@@ -10,8 +10,15 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de elke beweging met pijltjestoetsen
+    /// </summary>
     class MovementArrowKeys : Movement
     {
+        /// <summary>
+        /// Update de movement voor een bewegend collision object
+        /// </summary>
+        /// <param name="hero"></param>
         public override void Update(IMovingCollide hero)
         {
             if (hero.TouchingGround)
@@ -48,6 +55,10 @@ namespace _2DMonogame
 
         }
 
+        /// <summary>
+        /// Leest de input van de ingedrukte knoppen
+        /// </summary>
+        /// <param name="hero">het bewegend collision object</param>
         private void ReadButtonInput(IMovingCollide hero)
         {
             KeyboardState stateKey = Keyboard.GetState();

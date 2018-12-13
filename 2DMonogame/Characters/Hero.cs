@@ -63,8 +63,8 @@ namespace _2DMonogame
         /// <summary>
         /// Past de velocity aan van het hero object
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">de positie op de x-as</param>
+        /// <param name="y">de positie op de y-as</param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null) {
@@ -79,8 +79,8 @@ namespace _2DMonogame
         /// <summary>
         /// Past de positie aan van het hero object
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">de positie op de x-as</param>
+        /// <param name="y">de positie op de y-as</param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -142,7 +142,13 @@ namespace _2DMonogame
                 }
                 if (movement.Attack)
                     Shoot();
+                /*else if (!movement.Attack && currentAnimation == attackAnimation)
+                    currentAnimation.Reset();
+                else
+                    attackAnimation.Reset();*/
                 UpdateAllFireballs(gameTime, collisionObjects, collisionCheck);
+                if (currentAnimation != attackAnimation)
+                    attackAnimation.CurrentFrame = attackAnimation.frames[0];
                 currentAnimation.Update(gameTime);
             }
             else
@@ -210,7 +216,7 @@ namespace _2DMonogame
                 fireBall.IsVisible = true;
                 fireballs.Add(fireBall);
             }
-            if (currentAnimation.CurrentFrame != attackAnimation.frames[attackAnimation.frames.Count - 1])
+            if (currentAnimation.CurrentFrame != attackAnimation.frames[attackAnimation.frames.Count - 1] && currentAnimation == attackAnimation)
             {
                 HasShot = false;
             }
@@ -233,22 +239,23 @@ namespace _2DMonogame
                 isLookingLeft = false;
                 if (Velocity.Y == 0)
                     currentAnimation = runAnimation;
+
             }
             else if (movement.Left)
             {
                 isLookingLeft = true;
                 if (Velocity.Y == 0)
                     currentAnimation = runAnimation;
+
             }
             else if (movement.Attack && Velocity.Y == 0)
             {
                 currentAnimation = attackAnimation;
             }
             else
-            {
+            { 
                 if(Velocity.Y == 0)
-                currentAnimation = idleAnimation;
-
+                    currentAnimation = idleAnimation;      
             }
             deathAnimation.Reset();
         }

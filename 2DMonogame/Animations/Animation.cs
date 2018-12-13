@@ -61,10 +61,6 @@ namespace _2DMonogame
             }
         }
         
-
-        /// <summary>
-        /// Voegt een animatie toe
-        /// </summary>
         protected abstract void AddAnimation();
     }
 }

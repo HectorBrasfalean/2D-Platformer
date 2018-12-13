@@ -55,8 +55,8 @@ namespace _2DMonogame.Characters
         /// <summary>
         /// Verandert de positie van de enemy
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">de positie op de x-as</param>
+        /// <param name="y">de positie op de y-as</param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -72,8 +72,8 @@ namespace _2DMonogame.Characters
         /// <summary>
         /// Verandert de velocity van de enemy
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">de positie op de x-as</param>
+        /// <param name="y">de positie op de y-as</param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null)

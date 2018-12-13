@@ -18,7 +18,7 @@ namespace _2DMonogame
         int currentScreen;
         const int MAINMENU = 0, PLAY = 1, CONTROLS = 2, QUIT = 3, PAUSED = 4, GAMEOVER = 5;
         ButtonScreen controlsButton,mainMenuButton,playGameButton,quitButton,resumeButton,restartButton;
-        Texture2D controlsText, leftArrow, mainMenuText, mainScreenImage, pausedText,playGameText,quitText,resumeText,rightArrow,upArrow,spaceTexture,restartText;
+        Texture2D controlsText, leftArrow, mainMenuText, mainScreenImage,controlsScreen,pausedScreen,gameOverScreen,levelCompleteScreen,pausedText,playGameText,quitText,resumeText,rightArrow,upArrow,spaceTexture,restartText;
         SpriteFont scoreFont,shootText,movementText;
         ScreenManager screenManager;
         MouseState mouseState;
@@ -88,6 +88,9 @@ namespace _2DMonogame
             currentLevel.CreateWorld(Content, collisionObjects);
         }
 
+        /// <summary>
+        /// Laad alle spriteFonts
+        /// </summary>
         private void LoadFonts()
         {
             movementText = Content.Load<SpriteFont>("movementText");
@@ -95,6 +98,9 @@ namespace _2DMonogame
             scoreFont = Content.Load<SpriteFont>("Points");
         }
 
+        /// <summary>
+        /// Laad alle textures
+        /// </summary>
         private void LoadTextures()
         {
             background.backgroundTexture = Content.Load<Texture2D>("AangepasteBackground");
@@ -108,10 +114,16 @@ namespace _2DMonogame
             playGameText = Content.Load<Texture2D>("playbutton");
             quitText = Content.Load<Texture2D>("quitbutton");
             resumeText = Content.Load<Texture2D>("resumebutton");
-            pausedText = Content.Load<Texture2D>("pausedButton");
             restartText = Content.Load<Texture2D>("restartbutton");
+            levelCompleteScreen = Content.Load<Texture2D>("levelCompleteMenu");
+            gameOverScreen = Content.Load<Texture2D>("gameOverMenu");
+            pausedScreen = Content.Load<Texture2D>("pausedMenu");
+            controlsScreen = Content.Load<Texture2D>("controlsMenu");
         }
 
+        /// <summary>
+        /// Laad alle verschillende buttons voor op de schermen
+        /// </summary>
         private void LoadButtons()
         {
             restartButton = new ButtonScreen(new Rectangle(850, 350, restartText.Width, restartText.Height), true);
@@ -154,6 +166,7 @@ namespace _2DMonogame
             switch (currentScreen)
             {
                 case PLAY:
+                    this.IsMouseVisible = false;
                     if (keyboardState.IsKeyDown(Keys.Escape) && escapeReleased)
                     {
                         currentScreen = PAUSED;
@@ -169,6 +182,7 @@ namespace _2DMonogame
                         currentScreen = GAMEOVER;
                     break;
                 case PAUSED:
+                    this.IsMouseVisible = true;
                     if (keyboardState.IsKeyDown(Keys.Escape) && escapeReleased)
                     {
                         currentScreen = PLAY;
@@ -181,7 +195,7 @@ namespace _2DMonogame
                     else if (restartButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadNewLevel();
+                        LoadNewLevel(new Level1(Content));
                     }
                     else if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                         this.Exit();
@@ -194,7 +208,7 @@ namespace _2DMonogame
                     if (playGameButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadNewLevel();
+                        LoadNewLevel(new Level1(Content));
                     }
                     else if (controlsButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                         currentScreen = CONTROLS;
@@ -202,6 +216,7 @@ namespace _2DMonogame
                         this.Exit();
                     break;
                 case GAMEOVER:
+                    this.IsMouseVisible = true;
                     if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                         this.Exit();
                     else if (mainMenuButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
@@ -209,7 +224,7 @@ namespace _2DMonogame
                     else if (restartButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadNewLevel();
+                        LoadNewLevel(new Level1(Content));
                     }
                     break;
             }
@@ -218,9 +233,13 @@ namespace _2DMonogame
             base.Update(gameTime);
         }
 
-        private void LoadNewLevel()
+        /// <summary>
+        /// Laad een nieuw level
+        /// </summary>
+        /// <param name="newLevel">Bepaalt welk level er geladen wordt</param>
+        private void LoadNewLevel(Level newLevel)
         {
-            currentLevel = new Level1(Content);
+            currentLevel = newLevel;
             collisionObjects.Clear();
             currentLevel.CreateWorld(Content, collisionObjects);
             hero.amountOfStarsCollected = 0;
@@ -246,7 +265,7 @@ namespace _2DMonogame
                     spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
                     break;
                 case CONTROLS:
-                    spriteBatch.Draw(mainScreenImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(controlsScreen, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     mainMenuButton.PosSize = new Rectangle(860, 450, mainMenuText.Width, mainMenuText.Height);
                     spriteBatch.Draw(mainMenuText, new Rectangle(860, 450, mainMenuText.Width, mainMenuText.Height), Color.White);
                     spriteBatch.Draw(leftArrow, new Vector2(830, 250), null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
@@ -257,8 +276,7 @@ namespace _2DMonogame
                     spriteBatch.Draw(spaceTexture, new Vector2(840, 340), null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
                     break;
                 case PAUSED:
-                    spriteBatch.Draw(mainScreenImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(pausedText, new Rectangle(400, 135, pausedText.Width, pausedText.Height), Color.White);
+                    spriteBatch.Draw(pausedScreen, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     spriteBatch.Draw(resumeText, new Rectangle(850, 250, resumeText.Width, resumeText.Height), Color.White);
                     restartButton.PosSize = new Rectangle(850, 350, restartText.Width, restartText.Height);
                     spriteBatch.Draw(restartText, new Rectangle(850, 350, restartText.Width, restartText.Height), Color.White);
@@ -282,7 +300,7 @@ namespace _2DMonogame
                     }
                     break;
                 case GAMEOVER:
-                    spriteBatch.Draw(mainScreenImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(gameOverScreen, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     restartButton.PosSize = new Rectangle(850, 250, restartText.Width, restartText.Height);
                     spriteBatch.Draw(restartText, new Rectangle(850, 250, restartText.Width, restartText.Height), Color.White);
                     mainMenuButton.PosSize = new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height);
