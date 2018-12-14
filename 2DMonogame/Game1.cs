@@ -218,7 +218,7 @@ namespace _2DMonogame
                     else if (restartButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadLevel1();
+                        LoadLevel(new Level1(Content), new Vector2(150, 600));
                     }
                     else if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                         this.Exit();
@@ -231,7 +231,10 @@ namespace _2DMonogame
                     if (playGameButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadLevel1();
+                        LoadLevel(new Level2(Content), new Vector2(150, 250));
+                        //LoadLevel(new Level1(Content), new Vector2(150, 600));
+                        ResetHeroCollectedStars();
+                        ResetHeroLives();
                     }
                     else if (controlsButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                         currentScreen = CONTROLS;
@@ -247,7 +250,9 @@ namespace _2DMonogame
                     else if (restartButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadLevel1();
+                        LoadLevel(new Level1(Content), new Vector2(150, 600));
+                        ResetHeroCollectedStars();
+                        ResetHeroLives();
                     }
                     break;
                 case LEVEL1COMPLETE:
@@ -256,7 +261,8 @@ namespace _2DMonogame
                     {
                         currentScreen = PLAY;
                         hero.Position = new Vector2();
-                        LoadLevel2();
+                        LoadLevel(new Level2(Content), new Vector2(150, 200));
+                        ResetHeroCollectedStars();
                     }
                     else if (mainMenuButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                         currentScreen = MAINMENU;
@@ -276,29 +282,41 @@ namespace _2DMonogame
         }
 
         /// <summary>
-        /// Laad een nieuw level
+        /// Laad nieuw level
         /// </summary>
-        /// <param name="newLevel">Bepaalt welk level er geladen wordt</param>
-        private void LoadLevel1()
+        /// <param name="nextLevel">het volgende level dat geladen moet worden</param>
+        /// <param name="spawnPosHero">de spawn locatie van de hero</param>
+        private void LoadLevel(Level nextLevel,Vector2 spawnPosHero)
         {
-            currentLevel = new Level1(Content);
+            currentLevel = nextLevel;
             collisionObjects.Clear();
             currentLevel.CreateWorld(Content, collisionObjects);
-            hero.amountOfStarsCollected = 0;
+            SetHeroSpawnLocation(spawnPosHero);
+        }
+
+        /// <summary>
+        /// Reset het aantal levens van de hero
+        /// </summary>
+        private void ResetHeroLives()
+        {
             hero.AmountOfLives = 3;
-            hero.RespawnLocation = new Vector2(150, 600);
+        }
+
+        /// <summary>
+        /// Zet de hero zijn spawnlocatie op een bepaalde locatie
+        /// </summary>
+        /// <param name="spawnPos">de positie waar de hero zou moeten spawnen</param>
+        private void SetHeroSpawnLocation(Vector2 spawnPos)
+        {
+            hero.RespawnLocation = spawnPos;
             hero.Position = hero.RespawnLocation;
         }
 
-        private void LoadLevel2()
+        private void ResetHeroCollectedStars()
         {
-            currentLevel = new Level2(Content);
-            collisionObjects.Clear();
-            currentLevel.CreateWorld(Content, collisionObjects);
             hero.amountOfStarsCollected = 0;
-            hero.RespawnLocation = new Vector2(150, 200);
-            hero.Position = hero.RespawnLocation;
         }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -346,10 +364,10 @@ namespace _2DMonogame
                     spriteBatch.Draw(heart, new Vector2(hero.Position.X - 830, -150),null, Color.AliceBlue, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
                     spriteBatch.DrawString(scoreFont, hero.AmountOfLives + "x", new Vector2(hero.Position.X - 770, -150), Color.Black);
 
-                    if (hero.amountOfStarsCollected == 30)
-                    {
-                        spriteBatch.DrawString(scoreFont, "You won! On to the next level", new Vector2(hero.Position.X - 125, hero.Position.Y - 150), Color.Black);
-                    }
+                    //if (hero.amountOfStarsCollected == 30)
+                    //{
+                    //    spriteBatch.DrawString(scoreFont, "You won! On to the next level", new Vector2(hero.Position.X - 125, hero.Position.Y - 150), Color.Black);
+                    //}
                     break;
                 case GAMEOVER:
                     spriteBatch.Draw(gameOverImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
