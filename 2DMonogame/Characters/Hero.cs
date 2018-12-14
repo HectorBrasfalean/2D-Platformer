@@ -142,10 +142,6 @@ namespace _2DMonogame
                 }
                 if (movement.Attack)
                     Shoot();
-                /*else if (!movement.Attack && currentAnimation == attackAnimation)
-                    currentAnimation.Reset();
-                else
-                    attackAnimation.Reset();*/
                 UpdateAllFireballs(gameTime, collisionObjects, collisionCheck);
                 if (currentAnimation != attackAnimation)
                     attackAnimation.CurrentFrame = attackAnimation.frames[0];

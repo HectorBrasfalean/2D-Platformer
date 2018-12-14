@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2DMonogame.Screens
 {
-    class PlayScreen : IScreenState
+    class PlayScreen : ScreenState
     {
         ScreenManager screenManager;
         KeyboardState keyboardState = Keyboard.GetState();

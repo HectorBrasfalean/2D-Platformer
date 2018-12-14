@@ -5,6 +5,7 @@ using _2DMonogame.Blocks.InvisibleBlocks;
 using _2DMonogame.Blocks.MovingBlocks;
 using _2DMonogame.Blocks.RunThroughBlocks;
 using _2DMonogame.Blocks.StaticBlocks;
+using _2DMonogame.Button;
 using _2DMonogame.Characters;
 using _2DMonogame.Collision;
 using Microsoft.Xna.Framework.Content;
@@ -65,6 +66,14 @@ namespace _2DMonogame
                 b = new StarCollectable(content, "star");
             else if (id == 22)
                 b = new BouncingAcidBall(content, "LavaFireballSprite");
+            else if (id == 23)
+                b = new UpUnderBlock(content, "bovenonder");
+            else if (id == 24)
+                b = new LeftOverRoofBlock(content, "linksoverkaping");
+            else if (id == 25)
+                b = new RightOverRoofBlock(content, "rechtsoverkaping");
+            else if (id == 26)
+                b = new UnderBlock(content, "13");
             else if (id == 30)
                 b = new GreenGoblin(content, "GreenGoblinSprite");
             else if (id == 31)
@@ -75,6 +84,8 @@ namespace _2DMonogame
                 b = new BlueGoblin(content, "BlueMonster");
             else if (id == 40)
                 b = new InvisibleBlock(content, "legeBlok");
+            else if (id == 50)
+                b = new ButtonNextLevel(content, "button");
             return b;
         }
 

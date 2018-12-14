@@ -2,6 +2,7 @@
 using _2DMonogame.Blocks.Collectable;
 using _2DMonogame.Blocks.DeathBlocks;
 using _2DMonogame.Blocks.InvisibleBlocks;
+using _2DMonogame.Button;
 using _2DMonogame.Characters;
 using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
@@ -203,14 +204,16 @@ namespace _2DMonogame
                     continue;
                 if (_object.Velocity.X > 0 && IsTouchingLeft(currentBlock, _object))
                 {
-                    if(currentBlock is IMoveBlock)
+                    if (currentBlock is IMoveBlock)
                         _object.currentCollisionBlock = (IMoveBlock)currentBlock;
+                    else _object.currentCollisionBlock = null;
                     _object.TouchingRight = true;
                 }
                 if (_object.Velocity.X < 0 && IsTouchingRight(currentBlock, _object))
                 {
                     if (currentBlock is IMoveBlock )
                         _object.currentCollisionBlock = (IMoveBlock)currentBlock;
+                    else _object.currentCollisionBlock = null;
                     _object.TouchingLeft = true;
                 }
                 if (_object.Velocity.Y > 0 && IsTouchingTop(currentBlock, _object))

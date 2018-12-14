@@ -1,11 +1,13 @@
 ﻿using _2DMonogame.Button;
 using _2DMonogame.Characters;
 using _2DMonogame.Collision;
+using _2DMonogame.Levels;
 using _2DMonogame.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _2DMonogame
 {
@@ -14,15 +16,16 @@ namespace _2DMonogame
     /// </summary>
     public class Game1 : Game
     {
-        bool escapeReleased = true;
+        bool escapeReleased = true,loadNextLevel;
         int currentScreen;
-        const int MAINMENU = 0, PLAY = 1, CONTROLS = 2, QUIT = 3, PAUSED = 4, GAMEOVER = 5;
-        ButtonScreen controlsButton,mainMenuButton,playGameButton,quitButton,resumeButton,restartButton;
-        Texture2D controlsText, leftArrow, mainMenuText, mainScreenImage,controlsScreen,pausedScreen,gameOverScreen,levelCompleteScreen,pausedText,playGameText,quitText,resumeText,rightArrow,upArrow,spaceTexture,restartText;
+        const int MAINMENU = 0, PLAY = 1, CONTROLS = 2, QUIT = 3, PAUSED = 4, GAMEOVER = 5, LEVEL1COMPLETE = 6, LEVEL2COMPLETE = 7;
+        ButtonScreen controlsButton,mainMenuButton,playGameButton,quitButton,resumeButton,restartButton,nextLevelButton;
+        Texture2D controlsText, leftArrow, mainMenuText, mainScreenImage,controlsImage,pausedImage,gameOverImage,level1CompleteScreen,
+            playGameText,quitText,resumeText,rightArrow,upArrow,spaceTexture,restartText,level2CompleteScreen,heart,star,
+            nextLevelTexture;
         SpriteFont scoreFont,shootText,movementText;
         ScreenManager screenManager;
-        MouseState mouseState;
-        MouseState prevMouseState;
+        MouseState mouseState,prevMouseState;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Background background;
@@ -82,8 +85,6 @@ namespace _2DMonogame
             LoadTextures();
             LoadButtons();
 
-
-            //screenManager.Load(Content,collisionObjects,currentLevel,background);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             currentLevel.CreateWorld(Content, collisionObjects);
         }
@@ -115,10 +116,14 @@ namespace _2DMonogame
             quitText = Content.Load<Texture2D>("quitbutton");
             resumeText = Content.Load<Texture2D>("resumebutton");
             restartText = Content.Load<Texture2D>("restartbutton");
-            levelCompleteScreen = Content.Load<Texture2D>("levelCompleteMenu");
-            gameOverScreen = Content.Load<Texture2D>("gameOverMenu");
-            pausedScreen = Content.Load<Texture2D>("pausedMenu");
-            controlsScreen = Content.Load<Texture2D>("controlsMenu");
+            level1CompleteScreen = Content.Load<Texture2D>("level1CompleteMenu");
+            level2CompleteScreen = Content.Load<Texture2D>("level2CompleteMenu");
+            gameOverImage = Content.Load<Texture2D>("gameOverMenu");
+            pausedImage = Content.Load<Texture2D>("pausedMenu");
+            controlsImage = Content.Load<Texture2D>("controlsMenu");
+            nextLevelTexture = Content.Load<Texture2D>("nextlevelbutton");
+            heart = Content.Load<Texture2D>("heart");
+            star = Content.Load<Texture2D>("star");
         }
 
         /// <summary>
@@ -143,6 +148,10 @@ namespace _2DMonogame
 
             mainMenuButton = new ButtonScreen(new Rectangle(860, 450, mainMenuText.Width, mainMenuText.Height), true);
             mainMenuButton.Load(Content, "mainmenubutton");
+
+            nextLevelButton = new ButtonScreen(new Rectangle(860, 250, nextLevelTexture.Width, nextLevelTexture.Height), true);
+            nextLevelButton.Load(Content, "nextlevelbutton");
+
         }
 
         /// <summary>
@@ -166,6 +175,11 @@ namespace _2DMonogame
             switch (currentScreen)
             {
                 case PLAY:
+                    foreach (ButtonNextLevel nextLevelButton in collisionObjects.OfType<ButtonNextLevel>())
+                    {
+                        if (hero.CollisionRectangle.Intersects(nextLevelButton.CollisionRectangle) && hero.Velocity.Y > 5)
+                            loadNextLevel = true;
+                    }
                     this.IsMouseVisible = false;
                     if (keyboardState.IsKeyDown(Keys.Escape) && escapeReleased)
                     {
@@ -180,6 +194,15 @@ namespace _2DMonogame
                     currentLevel.Update(gameTime, collisionObjects, collider);
                     if (hero.AmountOfLives == 0 && hero.currentAnimation.CurrentFrame == hero.deathAnimation.frames[hero.deathAnimation.frames.Count - 1])
                         currentScreen = GAMEOVER;
+                    if (loadNextLevel)
+                    {
+                        loadNextLevel = false;
+                        if (currentLevel is Level1)
+                            currentScreen = LEVEL1COMPLETE;
+                        else
+                            currentScreen = LEVEL2COMPLETE;
+                    }
+
                     break;
                 case PAUSED:
                     this.IsMouseVisible = true;
@@ -195,7 +218,7 @@ namespace _2DMonogame
                     else if (restartButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadNewLevel(new Level1(Content));
+                        LoadLevel1();
                     }
                     else if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                         this.Exit();
@@ -208,7 +231,7 @@ namespace _2DMonogame
                     if (playGameButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadNewLevel(new Level1(Content));
+                        LoadLevel1();
                     }
                     else if (controlsButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                         currentScreen = CONTROLS;
@@ -224,11 +247,30 @@ namespace _2DMonogame
                     else if (restartButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadNewLevel(new Level1(Content));
+                        LoadLevel1();
                     }
                     break;
+                case LEVEL1COMPLETE:
+                    this.IsMouseVisible = true;
+                    if (nextLevelButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        currentScreen = PLAY;
+                        hero.Position = new Vector2();
+                        LoadLevel2();
+                    }
+                    else if (mainMenuButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+                        currentScreen = MAINMENU;
+                    else if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+                        this.Exit();
+                    break;
+                case LEVEL2COMPLETE:
+                    this.IsMouseVisible = true;
+                    if (mainMenuButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+                        currentScreen = MAINMENU;
+                    else if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+                        this.Exit();
+                    break;
             }
-            //screenManager.Update(gameTime, mouseState, prevMouseState,collisionObjects,hero,camera,collider,currentLevel,background);
             prevMouseState = mouseState;
             base.Update(gameTime);
         }
@@ -237,9 +279,9 @@ namespace _2DMonogame
         /// Laad een nieuw level
         /// </summary>
         /// <param name="newLevel">Bepaalt welk level er geladen wordt</param>
-        private void LoadNewLevel(Level newLevel)
+        private void LoadLevel1()
         {
-            currentLevel = newLevel;
+            currentLevel = new Level1(Content);
             collisionObjects.Clear();
             currentLevel.CreateWorld(Content, collisionObjects);
             hero.amountOfStarsCollected = 0;
@@ -248,6 +290,15 @@ namespace _2DMonogame
             hero.Position = hero.RespawnLocation;
         }
 
+        private void LoadLevel2()
+        {
+            currentLevel = new Level2(Content);
+            collisionObjects.Clear();
+            currentLevel.CreateWorld(Content, collisionObjects);
+            hero.amountOfStarsCollected = 0;
+            hero.RespawnLocation = new Vector2(150, 200);
+            hero.Position = hero.RespawnLocation;
+        }
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -265,7 +316,7 @@ namespace _2DMonogame
                     spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
                     break;
                 case CONTROLS:
-                    spriteBatch.Draw(controlsScreen, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(controlsImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     mainMenuButton.PosSize = new Rectangle(860, 450, mainMenuText.Width, mainMenuText.Height);
                     spriteBatch.Draw(mainMenuText, new Rectangle(860, 450, mainMenuText.Width, mainMenuText.Height), Color.White);
                     spriteBatch.Draw(leftArrow, new Vector2(830, 250), null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
@@ -276,7 +327,7 @@ namespace _2DMonogame
                     spriteBatch.Draw(spaceTexture, new Vector2(840, 340), null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
                     break;
                 case PAUSED:
-                    spriteBatch.Draw(pausedScreen, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(pausedImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     spriteBatch.Draw(resumeText, new Rectangle(850, 250, resumeText.Width, resumeText.Height), Color.White);
                     restartButton.PosSize = new Rectangle(850, 350, restartText.Width, restartText.Height);
                     spriteBatch.Draw(restartText, new Rectangle(850, 350, restartText.Width, restartText.Height), Color.White);
@@ -290,19 +341,34 @@ namespace _2DMonogame
                     currentLevel.DrawWorld(spriteBatch);
                     hero.Draw(spriteBatch);
 
-                    spriteBatch.DrawString(scoreFont, "Stars collected : " + hero.amountOfStarsCollected, new Vector2(hero.Position.X - 830, -200), Color.Black);
-                    spriteBatch.DrawString(scoreFont, "Number of lives : " + hero.AmountOfLives, new Vector2(hero.Position.X - 830, -150), Color.Black);
-
+                    spriteBatch.Draw(star, new Vector2(hero.Position.X - 830, -220), null, Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(scoreFont, hero.amountOfStarsCollected + "x", new Vector2(hero.Position.X - 770, -210), Color.Black);
+                    spriteBatch.Draw(heart, new Vector2(hero.Position.X - 830, -150),null, Color.AliceBlue, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(scoreFont, hero.AmountOfLives + "x", new Vector2(hero.Position.X - 770, -150), Color.Black);
 
                     if (hero.amountOfStarsCollected == 30)
                     {
-                        spriteBatch.DrawString(scoreFont, "You won! On to the next level.", new Vector2(hero.Position.X - 60, hero.Position.Y - 150), Color.Black);
+                        spriteBatch.DrawString(scoreFont, "You won! On to the next level", new Vector2(hero.Position.X - 125, hero.Position.Y - 150), Color.Black);
                     }
                     break;
                 case GAMEOVER:
-                    spriteBatch.Draw(gameOverScreen, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(gameOverImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     restartButton.PosSize = new Rectangle(850, 250, restartText.Width, restartText.Height);
                     spriteBatch.Draw(restartText, new Rectangle(850, 250, restartText.Width, restartText.Height), Color.White);
+                    mainMenuButton.PosSize = new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height);
+                    spriteBatch.Draw(mainMenuText, new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height), Color.White);
+                    spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
+                    break;
+                case LEVEL1COMPLETE:
+                    spriteBatch.Draw(level1CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level1CompleteScreen.Width, level1CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 30", new Vector2(300, 350), Color.Black);
+                    spriteBatch.Draw(nextLevelTexture, new Rectangle(850, 250, nextLevelTexture.Width, nextLevelTexture.Height), Color.White);
+                    mainMenuButton.PosSize = new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height);
+                    spriteBatch.Draw(mainMenuText, new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height), Color.White);
+                    spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
+                    break;
+                case LEVEL2COMPLETE:
+                    spriteBatch.Draw(level2CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level2CompleteScreen.Width, level2CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     mainMenuButton.PosSize = new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height);
                     spriteBatch.Draw(mainMenuText, new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height), Color.White);
                     spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);

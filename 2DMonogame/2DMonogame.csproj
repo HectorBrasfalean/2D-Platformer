@@ -74,8 +74,13 @@
     <Compile Include="Blocks\StaticBlocks\BoxFirstVariant.cs" />
     <Compile Include="Blocks\StaticBlocks\BoxSecondVariant.cs" />
     <Compile Include="Blocks\StaticBlocks\LeftBottomCornerBlock.cs" />
+    <Compile Include="Blocks\StaticBlocks\LeftOverRoofBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\PlatformBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\RightBottomCornerBlock.cs" />
+    <Compile Include="Blocks\StaticBlocks\RightOverRoofBlock.cs" />
+    <Compile Include="Blocks\StaticBlocks\UnderBlock.cs" />
+    <Compile Include="Blocks\StaticBlocks\UpUnderBlock.cs" />
+    <Compile Include="Button\ButtonNextLevel.cs" />
     <Compile Include="Button\ButtonScreen.cs" />
     <Compile Include="Characters\Enemies\BlueGoblin.cs" />
     <Compile Include="Characters\Enemies\Enemy.cs" />

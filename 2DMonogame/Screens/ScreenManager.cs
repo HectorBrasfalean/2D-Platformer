@@ -13,12 +13,12 @@ namespace _2DMonogame.Screens
 {
     class ScreenManager
     {
-        IScreenState currentScreen;
-        IScreenState playScreen;
-        IScreenState controlsScreen;
-        IScreenState gameOverScreen;
-        IScreenState pauseScreen;
-        IScreenState mainMenuScreen;
+        ScreenState currentScreen;
+        ScreenState playScreen;
+        ScreenState controlsScreen;
+        ScreenState gameOverScreen;
+        ScreenState pauseScreen;
+        ScreenState mainMenuScreen;
         Game1 game;
         public ScreenManager(Game1 game)
         {
@@ -36,7 +36,7 @@ namespace _2DMonogame.Screens
         /// Zet het momentele scherm naar een ander scherm
         /// </summary>
         /// <param name="goToScreen">het scherm waarnaar het momentele scherm naar toe moet springen</param>
-        public void SetState(IScreenState goToScreen)
+        public void SetState(ScreenState goToScreen)
         {
             currentScreen = goToScreen;
         }
@@ -44,7 +44,7 @@ namespace _2DMonogame.Screens
         /// Haalt het playScreen scherm op
         /// </summary>
         /// <returns>play scherm</returns>
-        public IScreenState GetPlayScreen()
+        public ScreenState GetPlayScreen()
         {
             return playScreen;
         }
@@ -52,7 +52,7 @@ namespace _2DMonogame.Screens
         /// Haalt het gameOver scherm op
         /// </summary>
         /// <returns>game over scherm</returns>
-        public IScreenState GetGameOverScreen()
+        public ScreenState GetGameOverScreen()
         {
             return gameOverScreen;
         }
@@ -60,7 +60,7 @@ namespace _2DMonogame.Screens
         /// Haalt het controls scherm op
         /// </summary>
         /// <returns>controls scherm</returns>
-        public IScreenState GetControlsScreen()
+        public ScreenState GetControlsScreen()
         {
             return controlsScreen;
         }
@@ -68,7 +68,7 @@ namespace _2DMonogame.Screens
         /// Haalt het pauze scherm op
         /// </summary>
         /// <returns>pauze scherm</returns>
-        public IScreenState GetPauseScreen()
+        public ScreenState GetPauseScreen()
         {
             return pauseScreen;
         }
@@ -76,7 +76,7 @@ namespace _2DMonogame.Screens
         /// Haalt het hoofdscherm op
         /// </summary>
         /// <returns>hoofdscherm</returns>
-        public IScreenState GetMainMenuScreen()
+        public ScreenState GetMainMenuScreen()
         {
             return mainMenuScreen;
         }

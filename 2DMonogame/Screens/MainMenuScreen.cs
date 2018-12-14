@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2DMonogame.Screens
 {
-    class MainMenuScreen : IScreenState
+    class MainMenuScreen : ScreenState
     {
         Texture2D playGameText,quitText,controlsText,mainScreenImage;
         ButtonScreen playGameButton,controlsButton,quitButton;

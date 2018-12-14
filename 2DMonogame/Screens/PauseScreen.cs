@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2DMonogame.Screens
 {
-    class PauseScreen : IScreenState
+    class PauseScreen : ScreenState
     {
         Texture2D mainScreenImage, pausedText, resumeText, quitText;
         ButtonScreen resumeButton, quitButton;
@@ -22,7 +22,7 @@ namespace _2DMonogame.Screens
             this.screenManager = screenManager;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Hero hero, Camera2D camera, Level currentLevel, GraphicsDevice graphicsDevice,Background background, SpriteFont scoreFont)
+        public void Draw()
         {
           
         }
