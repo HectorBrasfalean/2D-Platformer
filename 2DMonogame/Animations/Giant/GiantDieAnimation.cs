@@ -21,26 +21,26 @@ namespace _2DMonogame.Animations.Giant
         /// </summary>
         protected override void AddAnimation()
         {
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(890, 840, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1335, 840, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1780, 840, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(2225, 840, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(2670, 840, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(3115, 840, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(3560, 840, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(0, 1260, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(445, 1260, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(890, 1260, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1335, 1260, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1780, 1260, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(2225, 1260, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(2670, 1260, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(3115, 1260, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(3560, 1260, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(0, 1680, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(445, 1680, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(890, 1680, 430, 395) });
-            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1335, 1680, 430, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(890, 840, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1335, 840, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1780, 840, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(2225, 840, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(2670, 840, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(3115, 840, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(3560, 840, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(0, 1260, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(445, 1260, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(890, 1260, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1335, 1260, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1780, 1260, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(2225, 1260, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(2670, 1260, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(3115, 1260, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(3560, 1260, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(0, 1680, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(445, 1680, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(890, 1680, 420, 395) });
+            AddFrame(new AnimationFrame() { scale = 0.5f, RectangleSelector = new Rectangle(1335, 1680, 420, 395) });
         }
     }
 }

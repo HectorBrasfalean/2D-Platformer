@@ -190,7 +190,7 @@ namespace _2DMonogame
         /// </summary>
         private void CheckIfDeath()
         {
-            if (amountOfLives > 0)
+            if (amountOfLives >= 0)
             {
                 amountOfLives--;
                 IsHit = false;

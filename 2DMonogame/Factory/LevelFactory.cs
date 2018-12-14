@@ -74,6 +74,8 @@ namespace _2DMonogame
                 b = new RightOverRoofBlock(content, "rechtsoverkaping");
             else if (id == 26)
                 b = new UnderBlock(content, "13");
+            else if (id == 27)
+                b = new FullBlock(content, "11");
             else if (id == 30)
                 b = new GreenGoblin(content, "GreenGoblinSprite");
             else if (id == 31)

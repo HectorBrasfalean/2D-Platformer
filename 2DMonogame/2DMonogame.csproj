@@ -73,6 +73,7 @@
     <Compile Include="Blocks\RunThroughBlocks\YellowTree.cs" />
     <Compile Include="Blocks\StaticBlocks\BoxFirstVariant.cs" />
     <Compile Include="Blocks\StaticBlocks\BoxSecondVariant.cs" />
+    <Compile Include="Blocks\StaticBlocks\FullBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\LeftBottomCornerBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\LeftOverRoofBlock.cs" />
     <Compile Include="Blocks\StaticBlocks\PlatformBlock.cs" />

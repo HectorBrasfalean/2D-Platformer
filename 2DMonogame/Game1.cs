@@ -192,7 +192,7 @@ namespace _2DMonogame
                     background.Update(hero.Position.X);
                     hero.Update(gameTime, collisionObjects, collider);
                     currentLevel.Update(gameTime, collisionObjects, collider);
-                    if (hero.AmountOfLives == 0 && hero.currentAnimation.CurrentFrame == hero.deathAnimation.frames[hero.deathAnimation.frames.Count - 1])
+                    if (hero.AmountOfLives < 0 && hero.currentAnimation.CurrentFrame == hero.deathAnimation.frames[hero.deathAnimation.frames.Count - 1])
                         currentScreen = GAMEOVER;
                     if (loadNextLevel)
                     {
@@ -231,8 +231,7 @@ namespace _2DMonogame
                     if (playGameButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         currentScreen = PLAY;
-                        LoadLevel(new Level2(Content), new Vector2(150, 250));
-                        //LoadLevel(new Level1(Content), new Vector2(150, 600));
+                        LoadLevel(new Level1(Content), new Vector2(150, 600));
                         ResetHeroCollectedStars();
                         ResetHeroLives();
                     }
@@ -379,7 +378,7 @@ namespace _2DMonogame
                     break;
                 case LEVEL1COMPLETE:
                     spriteBatch.Draw(level1CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level1CompleteScreen.Width, level1CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                    spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 30", new Vector2(300, 350), Color.Black);
+                    spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 32", new Vector2(300, 350), Color.Black);
                     spriteBatch.Draw(nextLevelTexture, new Rectangle(850, 250, nextLevelTexture.Width, nextLevelTexture.Height), Color.White);
                     mainMenuButton.PosSize = new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height);
                     spriteBatch.Draw(mainMenuText, new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height), Color.White);
@@ -387,6 +386,7 @@ namespace _2DMonogame
                     break;
                 case LEVEL2COMPLETE:
                     spriteBatch.Draw(level2CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level2CompleteScreen.Width, level2CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 29", new Vector2(300, 350), Color.Black);
                     mainMenuButton.PosSize = new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height);
                     spriteBatch.Draw(mainMenuText, new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height), Color.White);
                     spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
