@@ -219,6 +219,8 @@ namespace _2DMonogame
                     {
                         currentScreen = PLAY;
                         LoadLevel(new Level1(Content), new Vector2(150, 600));
+                        ResetHeroCollectedStars();
+                        ResetHeroLives();
                     }
                     else if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                         this.Exit();
@@ -260,7 +262,7 @@ namespace _2DMonogame
                     {
                         currentScreen = PLAY;
                         hero.Position = new Vector2();
-                        LoadLevel(new Level2(Content), new Vector2(150, 200));
+                        LoadLevel(new Level2(Content), new Vector2(150, 100));
                         ResetHeroCollectedStars();
                     }
                     else if (mainMenuButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
@@ -362,11 +364,6 @@ namespace _2DMonogame
                     spriteBatch.DrawString(scoreFont, hero.amountOfStarsCollected + "x", new Vector2(hero.Position.X - 770, -210), Color.Black);
                     spriteBatch.Draw(heart, new Vector2(hero.Position.X - 830, -150),null, Color.AliceBlue, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
                     spriteBatch.DrawString(scoreFont, hero.AmountOfLives + "x", new Vector2(hero.Position.X - 770, -150), Color.Black);
-
-                    //if (hero.amountOfStarsCollected == 30)
-                    //{
-                    //    spriteBatch.DrawString(scoreFont, "You won! On to the next level", new Vector2(hero.Position.X - 125, hero.Position.Y - 150), Color.Black);
-                    //}
                     break;
                 case GAMEOVER:
                     spriteBatch.Draw(gameOverImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
@@ -378,7 +375,7 @@ namespace _2DMonogame
                     break;
                 case LEVEL1COMPLETE:
                     spriteBatch.Draw(level1CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level1CompleteScreen.Width, level1CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                    spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 32", new Vector2(300, 350), Color.Black);
+                    spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 35", new Vector2(300, 350), Color.Black);
                     spriteBatch.Draw(nextLevelTexture, new Rectangle(850, 250, nextLevelTexture.Width, nextLevelTexture.Height), Color.White);
                     mainMenuButton.PosSize = new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height);
                     spriteBatch.Draw(mainMenuText, new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height), Color.White);
@@ -386,7 +383,7 @@ namespace _2DMonogame
                     break;
                 case LEVEL2COMPLETE:
                     spriteBatch.Draw(level2CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level2CompleteScreen.Width, level2CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                    spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 29", new Vector2(300, 350), Color.Black);
+                    spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 30", new Vector2(300, 350), Color.Black);
                     mainMenuButton.PosSize = new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height);
                     spriteBatch.Draw(mainMenuText, new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height), Color.White);
                     spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
