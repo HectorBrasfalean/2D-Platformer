@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace _2DMonogame
 {
@@ -24,7 +25,6 @@ namespace _2DMonogame
             playGameText,quitText,resumeText,rightArrow,upArrow,spaceTexture,restartText,level2CompleteScreen,heart,star,
             nextLevelTexture;
         SpriteFont scoreFont,shootText,movementText;
-        ScreenManager screenManager;
         MouseState mouseState,prevMouseState;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -35,6 +35,8 @@ namespace _2DMonogame
         Level currentLevel;
         Camera2D camera;
         List<ICollide> collisionObjects;
+
+        ScreenManager screenManager;
 
         public Game1()
         {
@@ -53,8 +55,7 @@ namespace _2DMonogame
         /// </summary>
         protected override void Initialize()
         {
-            screenManager = new ScreenManager(this);
-
+        
             collider = new Collider();
             collisionObjects = new List<ICollide>();
             collisionObjects.Clear();
@@ -72,6 +73,8 @@ namespace _2DMonogame
 
             background = new Background(new Vector2(-150,-250));
 
+            screenManager = new ScreenManager(Content,this);
+
             base.Initialize();
         }
 
@@ -81,6 +84,7 @@ namespace _2DMonogame
         /// </summary>
         protected override void LoadContent()
         {
+
             LoadFonts();
             LoadTextures();
             LoadButtons();
@@ -170,39 +174,39 @@ namespace _2DMonogame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            mouseState = Mouse.GetState();
+            MouseState mouseState = Mouse.GetState();
             KeyboardState keyboardState = Keyboard.GetState();
+            screenManager.Update(gameTime, camera, hero, collisionObjects, background, collider, currentLevel);
             switch (currentScreen)
             {
                 case PLAY:
-                    foreach (ButtonNextLevel nextLevelButton in collisionObjects.OfType<ButtonNextLevel>())
-                    {
-                        if (hero.CollisionRectangle.Intersects(nextLevelButton.CollisionRectangle) && hero.Velocity.Y > 5)
-                            loadNextLevel = true;
-                    }
-                    this.IsMouseVisible = false;
-                    if (keyboardState.IsKeyDown(Keys.Escape) && escapeReleased)
-                    {
-                        currentScreen = PAUSED;
-                        escapeReleased = false;
-                    }
-                    if (keyboardState.IsKeyUp(Keys.Escape))
-                        escapeReleased = true;
-                    camera.Follow(hero);
-                    background.Update(hero.Position.X);
-                    hero.Update(gameTime, collisionObjects, collider);
-                    currentLevel.Update(gameTime, collisionObjects, collider);
-                    if (hero.AmountOfLives < 0 && hero.currentAnimation.CurrentFrame == hero.deathAnimation.frames[hero.deathAnimation.frames.Count - 1])
-                        currentScreen = GAMEOVER;
-                    if (loadNextLevel)
-                    {
-                        loadNextLevel = false;
-                        if (currentLevel is Level1)
-                            currentScreen = LEVEL1COMPLETE;
-                        else
-                            currentScreen = LEVEL2COMPLETE;
-                    }
-
+                    //this.IsMouseVisible = false;
+                    //foreach (ButtonNextLevel nextLevelButton in collisionObjects.OfType<ButtonNextLevel>())
+                    //{
+                    //    if (hero.CollisionRectangle.Intersects(nextLevelButton.CollisionRectangle) && hero.Velocity.Y > 5)
+                    //        loadNextLevel = true;
+                    //}
+                    //if (keyboardState.IsKeyDown(Keys.Escape) && escapeReleased)
+                    //{
+                    //    currentScreen = PAUSED;
+                    //    escapeReleased = false;
+                    //}
+                    //if (keyboardState.IsKeyUp(Keys.Escape))
+                    //    escapeReleased = true;
+                    //camera.Follow(hero);
+                    //background.Update(hero.Position.X);
+                    //hero.Update(gameTime, collisionObjects, collider);
+                    //currentLevel.Update(gameTime, collisionObjects, collider);
+                    //if (hero.AmountOfLives < 0 && hero.currentAnimation.CurrentFrame == hero.deathAnimation.frames[hero.deathAnimation.frames.Count - 1])
+                    //    currentScreen = GAMEOVER;
+                    //if (loadNextLevel)
+                    //{
+                    //    loadNextLevel = false;
+                    //    if (currentLevel is Level1)
+                    //        currentScreen = LEVEL1COMPLETE;
+                    //    else
+                    //        currentScreen = LEVEL2COMPLETE;
+                    //}
                     break;
                 case PAUSED:
                     this.IsMouseVisible = true;
@@ -227,20 +231,23 @@ namespace _2DMonogame
                     break;
                 case CONTROLS:
                     if (mainMenuButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        Thread.Sleep(100);
                         currentScreen = MAINMENU;
+                    }
                     break;
                 case MAINMENU:
-                    if (playGameButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        currentScreen = PLAY;
-                        LoadLevel(new Level1(Content), new Vector2(150, 600));
-                        ResetHeroCollectedStars();
-                        ResetHeroLives();
-                    }
-                    else if (controlsButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
-                        currentScreen = CONTROLS;
-                    else if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
-                        this.Exit();
+                    //if (playGameButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+                    //{
+                    //    currentScreen = PLAY;
+                    //    LoadLevel(new Level1(Content), new Vector2(150, 600));
+                    //    ResetHeroCollectedStars();
+                    //    ResetHeroLives();
+                    //}
+                    //else if (controlsButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+                    //    currentScreen = CONTROLS;
+                    //else if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+                    //    this.Exit();
                     break;
                 case GAMEOVER:
                     this.IsMouseVisible = true;
@@ -326,13 +333,14 @@ namespace _2DMonogame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            screenManager.Draw(spriteBatch, GraphicsDevice, camera, hero, background, currentLevel);
             switch (currentScreen)
             {
                 case MAINMENU:
-                    spriteBatch.Draw(mainScreenImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(playGameText, new Rectangle(850, 250, playGameText.Width, playGameText.Height), Color.White);
-                    spriteBatch.Draw(controlsText, new Rectangle(850, 350, controlsText.Width, controlsText.Height), Color.White);
-                    spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
+                    //spriteBatch.Draw(mainScreenImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    //spriteBatch.Draw(playGameText, new Rectangle(850, 250, playGameText.Width, playGameText.Height), Color.White);
+                    //spriteBatch.Draw(controlsText, new Rectangle(850, 350, controlsText.Width, controlsText.Height), Color.White);
+                    //spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
                     break;
                 case CONTROLS:
                     spriteBatch.Draw(controlsImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
@@ -342,7 +350,7 @@ namespace _2DMonogame
                     spriteBatch.Draw(rightArrow, new Vector2(1030, 250), null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
                     spriteBatch.Draw(upArrow, new Vector2(930, 250), null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
                     spriteBatch.DrawString(movementText, "Movement : ", new Vector2(550, 270), Color.Black);
-                    spriteBatch.DrawString(shootText, "Shoot : ", new Vector2(630, 360), Color.Black);
+                    spriteBatch.DrawString(shootText, "Shoot : (Charge)", new Vector2(430, 360), Color.Black);
                     spriteBatch.Draw(spaceTexture, new Vector2(840, 340), null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
                     break;
                 case PAUSED:
@@ -353,17 +361,17 @@ namespace _2DMonogame
                     spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
                     break;
                 case PLAY:
-                    spriteBatch.End();
-                    spriteBatch.Begin(transformMatrix: camera.Transform);
-                    background.Draw(spriteBatch, GraphicsDevice);
+                    //spriteBatch.End();
+                    //spriteBatch.Begin(transformMatrix: camera.Transform);
+                    //background.Draw(spriteBatch, GraphicsDevice);
 
-                    currentLevel.DrawWorld(spriteBatch);
-                    hero.Draw(spriteBatch);
+                    //currentLevel.DrawWorld(spriteBatch);
+                    //hero.Draw(spriteBatch);
 
-                    spriteBatch.Draw(star, new Vector2(hero.Position.X - 830, -220), null, Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                    spriteBatch.DrawString(scoreFont, hero.amountOfStarsCollected + "x", new Vector2(hero.Position.X - 770, -210), Color.Black);
-                    spriteBatch.Draw(heart, new Vector2(hero.Position.X - 830, -150),null, Color.AliceBlue, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
-                    spriteBatch.DrawString(scoreFont, hero.AmountOfLives + "x", new Vector2(hero.Position.X - 770, -150), Color.Black);
+                    //spriteBatch.Draw(star, new Vector2(hero.Position.X - 830, -220), null, Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    //spriteBatch.DrawString(scoreFont, hero.amountOfStarsCollected + "x", new Vector2(hero.Position.X - 770, -210), Color.Black);
+                    //spriteBatch.Draw(heart, new Vector2(hero.Position.X - 830, -150), null, Color.AliceBlue, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+                    //spriteBatch.DrawString(scoreFont, hero.AmountOfLives + "x", new Vector2(hero.Position.X - 770, -150), Color.Black);
                     break;
                 case GAMEOVER:
                     spriteBatch.Draw(gameOverImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);

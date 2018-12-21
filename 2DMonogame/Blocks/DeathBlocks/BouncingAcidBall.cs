@@ -17,7 +17,7 @@ namespace _2DMonogame.Blocks.DeathBlocks
         float bounceHeight = -13f;
         private Vector2 velocity;
         private Vector2 position;
-        Animation CurrentAnimation;
+        Animation currentAnimation;
         Animation flyingAcidBallAnimation;
 
         public IMovingCollide currentCollisionBlock { get; set; }
@@ -40,12 +40,12 @@ namespace _2DMonogame.Blocks.DeathBlocks
         public bool TouchingGround { get; set; }
         public bool TouchingTop { get; set; }
 
-        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, CurrentAnimation.CurrentFrame.RectangleSelector.Width, CurrentAnimation.CurrentFrame.RectangleSelector.Height);
+        public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, currentAnimation.CurrentFrame.RectangleSelector.Width, currentAnimation.CurrentFrame.RectangleSelector.Height);
 
         public BouncingAcidBall(ContentManager content, string name) : base(content, name)
         {
             flyingAcidBallAnimation = new GreenAcidBallDownUpAnimation();
-            CurrentAnimation = flyingAcidBallAnimation;
+            currentAnimation = flyingAcidBallAnimation;
             ChangeVelocity(null, bounceHeight);
         }
         public void Update(GameTime gameTime,Collider collider,List<ICollide> collisionObjects)
@@ -61,12 +61,12 @@ namespace _2DMonogame.Blocks.DeathBlocks
             if (Velocity.Y != 0)
                 ChangeVelocity(null, Velocity.Y + MovingSpeed);
             Position += velocity;
-            CurrentAnimation.Update(gameTime);
+            currentAnimation.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position, CurrentAnimation.CurrentFrame.RectangleSelector, Color.LightGreen,0f, Vector2.Zero, CurrentAnimation.CurrentFrame.scale, isGoingDown ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture, Position, currentAnimation.CurrentFrame.RectangleSelector, Color.LightGreen,0f, Vector2.Zero, currentAnimation.CurrentFrame.scale, isGoingDown ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
         }
 
         public void ChangeVelocity(float? x, float? y)

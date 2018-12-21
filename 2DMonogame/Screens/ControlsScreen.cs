@@ -1,67 +1,37 @@
-﻿using _2DMonogame.Button;
-using _2DMonogame.Collision;
+﻿using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace _2DMonogame.Screens
 {
-    class ControlsScreen : ScreenState
+    class ControlsScreen : IScreenState
     {
-        ButtonScreen mainMenuButton;
-        Texture2D mainScreenImage, mainMenuText, leftArrow, rightArrow, upArrow, spaceTexture;
-        SpriteFont movementText, shootText;
         ScreenManager screenManager;
         public ControlsScreen(ScreenManager screenManager)
         {
             this.screenManager = screenManager;
         }
 
-        /// <summary>
-        /// Tekent alle objecten voor het controls scherm
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        /// <param name="hero"></param>
-        /// <param name="camera"></param>
-        /// <param name="currentLevel"></param>
-        /// <param name="graphicsDevice"></param>
-        /// <param name="background"></param>
-        /// <param name="scoreFont"></param>
-        public void Draw(SpriteBatch spriteBatch, Hero hero, Camera2D camera, Level currentLevel, GraphicsDevice graphicsDevice,Background background, SpriteFont scoreFont)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background, Level currentLevel)
         {
-
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Laad alle textures voor het controls scherm
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="collisionObjects"></param>
-        /// <param name="currentLevel"></param>
-        /// <param name="background"></param>
-        public void Load(ContentManager content, List<ICollide> collisionObjects, Level currentLevel,Background background)
+        public void Load(ContentManager content)
         {
-
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Update alle objecten voor het controls scherm
-        /// </summary>
-        /// <param name="gameTime"></param>
-        /// <param name="mouseState"></param>
-        /// <param name="prevMouseState"></param>
-        /// <param name="collisionObjects"></param>
-        /// <param name="hero"></param>
-        /// <param name="camera"></param>
-        /// <param name="collider"></param>
-        /// <param name="currentLevel"></param>
-        /// <param name="background"></param>
-        public void Update(GameTime gameTime, MouseState mouseState, MouseState prevMouseState, List<ICollide> collisionObjects, Hero hero, Camera2D camera, Collider collider, Level currentLevel,Background background)
+        public void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider, Level currentLevel)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,47 +11,10 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Screens
 {
-  
     interface IScreenState
     {
-        
-        void Load(ContentManager content, List<ICollide> collisionObjects, Level currentLevel,Background background);
-
-        void Draw(SpriteBatch spriteBatch, Hero hero, Camera2D camera, Level currentLevel, GraphicsDevice graphicsDevice,Background background, SpriteFont scoreFont);
-
-      
-        void Update(GameTime gameTime, MouseState mouseState, MouseState prevMouseState, List<ICollide> collisionObjects, Hero hero, Camera2D camera, Collider collider, Level currentLevel,Background background);
-
+        void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider, Level currentLevel);
+        void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background, Level currentLevel);
+        void Load(ContentManager content);
     }
-
-    abstract class ScreenState
-    {
-        public virtual void Load()
-        {
-
-        }
-        public virtual void  Load(ContentManager content, List<ICollide> collisionObjects, Level currentLevel, Background background)
-        {
-
-        }
-
-        public virtual void Draw()
-        {
-        }
-        public virtual void  Draw(SpriteBatch spriteBatch, Hero hero, Camera2D camera, Level currentLevel, GraphicsDevice graphicsDevice, Background background, SpriteFont scoreFont) { }
-
-        public virtual void Update()
-        {
-
-        }
-
-        public virtual void Update(GameTime gameTime, MouseState mouseState, MouseState prevMouseState, List<ICollide> collisionObjects, Hero hero, Camera2D camera, Collider collider, Level currentLevel, Background background)
-        {
-
-        }
-
-
-    }
-
-
 }

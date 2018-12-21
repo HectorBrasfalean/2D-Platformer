@@ -132,6 +132,8 @@
     <Compile Include="Screens\GameOverScreen.cs" />
     <Compile Include="Screens\IScreenState.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
+    <Compile Include="Screens\NextLevel1Screen.cs" />
+    <Compile Include="Screens\NextLevel2Screen.cs" />
     <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\PlayScreen.cs" />
     <Compile Include="Screens\ScreenManager.cs" />

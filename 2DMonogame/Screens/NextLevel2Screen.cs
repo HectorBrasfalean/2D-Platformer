@@ -11,10 +11,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2DMonogame.Screens
 {
-    class PauseScreen : IScreenState
+    class NextLevel2Screen : IScreenState
     {
         ScreenManager screenManager;
-        public PauseScreen(ScreenManager screenManager)
+        public NextLevel2Screen(ScreenManager screenManager)
         {
             this.screenManager = screenManager;
         }

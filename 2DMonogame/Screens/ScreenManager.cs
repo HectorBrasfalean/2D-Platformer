@@ -13,120 +13,73 @@ namespace _2DMonogame.Screens
 {
     class ScreenManager
     {
-        ScreenState currentScreen;
-        ScreenState playScreen;
-        ScreenState controlsScreen;
-        ScreenState gameOverScreen;
-        ScreenState pauseScreen;
-        ScreenState mainMenuScreen;
         Game1 game;
-        public ScreenManager(Game1 game)
+        IScreenState playScreen;
+        IScreenState pauseScreen;
+        IScreenState gameOverScreen;
+        IScreenState nextLevel1Screen;
+        IScreenState nextLevel2Screen;
+        IScreenState mainMenuScreen;
+        IScreenState controlsScreen;
+        IScreenState currentScreen;
+        public ScreenManager(ContentManager content,Game1 game)
         {
             this.game = game;
             playScreen = new PlayScreen(this);
-            controlsScreen = new ControlsScreen(this);
-            gameOverScreen = new GameOverScreen(this);
+            playScreen.Load(content);
             pauseScreen = new PauseScreen(this);
+            gameOverScreen = new GameOverScreen(this);
+            nextLevel1Screen = new NextLevel1Screen(this);
+            nextLevel2Screen = new NextLevel2Screen(this);
             mainMenuScreen = new MainMenuScreen(this);
+            mainMenuScreen.Load(content);
+            controlsScreen = new ControlsScreen(this);
             currentScreen = mainMenuScreen;
-
         }
 
-        /// <summary>
-        /// Zet het momentele scherm naar een ander scherm
-        /// </summary>
-        /// <param name="goToScreen">het scherm waarnaar het momentele scherm naar toe moet springen</param>
-        public void SetState(ScreenState goToScreen)
+        public void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider, Level currentLevel)
+        {
+            currentScreen.Update(gameTime,camera,hero,collisionObjects,background,collider,currentLevel);
+        }
+        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background, Level currentLevel)
+        {
+            currentScreen.Draw(spriteBatch,graphicsDevice,camera,hero,background,currentLevel);
+        }
+        public void SetState(IScreenState goToScreen)
         {
             currentScreen = goToScreen;
         }
-        /// <summary>
-        /// Haalt het playScreen scherm op
-        /// </summary>
-        /// <returns>play scherm</returns>
-        public ScreenState GetPlayScreen()
+        public IScreenState GetPlayScreen()
         {
             return playScreen;
         }
-        /// <summary>
-        /// Haalt het gameOver scherm op
-        /// </summary>
-        /// <returns>game over scherm</returns>
-        public ScreenState GetGameOverScreen()
-        {
-            return gameOverScreen;
-        }
-        /// <summary>
-        /// Haalt het controls scherm op
-        /// </summary>
-        /// <returns>controls scherm</returns>
-        public ScreenState GetControlsScreen()
-        {
-            return controlsScreen;
-        }
-        /// <summary>
-        /// Haalt het pauze scherm op
-        /// </summary>
-        /// <returns>pauze scherm</returns>
-        public ScreenState GetPauseScreen()
+        public IScreenState GetPauseScreen()
         {
             return pauseScreen;
         }
-        /// <summary>
-        /// Haalt het hoofdscherm op
-        /// </summary>
-        /// <returns>hoofdscherm</returns>
-        public ScreenState GetMainMenuScreen()
+        public IScreenState GetGameOverScreen()
         {
-            return mainMenuScreen;
+            return gameOverScreen;
         }
-        /// <summary>
-        /// Laad alle textures/fonts voor het momentele scherm
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="collisionObjects"></param>
-        /// <param name="currentLevel"></param>
-        /// <param name="background"></param>
-        public void Load(ContentManager content, List<ICollide> collisionObjects,Level currentLevel, Background background)
+        public IScreenState GetNextLevel1Screen()
         {
-            currentScreen.Load(content,collisionObjects,currentLevel,background);
+            return nextLevel1Screen;
         }
-        /// <summary>
-        /// Tekent alle objecten voor het momentele scherm
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        /// <param name="hero"></param>
-        /// <param name="camera"></param>
-        /// <param name="currentLevel"></param>
-        /// <param name="graphicsDevice"></param>
-        /// <param name="background"></param>
-        /// <param name="scoreFont"></param>
-        public void Draw(SpriteBatch spriteBatch, Hero hero, Camera2D camera, Level currentLevel, GraphicsDevice graphicsDevice, Background background, SpriteFont scoreFont)
+        public IScreenState GetNextLevel2Screen()
         {
-            currentScreen.Draw(spriteBatch,hero,camera,currentLevel,graphicsDevice,background,scoreFont);
+            return nextLevel2Screen;
         }
-        /// <summary>
-        /// Update alle objecten voor het momentele scherm
-        /// </summary>
-        /// <param name="gameTime"></param>
-        /// <param name="mouseState"></param>
-        /// <param name="prevMouseState"></param>
-        /// <param name="collisionObjects"></param>
-        /// <param name="hero"></param>
-        /// <param name="camera"></param>
-        /// <param name="collider"></param>
-        /// <param name="currentLevel"></param>
-        /// <param name="background"></param>
-        public void Update(GameTime gameTime, MouseState mouseState, MouseState prevMouseState, List<ICollide> collisionObjects, Hero hero, Camera2D camera, Collider collider, Level currentLevel,Background background)
+        public IScreenState GetControlsScreen()
         {
-            currentScreen.Update(gameTime, mouseState, prevMouseState,collisionObjects,hero,camera,collider,currentLevel,background);
+            return controlsScreen;
         }
-        /// <summary>
-        /// Sluit het programma
-        /// </summary>
-        public void QuitGame()
+        public void Quit()
         {
             game.Exit();
+        }
+        public void MakeMouseVisible(bool isMouseVisible)
+        {
+            game.IsMouseVisible = isMouseVisible;
         }
     }
 }

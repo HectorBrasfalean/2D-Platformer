@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _2DMonogame.Collision;
+﻿using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace _2DMonogame.Screens
 {
-    class PauseScreen : IScreenState
+    class NextLevel1Screen : IScreenState
     {
+
         ScreenManager screenManager;
-        public PauseScreen(ScreenManager screenManager)
+        public NextLevel1Screen(ScreenManager screenManager)
         {
             this.screenManager = screenManager;
         }

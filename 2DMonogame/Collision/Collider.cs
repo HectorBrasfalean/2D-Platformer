@@ -24,73 +24,73 @@ namespace _2DMonogame
         /// Controleert of we de linkerkant van de sprite aanraken
         /// </summary>
         /// <param name="sprite">collision object</param>
-        /// <param name="_object">bewegend collision object</param>
+        /// <param name="movingCollision">bewegend collision object</param>
         /// <returns></returns>
-        private bool IsTouchingLeft(ICollide sprite, IMovingCollide _object)
+        private bool IsTouchingLeft(ICollide sprite, IMovingCollide movingCollision)
         {
-            return _object.CollisionRectangle.Right + _object.Velocity.X > sprite.CollisionRectangle.Left &&
-              _object.CollisionRectangle.Left < sprite.CollisionRectangle.Left &&
-              _object.CollisionRectangle.Bottom > sprite.CollisionRectangle.Top &&
-              _object.CollisionRectangle.Top < sprite.CollisionRectangle.Bottom;
+            return movingCollision.CollisionRectangle.Right + movingCollision.Velocity.X > sprite.CollisionRectangle.Left &&
+              movingCollision.CollisionRectangle.Left < sprite.CollisionRectangle.Left &&
+              movingCollision.CollisionRectangle.Bottom > sprite.CollisionRectangle.Top &&
+              movingCollision.CollisionRectangle.Top < sprite.CollisionRectangle.Bottom;
         }
 
         /// <summary>
         /// Controleert of we de rechterkant van de sprite aanraken
         /// </summary>
         /// <param name="sprite">collision object</param>
-        /// <param name="_object">bewegend collision object</param>
+        /// <param name="movingCollision">bewegend collision object</param>
         /// <returns></returns>
-        private bool IsTouchingRight(ICollide sprite, IMovingCollide _object)
+        private bool IsTouchingRight(ICollide sprite, IMovingCollide movingCollision)
         {
-            return _object.CollisionRectangle.Left + _object.Velocity.X < sprite.CollisionRectangle.Right &&
-              _object.CollisionRectangle.Right > sprite.CollisionRectangle.Right &&
-              _object.CollisionRectangle.Bottom > sprite.CollisionRectangle.Top &&
-              _object.CollisionRectangle.Top < sprite.CollisionRectangle.Bottom;
+            return movingCollision.CollisionRectangle.Left + movingCollision.Velocity.X < sprite.CollisionRectangle.Right &&
+              movingCollision.CollisionRectangle.Right > sprite.CollisionRectangle.Right &&
+              movingCollision.CollisionRectangle.Bottom > sprite.CollisionRectangle.Top &&
+              movingCollision.CollisionRectangle.Top < sprite.CollisionRectangle.Bottom;
         }
         /// <summary>
         /// Controleert of we de bovenkant raken van de sprite
         /// </summary>
         /// <param name="sprite">collision object</param>
-        /// <param name="_object">bewegend collision object</param>
+        /// <param name="movingCollision">bewegend collision object</param>
         /// <returns></returns>
-        private bool IsTouchingTop(ICollide sprite, IMovingCollide _object)
+        private bool IsTouchingTop(ICollide sprite, IMovingCollide movingCollision)
         {
-            return _object.CollisionRectangle.Bottom + _object.Velocity.Y > sprite.CollisionRectangle.Top &&
-              _object.CollisionRectangle.Top < sprite.CollisionRectangle.Top &&
-              _object.CollisionRectangle.Right > sprite.CollisionRectangle.Left &&
-              _object.CollisionRectangle.Left < sprite.CollisionRectangle.Right;
+            return movingCollision.CollisionRectangle.Bottom + movingCollision.Velocity.Y > sprite.CollisionRectangle.Top &&
+              movingCollision.CollisionRectangle.Top < sprite.CollisionRectangle.Top &&
+              movingCollision.CollisionRectangle.Right > sprite.CollisionRectangle.Left &&
+              movingCollision.CollisionRectangle.Left < sprite.CollisionRectangle.Right;
         }
         /// <summary>
         /// Controleert of we de onderkant raken van de sprite
         /// </summary>
         /// <param name="sprite">collision object</param>
-        /// <param name="_object">bewegend collision object</param>
+        /// <param name="movingCollision">bewegend collision object</param>
         /// <returns></returns>
-        private bool IsTouchingBottom(ICollide sprite, IMovingCollide _object)
+        private bool IsTouchingBottom(ICollide sprite, IMovingCollide movingCollision)
         {
-            return _object.CollisionRectangle.Top + _object.Velocity.Y < sprite.CollisionRectangle.Bottom &&
-              _object.CollisionRectangle.Bottom > sprite.CollisionRectangle.Bottom &&
-              _object.CollisionRectangle.Right > sprite.CollisionRectangle.Left &&
-              _object.CollisionRectangle.Left < sprite.CollisionRectangle.Right;
+            return movingCollision.CollisionRectangle.Top + movingCollision.Velocity.Y < sprite.CollisionRectangle.Bottom &&
+              movingCollision.CollisionRectangle.Bottom > sprite.CollisionRectangle.Bottom &&
+              movingCollision.CollisionRectangle.Right > sprite.CollisionRectangle.Left &&
+              movingCollision.CollisionRectangle.Left < sprite.CollisionRectangle.Right;
         }
         /// <summary>
         /// Kijkt of er een collision gebeurt
         /// </summary>
         /// <param name="collideObjects">Lijst met elk object dat kan colliden</param>
-        /// <param name="_object">object dat kan colliden en beweegt</param>
-        public void CollisionDetect(List<ICollide> collideObjects, IMovingCollide _object)
+        /// <param name="movingCollision">object dat kan colliden en beweegt</param>
+        public void CollisionDetect(List<ICollide> collideObjects, IMovingCollide movingCollision)
         {
-            ResetState(_object);
-            if(_object is Hero)
-                DetectHeroDeath(collideObjects,(IDie) _object);
-            DetectStaticBlocks(collideObjects, _object);
-            DetectEnemy(collideObjects, _object);
-            if(_object is Hero)
-                DetectCollectable(collideObjects,(ICanCollect) _object);
-            if (_object is Enemy)
-                DetectInvisibleBlock(collideObjects,(Enemy) _object);
-            if (_object is IDeathBlock)
-                DetectInvisibleBlockForProjectiles(collideObjects,_object);
+            ResetState(movingCollision);
+            if(movingCollision is Hero)
+                DetectHeroDeath(collideObjects,(IDie) movingCollision);
+            DetectStaticBlocks(collideObjects, movingCollision);
+            DetectEnemy(collideObjects, movingCollision);
+            if(movingCollision is Hero)
+                DetectCollectable(collideObjects,(ICanCollect) movingCollision);
+            if (movingCollision is Enemy)
+                DetectInvisibleBlock(collideObjects,(Enemy) movingCollision);
+            if (movingCollision is IDeathBlock)
+                DetectInvisibleBlockForProjectiles(collideObjects,movingCollision);
         }
 
         /// <summary>
