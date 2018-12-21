@@ -57,7 +57,7 @@ namespace _2DMonogame.Screens
             screenManager.MakeMouseVisible(true);
             if (playGameButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
             {
-                LoadLevel(new Level1(content), new Vector2(11250, 100), currentLevel, collisionObjects, hero);
+                LoadLevel(new Level1(content), new Vector2(150, 600), currentLevel, collisionObjects, hero);
                 ResetHeroCollectedStars(hero);
                 ResetHeroLives(hero);
                 screenManager.SetState(screenManager.GetPlayScreen());
