@@ -19,12 +19,13 @@ namespace _2DMonogame.Screens
         ScreenManager screenManager;
         ContentManager content;
         MouseState prevMouseState,mouseState;
+
         public MainMenuScreen(ScreenManager screenManager)
         {
             this.screenManager = screenManager;
         }
 
-        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background, Level currentLevel)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
         {
             spriteBatch.Draw(mainScreenImage, Vector2.Zero, new Rectangle(0, 0, mainScreenImage.Width, mainScreenImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(playGameText, new Rectangle(850, 250, playGameText.Width, playGameText.Height), Color.White);
@@ -50,13 +51,13 @@ namespace _2DMonogame.Screens
             quitButton.Load(content, "quitbutton");
         }
 
-        public void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider,Level currentLevel)
+        public void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider,ref Level currentLevel)
         {
             mouseState = Mouse.GetState();
             screenManager.MakeMouseVisible(true);
             if (playGameButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
             {
-                LoadLevel(new Level1(content), new Vector2(150, 600), currentLevel, collisionObjects, hero);
+                LoadLevel(new Level1(content), new Vector2(11250, 100), currentLevel, collisionObjects, hero);
                 ResetHeroCollectedStars(hero);
                 ResetHeroLives(hero);
                 screenManager.SetState(screenManager.GetPlayScreen());

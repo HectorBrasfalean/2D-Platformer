@@ -14,7 +14,7 @@ namespace _2DMonogame.Screens
 {
     class PlayScreen : IScreenState
     {
-        bool escapeReleased = true,loadNextLevel;
+        bool escapeReleased,loadNextLevel;
         Texture2D star, heart;
         SpriteFont scoreFont;
         ScreenManager screenManager;
@@ -28,8 +28,9 @@ namespace _2DMonogame.Screens
             star = content.Load<Texture2D>("star");
             heart = content.Load<Texture2D>("heart");
             scoreFont = content.Load<SpriteFont>("Points");
+
         }
-        public void Draw(SpriteBatch spriteBatch,GraphicsDevice graphicsDevice,Camera2D camera,Hero hero,Background background,Level currentLevel)
+        public void Draw(SpriteBatch spriteBatch,GraphicsDevice graphicsDevice,Camera2D camera,Hero hero,Background background,ref Level currentLevel)
         {
             spriteBatch.End();
             spriteBatch.Begin(transformMatrix: camera.Transform);
@@ -43,7 +44,7 @@ namespace _2DMonogame.Screens
             spriteBatch.Draw(heart, new Vector2(hero.Position.X - 830, -150), null, Color.AliceBlue, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(scoreFont, hero.AmountOfLives + "x", new Vector2(hero.Position.X - 770, -150), Color.Black);
         }
-        public void Update(GameTime gameTime,Camera2D camera,Hero hero,List<ICollide> collisionObjects,Background background,Collider collider,Level currentLevel)
+        public void Update(GameTime gameTime,Camera2D camera,Hero hero,List<ICollide> collisionObjects,Background background,Collider collider,ref Level currentLevel)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             screenManager.MakeMouseVisible(false);

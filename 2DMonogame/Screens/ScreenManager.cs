@@ -28,22 +28,27 @@ namespace _2DMonogame.Screens
             playScreen = new PlayScreen(this);
             playScreen.Load(content);
             pauseScreen = new PauseScreen(this);
+            pauseScreen.Load(content);
             gameOverScreen = new GameOverScreen(this);
+            gameOverScreen.Load(content);
             nextLevel1Screen = new NextLevel1Screen(this);
+            nextLevel1Screen.Load(content);
             nextLevel2Screen = new NextLevel2Screen(this);
+            nextLevel2Screen.Load(content);
             mainMenuScreen = new MainMenuScreen(this);
             mainMenuScreen.Load(content);
             controlsScreen = new ControlsScreen(this);
+            controlsScreen.Load(content);
             currentScreen = mainMenuScreen;
         }
 
-        public void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider, Level currentLevel)
+        public void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider,ref Level currentLevel)
         {
-            currentScreen.Update(gameTime,camera,hero,collisionObjects,background,collider,currentLevel);
+            currentScreen.Update(gameTime,camera,hero,collisionObjects,background,collider,ref currentLevel);
         }
-        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background, Level currentLevel)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
         {
-            currentScreen.Draw(spriteBatch,graphicsDevice,camera,hero,background,currentLevel);
+            currentScreen.Draw(spriteBatch,graphicsDevice,camera,hero,background,ref currentLevel);
         }
         public void SetState(IScreenState goToScreen)
         {
@@ -52,6 +57,10 @@ namespace _2DMonogame.Screens
         public IScreenState GetPlayScreen()
         {
             return playScreen;
+        }
+        public IScreenState GetMainMenuScreen()
+        {
+            return mainMenuScreen;
         }
         public IScreenState GetPauseScreen()
         {
