@@ -46,9 +46,9 @@ namespace _2DMonogame.Screens
         {
             currentScreen.Update(gameTime,camera,hero,collisionObjects,background,collider,ref currentLevel);
         }
-        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
+        public void Draw(SpriteBatch spriteBatch, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
         {
-            currentScreen.Draw(spriteBatch,graphicsDevice,camera,hero,background,ref currentLevel);
+            currentScreen.Draw(spriteBatch,camera,hero,background,ref currentLevel);
         }
         public void SetState(IScreenState goToScreen)
         {

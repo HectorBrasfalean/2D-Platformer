@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _2DMonogame.Blocks.MovingBlocks
 {
     /// <summary>
-    /// Verantwoordelijk voor de bewegende blokken
+    /// Verantwoordelijk voor elke bewegende blok
     /// </summary>
     class MovingBlock : StaticBlock, IMoveBlock
     {
@@ -39,7 +39,7 @@ namespace _2DMonogame.Blocks.MovingBlocks
         public bool TouchingRight { get; set; }
         public bool TouchingGround { get; set; }
         public bool TouchingTop { get; set; }
-        public IMovingCollide currentCollisionBlock { get; set; }
+        public IMovingCollide CurrentCollisionBlock { get; set; }
         public bool HasTouchedCollectable { get; set; }
 
         public override Rectangle CollisionRectangle => new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
@@ -47,8 +47,8 @@ namespace _2DMonogame.Blocks.MovingBlocks
         /// <summary>
         /// Verandert de positie
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">Het aanpassen van de positie op de x-as, kan ook null zijn</param>
+        /// <param name="y">Het aanpassen van de positie op de y-as, kan ook null zijn</param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -64,8 +64,8 @@ namespace _2DMonogame.Blocks.MovingBlocks
         /// <summary>
         /// Verandert de velocity
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">Het aanpassen van de velocity op de x-as, kan ook null zijn</param>
+        /// <param name="y">Het aanpassen van de velocity op de y-as, kan ook null zijn</param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null)
@@ -81,14 +81,14 @@ namespace _2DMonogame.Blocks.MovingBlocks
         /// <summary>
         /// Update de bewegende blok
         /// </summary>
-        /// <param name="collisionObjects"></param>
-        /// <param name="collider"></param>
+        /// <param name="collisionObjects">Lijst met alle objecten die kunnen colliden</param>
+        /// <param name="collider">Collider die kijkt of er collision gebeurt met de bewegende blok</param>
         public void Update(List<ICollide> collisionObjects,Collider collider)
         {
             collider.CollisionDetect(collisionObjects,(IMovingCollide) this);
-            if (currentCollisionBlock is IMoveBlock)
+            if (CurrentCollisionBlock is IMoveBlock)
             {
-                currentCollisionBlock.ChangeVelocity(-velocity.X, null);
+                CurrentCollisionBlock.ChangeVelocity(-velocity.X, null);
             }
             if (TouchingLeft || TouchingRight || Invert)
             {
@@ -101,7 +101,7 @@ namespace _2DMonogame.Blocks.MovingBlocks
         /// <summary>
         /// Tekent de bewegende blok
         /// </summary>
-        /// <param name="spriteBatch"></param>
+        /// <param name="spriteBatch">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Color.AliceBlue);

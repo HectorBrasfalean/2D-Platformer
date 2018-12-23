@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace _2DMonogame.Characters
 {
     /// <summary>
-    /// Verantwoordelijk voor het gedrag van elk IDie object
+    /// Verantwoordelijk voor het object dat kan doodgaan
     /// </summary>
     interface IDie : ICollide
     {

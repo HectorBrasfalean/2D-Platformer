@@ -75,7 +75,7 @@ namespace _2DMonogame
         /// </summary>
         protected override void LoadContent()
         {
-            background.backgroundTexture = Content.Load<Texture2D>("AangepasteBackground");
+            background.BackgroundTexture = Content.Load<Texture2D>("AangepasteBackground");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             currentLevel.CreateWorld(Content, collisionObjects);
         }
@@ -109,7 +109,7 @@ namespace _2DMonogame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            screenManager.Draw(spriteBatch, GraphicsDevice, camera, hero, background,ref currentLevel);
+            screenManager.Draw(spriteBatch, camera, hero, background,ref currentLevel);
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -21,63 +21,63 @@ namespace _2DMonogame
     class Collider
     {
         /// <summary>
-        /// Controleert of we de linkerkant van de sprite aanraken
+        /// Controleert of we de linkerkant van de static sprite aanraken
         /// </summary>
-        /// <param name="sprite">collision object</param>
+        /// <param name="staticObject">static collision object</param>
         /// <param name="movingCollision">bewegend collision object</param>
-        /// <returns></returns>
-        private bool IsTouchingLeft(ICollide sprite, IMovingCollide movingCollision)
+        /// <returns>returned true als het bewegend object de linkerkant van het static object aanraakt</returns>
+        private bool IsTouchingLeft(ICollide staticObject, IMovingCollide movingCollision)
         {
-            return movingCollision.CollisionRectangle.Right + movingCollision.Velocity.X > sprite.CollisionRectangle.Left &&
-              movingCollision.CollisionRectangle.Left < sprite.CollisionRectangle.Left &&
-              movingCollision.CollisionRectangle.Bottom > sprite.CollisionRectangle.Top &&
-              movingCollision.CollisionRectangle.Top < sprite.CollisionRectangle.Bottom;
+            return movingCollision.CollisionRectangle.Right + movingCollision.Velocity.X > staticObject.CollisionRectangle.Left &&
+              movingCollision.CollisionRectangle.Left < staticObject.CollisionRectangle.Left &&
+              movingCollision.CollisionRectangle.Bottom > staticObject.CollisionRectangle.Top &&
+              movingCollision.CollisionRectangle.Top < staticObject.CollisionRectangle.Bottom;
         }
 
         /// <summary>
-        /// Controleert of we de rechterkant van de sprite aanraken
+        /// Controleert of we de rechterkant van de static sprite aanraken
         /// </summary>
-        /// <param name="sprite">collision object</param>
+        /// <param name="staticObject">static collision object</param>
         /// <param name="movingCollision">bewegend collision object</param>
-        /// <returns></returns>
-        private bool IsTouchingRight(ICollide sprite, IMovingCollide movingCollision)
+        /// <returns>returned true als het bewegend object de rechterkant van het static object aanraakt</returns>
+        private bool IsTouchingRight(ICollide staticObject, IMovingCollide movingCollision)
         {
-            return movingCollision.CollisionRectangle.Left + movingCollision.Velocity.X < sprite.CollisionRectangle.Right &&
-              movingCollision.CollisionRectangle.Right > sprite.CollisionRectangle.Right &&
-              movingCollision.CollisionRectangle.Bottom > sprite.CollisionRectangle.Top &&
-              movingCollision.CollisionRectangle.Top < sprite.CollisionRectangle.Bottom;
+            return movingCollision.CollisionRectangle.Left + movingCollision.Velocity.X < staticObject.CollisionRectangle.Right &&
+              movingCollision.CollisionRectangle.Right > staticObject.CollisionRectangle.Right &&
+              movingCollision.CollisionRectangle.Bottom > staticObject.CollisionRectangle.Top &&
+              movingCollision.CollisionRectangle.Top < staticObject.CollisionRectangle.Bottom;
         }
         /// <summary>
-        /// Controleert of we de bovenkant raken van de sprite
+        /// Controleert of we de bovenkant raken van de static sprite
         /// </summary>
-        /// <param name="sprite">collision object</param>
+        /// <param name="staticObject">static collision object</param>
         /// <param name="movingCollision">bewegend collision object</param>
-        /// <returns></returns>
-        private bool IsTouchingTop(ICollide sprite, IMovingCollide movingCollision)
+        /// <returns>returned true als het bewegend object de bovenkant van het static object aanraakt</returns>
+        private bool IsTouchingTop(ICollide staticObject, IMovingCollide movingCollision)
         {
-            return movingCollision.CollisionRectangle.Bottom + movingCollision.Velocity.Y > sprite.CollisionRectangle.Top &&
-              movingCollision.CollisionRectangle.Top < sprite.CollisionRectangle.Top &&
-              movingCollision.CollisionRectangle.Right > sprite.CollisionRectangle.Left &&
-              movingCollision.CollisionRectangle.Left < sprite.CollisionRectangle.Right;
+            return movingCollision.CollisionRectangle.Bottom + movingCollision.Velocity.Y > staticObject.CollisionRectangle.Top &&
+              movingCollision.CollisionRectangle.Top < staticObject.CollisionRectangle.Top &&
+              movingCollision.CollisionRectangle.Right > staticObject.CollisionRectangle.Left &&
+              movingCollision.CollisionRectangle.Left < staticObject.CollisionRectangle.Right;
         }
         /// <summary>
-        /// Controleert of we de onderkant raken van de sprite
+        /// Controleert of we de onderkant raken van de static sprite
         /// </summary>
-        /// <param name="sprite">collision object</param>
+        /// <param name="staticObject">static collision object</param>
         /// <param name="movingCollision">bewegend collision object</param>
-        /// <returns></returns>
-        private bool IsTouchingBottom(ICollide sprite, IMovingCollide movingCollision)
+        /// <returns>returned true als het bewegend object de onderkant van het static object aanraakt</returns>
+        private bool IsTouchingBottom(ICollide staticObject, IMovingCollide movingCollision)
         {
-            return movingCollision.CollisionRectangle.Top + movingCollision.Velocity.Y < sprite.CollisionRectangle.Bottom &&
-              movingCollision.CollisionRectangle.Bottom > sprite.CollisionRectangle.Bottom &&
-              movingCollision.CollisionRectangle.Right > sprite.CollisionRectangle.Left &&
-              movingCollision.CollisionRectangle.Left < sprite.CollisionRectangle.Right;
+            return movingCollision.CollisionRectangle.Top + movingCollision.Velocity.Y < staticObject.CollisionRectangle.Bottom &&
+              movingCollision.CollisionRectangle.Bottom > staticObject.CollisionRectangle.Bottom &&
+              movingCollision.CollisionRectangle.Right > staticObject.CollisionRectangle.Left &&
+              movingCollision.CollisionRectangle.Left < staticObject.CollisionRectangle.Right;
         }
         /// <summary>
         /// Kijkt of er een collision gebeurt
         /// </summary>
         /// <param name="collideObjects">Lijst met elk object dat kan colliden</param>
-        /// <param name="movingCollision">object dat kan colliden en beweegt</param>
+        /// <param name="movingCollision">bewegend object dat kan colliden</param>
         public void CollisionDetect(List<ICollide> collideObjects, IMovingCollide movingCollision)
         {
             ResetState(movingCollision);
@@ -97,20 +97,20 @@ namespace _2DMonogame
         /// Detecteert onzichtbare blokken voor de projectielen
         /// </summary>
         /// <param name="collideObjects">Lijst met elk object dat kan colliden</param>
-        /// <param name="_object">object dat kan colliden en beweegt</param>
-        private static void DetectInvisibleBlockForProjectiles(List<ICollide> collideObjects,IMovingCollide _object)
+        /// <param name="movingCollide">bewegend object dat kan colliden</param>
+        private static void DetectInvisibleBlockForProjectiles(List<ICollide> collideObjects,IMovingCollide movingCollide)
         {
             foreach (IInvisible invisibleBlock in collideObjects.OfType<IInvisible>())
             {
-                if (_object.CollisionRectangle.Intersects(invisibleBlock.CollisionRectangle))
+                if (movingCollide.CollisionRectangle.Intersects(invisibleBlock.CollisionRectangle))
                 {
-                    _object.TouchingGround = true;
+                    movingCollide.TouchingGround = true;
                 }
             }
         }
 
         /// <summary>
-        /// Detecteert onzichtbare blokken
+        /// Detecteert onzichtbare blokken voor de enemies
         /// </summary>
         /// <param name="collideObjects">Lijst met elk object dat kan colliden</param>
         /// <param name="enemy">Enemy object waarop we controleren of we botsen met onzichtbare blokken</param>
@@ -131,21 +131,21 @@ namespace _2DMonogame
         /// Kijkt of de hero iets dodelijk heeft aangeraakt
         /// </summary>
         /// <param name="collideObjects">Lijst met alle objecten waar we mee kunnen colliden</param>
-        /// <param name="_object">object dat kan colliden en beweegt</param>
-        private static void DetectHeroDeath(List<ICollide> collideObjects, IDie _object)
+        /// <param name="canDieObject">bewegend object dat kan colliden</param>
+        private static void DetectHeroDeath(List<ICollide> collideObjects, IDie canDieObject)
         {
             foreach (IDeathBlock deathBlock in collideObjects.OfType<IDeathBlock>())
             {
-                if ( _object.CollisionRectangle.Intersects(deathBlock.CollisionRectangle))
-                    _object.IsHit = true;
+                if ( canDieObject.CollisionRectangle.Intersects(deathBlock.CollisionRectangle))
+                    canDieObject.IsHit = true;
             }
             foreach (Enemy enemy in collideObjects.OfType<Enemy>())
             {
-                if (_object.CollisionRectangle.Intersects(enemy.CollisionRectangle))
+                if (canDieObject.CollisionRectangle.Intersects(enemy.CollisionRectangle))
                 {
                     if (enemy.CurrentAnimation != enemy.DeathAnimation)
                     {
-                        _object.IsHit = true;
+                        canDieObject.IsHit = true;
                         enemy.Attack = true;
                     }
                 }
@@ -153,18 +153,18 @@ namespace _2DMonogame
         }
 
         /// <summary>
-        /// Kijkt of we een collectable hebben aangeraakt
+        /// Kijkt of we een collectable hebben aangeraakt met een object dat een collectable kan collecteren
         /// </summary>
         /// <param name="collideObjects">Lijst met alle objecten waar we mee kunnen colliden</param>
-        /// <param name="_object">object dat kan colliden en beweegt</param>
-        private static void DetectCollectable(List<ICollide> collideObjects, ICanCollect _object)
+        /// <param name="canCollectObject">object dat kan colliden en beweegt</param>
+        private static void DetectCollectable(List<ICollide> collideObjects, ICanCollect canCollectObject)
         {
             foreach (ICollectable collectable in collideObjects.OfType<ICollectable>().ToList())
             {
-                if (_object is ICanCollect && _object.CollisionRectangle.Intersects(collectable.CollisionRectangle))
+                if (canCollectObject is ICanCollect && canCollectObject.CollisionRectangle.Intersects(collectable.CollisionRectangle))
                 {
                     collectable.IsCollected = true;
-                    _object.HasTouchedCollectable = true;
+                    canCollectObject.HasTouchedCollectable = true;
                     collideObjects.Remove(collectable);
                 }
             }
@@ -174,18 +174,18 @@ namespace _2DMonogame
         /// Kijkt of een enemy iets heeft aangeraakt
         /// </summary>
         /// <param name="collideObjects">Lijst met alle objecten waar we mee kunnen colliden</param>
-        /// <param name="_object">object dat kan colliden en beweegt</param>
-        private static void DetectEnemy(List<ICollide> collideObjects, IMovingCollide _object)
+        /// <param name="movingCollide">object dat kan colliden en beweegt</param>
+        private static void DetectEnemy(List<ICollide> collideObjects, IMovingCollide movingCollide)
         {
             foreach (Enemy currentEnemy in collideObjects.OfType<Enemy>().ToList())
             {
-                if (_object is Hero && _object.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
+                if (movingCollide is Hero && movingCollide.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
                 {
                     currentEnemy.TouchedHero = true;
                 }
-                if (_object is Projectile && _object.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
+                if (movingCollide is Projectile && movingCollide.CollisionRectangle.Intersects(currentEnemy.CollisionRectangle))
                 {
-                    _object.TouchingLeft = true;
+                    movingCollide.TouchingLeft = true;
                     currentEnemy.IsHit = true;
                 }
             }
@@ -195,48 +195,48 @@ namespace _2DMonogame
         /// Controleert of we een static block hebben aangeraakt
         /// </summary>
         /// <param name="collideObjects">Lijst met alle objecten waar we mee kunnen colliden</param>
-        /// <param name="_object">object dat kan colliden en beweegt</param>
-        private void DetectStaticBlocks(List<ICollide> collideObjects, IMovingCollide _object)
+        /// <param name="movingCollide">object dat kan colliden en beweegt</param>
+        private void DetectStaticBlocks(List<ICollide> collideObjects, IMovingCollide movingCollide)
         {
             foreach (ICollide currentBlock in collideObjects.OfType<StaticBlock>())
             {
-                if (currentBlock is ICollectable || currentBlock is IDeathBlock || _object is IDeathBlock)
+                if (currentBlock is ICollectable || currentBlock is IDeathBlock || movingCollide is IDeathBlock)
                     continue;
-                if (_object.Velocity.X > 0 && IsTouchingLeft(currentBlock, _object))
+                if (movingCollide.Velocity.X > 0 && IsTouchingLeft(currentBlock, movingCollide))
                 {
                     if (currentBlock is IMoveBlock)
-                        _object.currentCollisionBlock = (IMoveBlock)currentBlock;
-                    else _object.currentCollisionBlock = null;
-                    _object.TouchingRight = true;
+                        movingCollide.CurrentCollisionBlock = (IMoveBlock)currentBlock;
+                    else movingCollide.CurrentCollisionBlock = null;
+                    movingCollide.TouchingRight = true;
                 }
-                if (_object.Velocity.X < 0 && IsTouchingRight(currentBlock, _object))
+                if (movingCollide.Velocity.X < 0 && IsTouchingRight(currentBlock, movingCollide))
                 {
                     if (currentBlock is IMoveBlock )
-                        _object.currentCollisionBlock = (IMoveBlock)currentBlock;
-                    else _object.currentCollisionBlock = null;
-                    _object.TouchingLeft = true;
+                        movingCollide.CurrentCollisionBlock = (IMoveBlock)currentBlock;
+                    else movingCollide.CurrentCollisionBlock = null;
+                    movingCollide.TouchingLeft = true;
                 }
-                if (_object.Velocity.Y > 0 && IsTouchingTop(currentBlock, _object))
+                if (movingCollide.Velocity.Y > 0 && IsTouchingTop(currentBlock, movingCollide))
                 {
-                    _object.TouchingGround = true;
+                    movingCollide.TouchingGround = true;
                 }
-                if (_object.Velocity.Y < 0 && IsTouchingBottom(currentBlock, _object))
+                if (movingCollide.Velocity.Y < 0 && IsTouchingBottom(currentBlock, movingCollide))
                 {
-                    _object.TouchingTop = true;
+                    movingCollide.TouchingTop = true;
                 }
             }
         }
 
         /// <summary>
-        /// Reset alle booleans
+        /// Reset alle booleans van het bewegend collision object
         /// </summary>
-        /// <param name="_object">collision object dat beweeegt</param>
-        private static void ResetState(IMovingCollide _object)
+        /// <param name="movingCollide">collision object dat beweegt</param>
+        private static void ResetState(IMovingCollide movingCollide)
         {
-            _object.TouchingGround = false;
-            _object.TouchingTop = false;
-            _object.TouchingLeft = false;
-            _object.TouchingRight = false;
+            movingCollide.TouchingGround = false;
+            movingCollide.TouchingTop = false;
+            movingCollide.TouchingLeft = false;
+            movingCollide.TouchingRight = false;
         }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 namespace _2DMonogame.Levels
 {
     /// <summary>
-    /// Verantwoordelijk voor de array van level2
+    /// Verantwoordelijk voor de array van level 2
     /// </summary>
     class Level2 : Level
     {

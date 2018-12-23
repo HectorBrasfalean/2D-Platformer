@@ -26,7 +26,7 @@ namespace _2DMonogame.Screens
             this.screenManager = screenManager;
         }
 
-        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
+        public void Draw(SpriteBatch spriteBatch, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
         {
             spriteBatch.Draw(level2CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level2CompleteScreen.Width, level2CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 30", new Vector2(300, 350), Color.Black);

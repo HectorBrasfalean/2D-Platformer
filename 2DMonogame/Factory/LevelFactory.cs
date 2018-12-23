@@ -17,8 +17,17 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor het aanmaken van elke blok voor de game
+    /// </summary>
     class LevelFactory : AbstractLevelFactory
     {
+        /// <summary>
+        /// Maakt de blok aan
+        /// </summary>
+        /// <param name="id">Afhankelijk van de id zullen we een bepaalde blok aanmaken</param>
+        /// <param name="content">ContentManager object dat we gebruiken om textures te laden</param>
+        /// <returns>De aangemaakt blok</returns>
         protected override GameObject CreateBlock(int id, ContentManager content)
         {
             GameObject b = null;

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor de beweging
+    /// </summary>
     abstract class Movement
     {
         public float movementSpeed = 4;

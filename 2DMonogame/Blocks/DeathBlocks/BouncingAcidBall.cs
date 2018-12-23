@@ -20,7 +20,7 @@ namespace _2DMonogame.Blocks.DeathBlocks
         Animation currentAnimation;
         Animation flyingAcidBallAnimation;
 
-        public IMovingCollide currentCollisionBlock { get; set; }
+        public IMovingCollide CurrentCollisionBlock { get; set; }
 
         public float MovingSpeed =>0.15f;
 
@@ -48,6 +48,13 @@ namespace _2DMonogame.Blocks.DeathBlocks
             currentAnimation = flyingAcidBallAnimation;
             ChangeVelocity(null, bounceHeight);
         }
+
+        /// <summary>
+        /// Update de bouncing acid ball
+        /// </summary>
+        /// <param name="gameTime">GameTime object waarmee een kunnen kijken hoeveel tijd er al voorbij is gegaan</param>
+        /// <param name="collider">Collider die kijkt of er een collision gebeurt bij de acid ball</param>
+        /// <param name="collisionObjects">Lijst met alle objecten die kunnen colliden</param>
         public void Update(GameTime gameTime,Collider collider,List<ICollide> collisionObjects)
         {
             collider.CollisionDetect(collisionObjects, this);
@@ -64,11 +71,20 @@ namespace _2DMonogame.Blocks.DeathBlocks
             currentAnimation.Update(gameTime);
         }
 
+        /// <summary>
+        /// Tekent de acid ball
+        /// </summary>
+        /// <param name="spriteBatch">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, currentAnimation.CurrentFrame.RectangleSelector, Color.LightGreen,0f, Vector2.Zero, currentAnimation.CurrentFrame.scale, isGoingDown ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
         }
 
+        /// <summary>
+        /// Hiermee passen we de velocity van de acid ball aan
+        /// </summary>
+        /// <param name="x">de velocity op de x-as, kan ook null zijn</param>
+        /// <param name="y">de velocity op de y-as, kan ook null zijn</param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null)
@@ -81,6 +97,11 @@ namespace _2DMonogame.Blocks.DeathBlocks
             }
         }
 
+        /// <summary>
+        /// Hiermee passen we de positie van de acid ball aan
+        /// </summary>
+        /// <param name="x">de positie op de x-as, kan ook null zijn</param>
+        /// <param name="y">de positie op de y-as, kan ook null zijn</param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)

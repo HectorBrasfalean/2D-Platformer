@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace _2DMonogame.Collision
 {
     /// <summary>
-    /// Verantwoordelijk voor de collision eigenschappen die we gebruiken in collision detection
+    /// Verantwoordelijk voor elk collision object dat kan colliden met iets
     /// </summary>
     public interface ICollide 
     {

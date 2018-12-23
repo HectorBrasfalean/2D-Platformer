@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Characters
 {
+    /// <summary>
+    /// Verantwoordelijk voor de groene goblin enemy
+    /// </summary>
     class GreenGoblin : Enemy
     {
         public GreenGoblin(ContentManager content, string name) : base(content,name)

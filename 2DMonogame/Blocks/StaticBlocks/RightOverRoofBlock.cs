@@ -23,7 +23,7 @@ namespace _2DMonogame.Blocks.StaticBlocks
         /// <summary>
         /// Tekent de rechtse overkaping blok
         /// </summary>
-        /// <param name="spriteBatch"></param>
+        /// <param name="spriteBatch">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Color.AliceBlue);

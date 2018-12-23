@@ -27,7 +27,7 @@ namespace _2DMonogame
         /// <summary>
         /// Tekent de fireball op het scherm
         /// </summary>
-        /// <param name="sprite"></param>
+        /// <param name="sprite">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
         public override void Draw(SpriteBatch sprite)
         {
             sprite.Draw(Texture,Position,fireballAnimation.CurrentFrame.RectangleSelector,Color.AliceBlue,0f,Vector2.Zero,1f,GoesLeft?SpriteEffects.FlipHorizontally:SpriteEffects.None,0);
@@ -37,7 +37,7 @@ namespace _2DMonogame
         /// <summary>
         /// Update de positie van de fireball
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">GameTime object waarmee we iets op een bepaalde tijd kunnen afspelen</param>
         public override void Update(GameTime gameTime)
         {
             

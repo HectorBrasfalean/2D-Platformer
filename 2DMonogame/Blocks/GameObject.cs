@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace _2DMonogame.Blocks
 {
     /// <summary>
-    /// Verantwoordelijk voor het gameobject
+    /// Verantwoordelijk voor elk gameobject
     /// </summary>
     abstract class GameObject
     {
@@ -25,7 +25,7 @@ namespace _2DMonogame.Blocks
         /// <summary>
         /// Initialiseerd door middel van het een positie te geven
         /// </summary>
-        /// <param name="position"></param>
+        /// <param name="position">Startpositie die wordt meegegeven</param>
         public void Initialize(Vector2 position)
         {
             Position = position;

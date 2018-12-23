@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _2DMonogame.Blocks.StaticBlocks
 {
     /// <summary>
-    /// Verantwoordelijk voor de onder blok
+    /// Verantwoordelijk voor de blok met het gras onderaan
     /// </summary>
     class UnderBlock : StaticBlock
     {
@@ -23,7 +23,7 @@ namespace _2DMonogame.Blocks.StaticBlocks
         /// <summary>
         /// Tekent de onder blok
         /// </summary>
-        /// <param name="spriteBatch"></param>
+        /// <param name="spriteBatch">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, Color.AliceBlue);

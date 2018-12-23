@@ -11,46 +11,46 @@ using System.Threading.Tasks;
 namespace _2DMonogame
 {
     /// <summary>
-    /// Verantwoordelijk voor de elke beweging met pijltjestoetsen
+    /// Verantwoordelijk voor de bewegingen met pijltjestoetsen
     /// </summary>
     class MovementArrowKeys : Movement
     {
         /// <summary>
         /// Update de movement voor een bewegend collision object
         /// </summary>
-        /// <param name="hero"></param>
-        public override void Update(IMovingCollide hero)
+        /// <param name="movingCollision">bewegend object dat kan colliden</param>
+        public override void Update(IMovingCollide movingCollision)
         {
-            if (hero.TouchingGround)
-                hero.ChangeVelocity(null, 0);
-            if (hero.TouchingLeft)
+            if (movingCollision.TouchingGround)
+                movingCollision.ChangeVelocity(null, 0);
+            if (movingCollision.TouchingLeft)
             {
-                if(hero.currentCollisionBlock is IMoveBlock)
-                    hero.ChangePosition(hero.Position.X + hero.MovingSpeed + hero.currentCollisionBlock.MovingSpeed, null);
+                if(movingCollision.CurrentCollisionBlock is IMoveBlock)
+                    movingCollision.ChangePosition(movingCollision.Position.X + movingCollision.MovingSpeed + movingCollision.CurrentCollisionBlock.MovingSpeed, null);
                 else
-                    hero.ChangePosition(hero.Position.X + hero.MovingSpeed, null);
-                hero.ChangeVelocity(0, null);
+                    movingCollision.ChangePosition(movingCollision.Position.X + movingCollision.MovingSpeed, null);
+                movingCollision.ChangeVelocity(0, null);
             }
-            if(hero.TouchingRight)
+            if(movingCollision.TouchingRight)
             {
-                if (hero.currentCollisionBlock is IMoveBlock)
-                    hero.ChangePosition(hero.Position.X - hero.MovingSpeed - hero.currentCollisionBlock.MovingSpeed, null);
+                if (movingCollision.CurrentCollisionBlock is IMoveBlock)
+                    movingCollision.ChangePosition(movingCollision.Position.X - movingCollision.MovingSpeed - movingCollision.CurrentCollisionBlock.MovingSpeed, null);
                 else
-                    hero.ChangePosition(hero.Position.X - hero.MovingSpeed, null);
-                hero.ChangeVelocity(0, null);
+                    movingCollision.ChangePosition(movingCollision.Position.X - movingCollision.MovingSpeed, null);
+                movingCollision.ChangeVelocity(0, null);
         
             }
-            if (hero.TouchingTop)
-                hero.ChangeVelocity(null, 0.1f);
-            ReadButtonInput(hero);
-            if (hero.Velocity.Y != 0)
+            if (movingCollision.TouchingTop)
+                movingCollision.ChangeVelocity(null, 0.1f);
+            ReadButtonInput(movingCollision);
+            if (movingCollision.Velocity.Y != 0)
             {
-                hero.ChangeVelocity(null, hero.Velocity.Y + 0.2f);
+                movingCollision.ChangeVelocity(null, movingCollision.Velocity.Y + 0.2f);
             }
-            hero.Position += hero.Velocity;
-            if (!hero.TouchingGround && hero.Velocity.Y == 0)
+            movingCollision.Position += movingCollision.Velocity;
+            if (!movingCollision.TouchingGround && movingCollision.Velocity.Y == 0)
             {
-                hero.ChangeVelocity(null, 0.2f);
+                movingCollision.ChangeVelocity(null, 0.2f);
             }
 
         }
@@ -58,29 +58,29 @@ namespace _2DMonogame
         /// <summary>
         /// Leest de input van de ingedrukte knoppen
         /// </summary>
-        /// <param name="hero">het bewegend collision object</param>
-        private void ReadButtonInput(IMovingCollide hero)
+        /// <param name="movingCollide">het bewegend collision object</param>
+        private void ReadButtonInput(IMovingCollide movingCollide)
         {
             KeyboardState stateKey = Keyboard.GetState();
 
             if (stateKey.IsKeyUp(Keys.Right))
             {
                 Right = false;
-                hero.ChangeVelocity(0, null);
+                movingCollide.ChangeVelocity(0, null);
             }
             if (stateKey.IsKeyUp(Keys.Left))
             {
                 Left = false;
-                hero.ChangeVelocity(0, null);
+                movingCollide.ChangeVelocity(0, null);
             }
             if (stateKey.IsKeyDown(Keys.Left) && Right != true)
             {
                 Left = true;
-                hero.ChangeVelocity(-movementSpeed, null);
+                movingCollide.ChangeVelocity(-movementSpeed, null);
             }
-            if (stateKey.IsKeyDown(Keys.Up) && hero.Velocity.Y == 0)
+            if (stateKey.IsKeyDown(Keys.Up) && movingCollide.Velocity.Y == 0)
             {
-                hero.ChangeVelocity(null, -8);
+                movingCollide.ChangeVelocity(null, -8);
                 Jump = true;
             }
             if (stateKey.IsKeyUp(Keys.Up))
@@ -98,7 +98,7 @@ namespace _2DMonogame
             if (stateKey.IsKeyDown(Keys.Right) && Left != true)
             {
                 Right = true;
-                hero.ChangeVelocity(movementSpeed, null);
+                movingCollide.ChangeVelocity(movementSpeed, null);
             }
         }
     }

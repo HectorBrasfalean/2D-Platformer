@@ -56,7 +56,6 @@
     <Compile Include="Animations\Green Goblin\GreenGoblinDeathAnimation.cs" />
     <Compile Include="Animations\Green Goblin\GreenGoblinRunAnimation.cs" />
     <Compile Include="Animations\Projectile\GreenAcidBallDownUpAnimation.cs" />
-    <Compile Include="Animations\Projectile\GreenAcidBallSwitchAnimation.cs" />
     <Compile Include="Blocks\DeathBlocks\BouncingAcidBall.cs" />
     <Compile Include="Blocks\GameObject.cs" />
     <Compile Include="Blocks\Collectable\StarCollectable.cs" />

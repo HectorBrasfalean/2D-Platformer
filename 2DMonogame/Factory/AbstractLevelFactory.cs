@@ -17,14 +17,23 @@ namespace _2DMonogame
     /// </summary>
     abstract class AbstractLevelFactory
     {
-        public GameObject GetGameObjectsLevel(int id, ContentManager content, int x, int y,List<ICollide> collisionObjects)
+        /// <summary>
+        /// Haalt een gameobject op
+        /// </summary>
+        /// <param name="id">Nummer van blok dat we moeten aanmaken</param>
+        /// <param name="content">ContentManager die we gebruiken om textures te laden</param>
+        /// <param name="x">positie op de x-as in de 2D array</param>
+        /// <param name="y">positie op de y-as in de 2D array</param>
+        /// <param name="collisionObjects">Lijt met alle objecten dat kunnen colliden</param>
+        /// <returns>Het gameobject dat is aangemaakt</returns>
+        public GameObject GetGameObjectsLevel(int id, ContentManager content, int y, int x,List<ICollide> collisionObjects)
         {
             GameObject gameObject = CreateBlock(id, content);
 
             if (gameObject is ICollide)
                 collisionObjects.Add((ICollide)gameObject);
             if (gameObject != null)
-                gameObject.Initialize(new Vector2(y * 100, x * 100));
+                gameObject.Initialize(new Vector2(x * 100, y * 100));
             return gameObject;
         }
         protected abstract GameObject CreateBlock(int id, ContentManager content);

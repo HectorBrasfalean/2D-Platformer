@@ -50,13 +50,13 @@ namespace _2DMonogame.Characters
 
         public abstract Rectangle CollisionRectangle { get; }
 
-        public IMovingCollide currentCollisionBlock { get; set; }
+        public IMovingCollide CurrentCollisionBlock { get; set; }
 
         /// <summary>
         /// Verandert de positie van de enemy
         /// </summary>
-        /// <param name="x">de positie op de x-as</param>
-        /// <param name="y">de positie op de y-as</param>
+        /// <param name="x">de positie op de x-as, kan ook null zijn</param>
+        /// <param name="y">de positie op de y-as, kan ook null zijn</param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -72,8 +72,8 @@ namespace _2DMonogame.Characters
         /// <summary>
         /// Verandert de velocity van de enemy
         /// </summary>
-        /// <param name="x">de positie op de x-as</param>
-        /// <param name="y">de positie op de y-as</param>
+        /// <param name="x">de velocity op de x-as, kan ook null zijn</param>
+        /// <param name="y">de velocity op de y-as, kan ook null zijn</param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null)
@@ -89,9 +89,9 @@ namespace _2DMonogame.Characters
         /// <summary>
         /// Update de enemy
         /// </summary>
-        /// <param name="gameTime"></param>
-        /// <param name="collider"></param>
-        /// <param name="collisionObjects"></param>
+        /// <param name="gameTime">GameTime object die we kunnen gebruiken om de tijd te meten</param>
+        /// <param name="collider">Collider object dat we gebruiken of er collision gebeurt bij de enemy</param>
+        /// <param name="collisionObjects">Lijst met alle objecten die kunnen colliden</param>
         public void Update(GameTime gameTime,Collider collider,List<ICollide> collisionObjects)
         {
             collider.CollisionDetect(collisionObjects, this);
@@ -153,7 +153,7 @@ namespace _2DMonogame.Characters
         /// <summary>
         /// Tekent de enemy
         /// </summary>
-        /// <param name="sprite"></param>
+        /// <param name="sprite">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
         public override void Draw(SpriteBatch sprite)
         {
             if (Death == false && !(CurrentAnimation == DeathAnimation && CurrentAnimation.CurrentFrame == DeathAnimation.frames[DeathAnimation.frames.Count - 1]))

@@ -28,7 +28,7 @@ namespace _2DMonogame.Screens
             this.screenManager = screenManager;
         }
 
-        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
+        public void Draw(SpriteBatch spriteBatch, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
         {
             spriteBatch.Draw(pausedImage, Vector2.Zero, new Rectangle(0, 0, pausedImage.Width, pausedImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(resumeText, new Rectangle(850, 250, resumeText.Width, resumeText.Height), Color.White);

@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor het level
+    /// </summary>
     abstract class Level
     {
         protected ContentManager content;
@@ -29,6 +32,11 @@ namespace _2DMonogame
             levelFactory = new LevelFactory();
         }
         protected abstract void CreateArray();
+        /// <summary>
+        /// Het aanmaken van een level
+        /// </summary>
+        /// <param name="content">ContentManager object dat we gebruiken om textures te laden</param>
+        /// <param name="collisionObjects">Lijst met alle objecten dat kunnen colliden</param>
         public void CreateWorld(ContentManager content,List<ICollide> collisionObjects)
         {
             for (int x = 0; x < TileArray.GetLength(0); x++)
@@ -39,6 +47,13 @@ namespace _2DMonogame
                 }
             }
         }
+
+        /// <summary>
+        /// Updaten van alle bewegende objecten in het level
+        /// </summary>
+        /// <param name="gameTime">GameTime object dat we gebruiken om iets op een bepaalde tijd af te spelen</param>
+        /// <param name="collisionObjects">Lijst met alle objecten die kunnen colliden</param>
+        /// <param name="collider">Collider object dat controlleert of er collision gebeurt</param>
         public void Update(GameTime gameTime,List<ICollide> collisionObjects,Collider collider)
         {
             foreach (IMoveBlock currentBlock in collisionObjects.OfType<IMoveBlock>())
@@ -56,6 +71,11 @@ namespace _2DMonogame
                 ball.Update(gameTime, collider, collisionObjects);
             }
         }
+
+        /// <summary>
+        /// Tekent het volledige level
+        /// </summary>
+        /// <param name="spriteBatch">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
         public void DrawWorld(SpriteBatch spriteBatch)
         {
             for (int x = 0; x < TileArray.GetLength(0); x++)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace _2DMonogame.Blocks.Collectable
 {
     /// <summary>
-    /// Verantwoordelijk voor elk Icollectable object
+    /// Verantwoordelijk voor elk collectable object
     /// </summary>
     interface ICollectable : ICollide
     {

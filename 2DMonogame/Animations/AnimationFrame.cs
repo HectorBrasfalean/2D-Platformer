@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace _2DMonogame
 {
     /// <summary>
-    /// Verantwoordelijk voor de animationframe
+    /// Verantwoordelijk voor een animationframe
     /// </summary>
     class AnimationFrame
     {

@@ -63,8 +63,8 @@ namespace _2DMonogame
         /// <summary>
         /// Past de velocity aan van het hero object
         /// </summary>
-        /// <param name="x">de positie op de x-as</param>
-        /// <param name="y">de positie op de y-as</param>
+        /// <param name="x">de positie op de x-as, kan ook null zijn</param>
+        /// <param name="y">de positie op de y-as, kan ook null zijn</param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null) {
@@ -79,8 +79,8 @@ namespace _2DMonogame
         /// <summary>
         /// Past de positie aan van het hero object
         /// </summary>
-        /// <param name="x">de positie op de x-as</param>
-        /// <param name="y">de positie op de y-as</param>
+        /// <param name="x">de positie op de x-as, kan ook null zijn</param>
+        /// <param name="y">de positie op de y-as, kan ook null zijn</param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)
@@ -95,7 +95,7 @@ namespace _2DMonogame
         public bool TouchingGround { get; set; }
         public float MovingSpeed { get { return movement.movementSpeed; }  }
 
-        public IMovingCollide currentCollisionBlock { get; set; }
+        public IMovingCollide CurrentCollisionBlock { get; set; }
         public bool HasTouchedCollectable { get; set; }
         public bool IsHit { get; set; }
         private int amountOfLives = 3;
@@ -126,8 +126,8 @@ namespace _2DMonogame
         /// <summary>
         /// Update het hero object
         /// </summary>
-        /// <param name="gameTime"></param>
-        /// <param name="collisionObjects"></param>
+        /// <param name="gameTime">GameTime object dat we kunnen gebruiken om iets op een tijd af te spelen</param>
+        /// <param name="collisionObjects">Lijst met alle objecten dat kunnen colliden</param>
         public void Update(GameTime gameTime,List<ICollide> collisionObjects,Collider collisionCheck)
         {
             if (!IsHit)
@@ -154,14 +154,14 @@ namespace _2DMonogame
         /// <summary>
         /// Update alle fireballs
         /// </summary>
-        /// <param name="gameTime"></param>
-        /// <param name="collisionObjects"></param>
-        /// <param name="collisionCheck"></param>
-        private void UpdateAllFireballs(GameTime gameTime, List<ICollide> collisionObjects, Collider collisionCheck)
+        /// <param name="gameTime">GameTime object dat we kunnen gebruiken om iets op een tijd af te spelen</param>
+        /// <param name="collisionObjects">Lijst met alle objecten dat kunnen colliden</param>
+        /// <param name="collider">Collider object waarmee we controleren of er een collision gebeurt bij de fireball</param>
+        private void UpdateAllFireballs(GameTime gameTime, List<ICollide> collisionObjects, Collider collider)
         {
             foreach (Projectile ball in fireballs.ToList())
             {
-                collisionCheck.CollisionDetect(collisionObjects, ball);
+                collider.CollisionDetect(collisionObjects, ball);
                 
                 if (ball.Position.X > ball.ShotStartPosition + 500 || ball.Position.X < ball.ShotStartPosition - 500 || ball.TouchingRight || ball.TouchingLeft)
                 {
@@ -175,7 +175,7 @@ namespace _2DMonogame
         /// <summary>
         /// Zet de hero deathanimation als de momentele animation
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">GameTime object dat we kunnen gebruiken om iets op een tijd af te spelen</param>
         private void SetHeroDeathAnimation(GameTime gameTime)
         {
             currentAnimation = deathAnimation;
@@ -255,11 +255,11 @@ namespace _2DMonogame
             }
             deathAnimation.Reset();
         }
- 
+
         /// <summary>
         /// Tekent de hero op het scherm
         /// </summary>
-        /// <param name="spriteBatch"></param>
+        /// <param name="spriteBatch">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, currentAnimation.CurrentFrame.RectangleSelector, Color.AliceBlue, 0f, Vector2.Zero, currentAnimation.CurrentFrame.scale, isLookingLeft?SpriteEffects.FlipHorizontally:SpriteEffects.None, 0f);

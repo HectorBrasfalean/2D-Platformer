@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DMonogame.Characters
 {
+    /// <summary>
+    /// Verantwoordelijk voor de orc enemy
+    /// </summary>
     class Orc : Enemy
     {
         public Orc(ContentManager content,string name) : base(content, name)

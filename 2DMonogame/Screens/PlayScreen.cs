@@ -30,11 +30,11 @@ namespace _2DMonogame.Screens
             scoreFont = content.Load<SpriteFont>("Points");
 
         }
-        public void Draw(SpriteBatch spriteBatch,GraphicsDevice graphicsDevice,Camera2D camera,Hero hero,Background background,ref Level currentLevel)
+        public void Draw(SpriteBatch spriteBatch,Camera2D camera,Hero hero,Background background,ref Level currentLevel)
         {
             spriteBatch.End();
             spriteBatch.Begin(transformMatrix: camera.Transform);
-            background.Draw(spriteBatch, graphicsDevice);
+            background.Draw(spriteBatch);
 
             currentLevel.DrawWorld(spriteBatch);
             hero.Draw(spriteBatch);
