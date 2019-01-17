@@ -57,7 +57,7 @@ namespace _2DMonogame
 
             collisionObjects.Add(hero);
 
-            currentLevel = new Level1(Content);
+            currentLevel = null;
 
             camera = new Camera2D() { ScreenHeight = ScreenHeight, ScreenWidth = ScreenWidth ,Zoom = 0.75f};
 
@@ -76,7 +76,7 @@ namespace _2DMonogame
         {
             background.BackgroundTexture = Content.Load<Texture2D>("AangepasteBackground");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            currentLevel.CreateWorld(Content, collisionObjects);
+            //currentLevel.CreateWorld(Content, collisionObjects);
         }
 
 

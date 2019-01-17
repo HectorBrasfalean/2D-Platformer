@@ -1,5 +1,6 @@
 ﻿using _2DMonogame.Button;
 using _2DMonogame.Collision;
+using _2DMonogame.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace _2DMonogame.Screens
@@ -83,7 +85,8 @@ namespace _2DMonogame.Screens
             screenManager.MakeMouseVisible(true);
             if (playGameButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
             {
-                LoadLevel(new Level1(content), new Vector2(5550, 300), currentLevel, collisionObjects, hero);
+                Thread.Sleep(100);
+                LoadLevel(new Level1(content), new Vector2(150, 600),ref currentLevel, collisionObjects, hero);
                 ResetHeroCollectedStars(hero);
                 ResetHeroLives(hero);
                 screenManager.SetState(screenManager.GetPlayScreen());
@@ -120,7 +123,7 @@ namespace _2DMonogame.Screens
         /// <param name="currentLevel">Huidige level</param>
         /// <param name="collisionObjects">Lijst met alle objecten die kunnen colliden</param>
         /// <param name="hero">Hero object dat we besturen</param>
-        private void LoadLevel(Level nextLevel, Vector2 spawnPosHero,Level currentLevel,List<ICollide> collisionObjects,Hero hero)
+        private void LoadLevel(Level nextLevel, Vector2 spawnPosHero,ref Level currentLevel,List<ICollide> collisionObjects,Hero hero)
         {
             currentLevel = nextLevel;
             currentLevel.CreateWorld(content, collisionObjects);

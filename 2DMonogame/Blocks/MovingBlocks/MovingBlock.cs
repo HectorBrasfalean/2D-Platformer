@@ -85,7 +85,7 @@ namespace _2DMonogame.Blocks.MovingBlocks
         /// <param name="collider">Collider die kijkt of er collision gebeurt met de bewegende blok</param>
         public void Update(List<ICollide> collisionObjects,Collider collider)
         {
-            collider.CollisionDetect(collisionObjects,(IMovingCollide) this);
+            collider.CollisionDetect(collisionObjects,this);
             if (CurrentCollisionBlock is IMoveBlock)
             {
                 CurrentCollisionBlock.ChangeVelocity(-velocity.X, null);

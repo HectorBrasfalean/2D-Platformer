@@ -20,8 +20,8 @@ namespace _2DMonogame.Screens
     {
         ScreenManager screenManager;
         MouseState mouseState, prevMouseState;
-        ButtonScreen mainMenuButton, quitButton;
-        Texture2D level2CompleteScreen, mainMenuText, quitText;
+        ButtonScreen quitButton;
+        Texture2D level2CompleteScreen, quitText;
         SpriteFont shootText;
 
         public NextLevel2Screen(ScreenManager screenManager)
@@ -41,9 +41,7 @@ namespace _2DMonogame.Screens
         {
             spriteBatch.Draw(level2CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level2CompleteScreen.Width, level2CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(shootText, "Stars collected : " + hero.amountOfStarsCollected + " / 30", new Vector2(300, 350), Color.Black);
-            mainMenuButton.PosSize = new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height);
-            spriteBatch.Draw(mainMenuText, new Rectangle(850, 350, mainMenuText.Width, mainMenuText.Height), Color.White);
-            spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
+            spriteBatch.Draw(quitText, new Rectangle(850, 250, quitText.Width, quitText.Height), Color.White);
         }
 
 
@@ -55,14 +53,11 @@ namespace _2DMonogame.Screens
         {
             level2CompleteScreen = content.Load<Texture2D>("level2CompleteMenu");
             shootText = content.Load<SpriteFont>("shootText");
-            mainMenuText = content.Load<Texture2D>("mainMenuButton");
             quitText = content.Load<Texture2D>("quitbutton");
 
-            quitButton = new ButtonScreen(new Rectangle(850, 450, quitText.Width, quitText.Height), true);
+            quitButton = new ButtonScreen(new Rectangle(850, 250, quitText.Width, quitText.Height), true);
             quitButton.Load(content, "quitbutton");
 
-            mainMenuButton = new ButtonScreen(new Rectangle(860, 450, mainMenuText.Width, mainMenuText.Height), true);
-            mainMenuButton.Load(content, "mainmenubutton");
         }
 
         /// <summary>
@@ -79,12 +74,7 @@ namespace _2DMonogame.Screens
         {
             mouseState = Mouse.GetState();
             screenManager.MakeMouseVisible(true);
-            if (mainMenuButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
-            {
-                screenManager.SetState(screenManager.GetMainMenuScreen());
-                Thread.Sleep(100);
-            }
-            else if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
+            if (quitButton.Update(new Vector2(mouseState.X, mouseState.Y)) == true && mouseState != prevMouseState && mouseState.LeftButton == ButtonState.Pressed)
                 screenManager.Quit();
             prevMouseState = mouseState;
         }
