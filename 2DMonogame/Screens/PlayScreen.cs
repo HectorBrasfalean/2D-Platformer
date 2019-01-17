@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace _2DMonogame.Screens
         Texture2D star, heart;
         SpriteFont scoreFont;
         ScreenManager screenManager;
+        Song song;
 
         public PlayScreen(ScreenManager screenManager)
         {
@@ -36,7 +38,11 @@ namespace _2DMonogame.Screens
             star = content.Load<Texture2D>("star");
             heart = content.Load<Texture2D>("heart");
             scoreFont = content.Load<SpriteFont>("Points");
-
+            song = content.Load<Song>("Worldmap Theme");
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume= 0.4f;
+            MediaPlayer.Pause();
         }
 
         /// <summary>
@@ -74,6 +80,7 @@ namespace _2DMonogame.Screens
         /// <param name="currentLevel">Level object dat ons huidig level bevat</param>
         public void Update(GameTime gameTime,Camera2D camera,Hero hero,List<ICollide> collisionObjects,Background background,Collider collider,ref Level currentLevel)
         {
+            MediaPlayer.Resume();
             KeyboardState keyboardState = Keyboard.GetState();
             screenManager.MakeMouseVisible(false);
             foreach (ButtonNextLevel nextLevelButton in collisionObjects.OfType<ButtonNextLevel>())
@@ -84,6 +91,7 @@ namespace _2DMonogame.Screens
             if (keyboardState.IsKeyDown(Keys.Escape) && escapeReleased)
             {
                 escapeReleased = false;
+                MediaPlayer.Pause();
                 screenManager.SetState(screenManager.GetPauseScreen());
             }
             if (keyboardState.IsKeyUp(Keys.Escape))
@@ -96,6 +104,7 @@ namespace _2DMonogame.Screens
                 screenManager.SetState(screenManager.GetGameOverScreen());
             if (loadNextLevel)
             {
+                MediaPlayer.Pause();
                 loadNextLevel = false;
                 if (currentLevel is Level1)
                     screenManager.SetState(screenManager.GetNextLevel1Screen());

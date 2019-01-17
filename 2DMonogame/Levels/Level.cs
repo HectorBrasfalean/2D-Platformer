@@ -6,6 +6,7 @@ using _2DMonogame.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,7 @@ namespace _2DMonogame
         /// <param name="collider">Collider object dat controlleert of er collision gebeurt</param>
         public void Update(GameTime gameTime,List<ICollide> collisionObjects,Collider collider)
         {
+
             foreach (IMoveBlock currentBlock in collisionObjects.OfType<IMoveBlock>())
             {
                 currentBlock.Update(collisionObjects, collider);

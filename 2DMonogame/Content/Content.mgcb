@@ -790,3 +790,9 @@
 /processorParam:TextureFormat=Color
 /build:11.png
 
+#begin Worldmap Theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Worldmap Theme.mp3
+
