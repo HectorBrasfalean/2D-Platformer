@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame
 {
+    /// <summary>
+    /// Verantwoordelijk voor elk projectiel
+    /// </summary>
     abstract class Projectile : IMovingCollide
     {
         public Texture2D Texture;
@@ -42,6 +45,11 @@ namespace _2DMonogame
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(SpriteBatch sprite);
 
+        /// <summary>
+        /// Verandert de velocity van het projectiel
+        /// </summary>
+        /// <param name="x">Velocity op de x-as, kan ook null zijn</param>
+        /// <param name="y">Velocity op de y-as, kan ook null zijn</param>
         public void ChangeVelocity(float? x, float? y)
         {
             if (x != null)
@@ -54,6 +62,11 @@ namespace _2DMonogame
             }
         }
 
+        /// <summary>
+        /// Verandert de positie van het projectiel
+        /// </summary>
+        /// <param name="x">Positie op de x-as, kan ook null zijn</param>
+        /// <param name="y">Positie op de y-as, kan ook null zijn</param>
         public void ChangePosition(float? x, float? y)
         {
             if (x != null)

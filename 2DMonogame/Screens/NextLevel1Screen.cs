@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Screens
 {
+    /// <summary>
+    /// Verantwoordelijk voor het scherm als we level 1 hebben afgewerkt
+    /// </summary>
     class NextLevel1Screen : IScreenState
     {
         MouseState mouseState, prevMouseState;
@@ -28,6 +31,15 @@ namespace _2DMonogame.Screens
             this.screenManager = screenManager;
         }
 
+
+        /// <summary>
+        /// Tekent het scherm als we level 1 hebben afgewerkt
+        /// </summary>
+        /// <param name="spriteBatch">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
+        /// <param name="camera">Camera2D object dat de hero volgt</param>
+        /// <param name="hero">Hero object dat we besturen</param>
+        /// <param name="background">Background object voor de game</param>
+        /// <param name="currentLevel">Level object dat ons huidig level bevat</param>
         public void Draw(SpriteBatch spriteBatch, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
         {
             spriteBatch.Draw(level1CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level1CompleteScreen.Width, level1CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
@@ -38,6 +50,11 @@ namespace _2DMonogame.Screens
             spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
         }
 
+
+        /// <summary>
+        /// Laden van de content voor het scherm als we level 1 afgewerkt hebben
+        /// </summary>
+        /// <param name="content">ContentManager object dat we gebruiken om textures te laden</param>
         public void Load(ContentManager content)
         {
             this.content = content;
@@ -58,6 +75,16 @@ namespace _2DMonogame.Screens
 
         }
 
+        /// <summary>
+        /// Update het scherm als we level 1 hebben afgewerkt
+        /// </summary>
+        /// <param name="gameTime">GameTime object dat ervoor zorgt dat we iets op een bepaalde tijd kunnen afspelen</param>
+        /// <param name="camera">Camera2D object dat de hero volgt</param>
+        /// <param name="hero">Hero object dat we besturen</param>
+        /// <param name="collisionObjects">Lijst met alle objecten die kunnen colliden</param>
+        /// <param name="background">Background object voor de game</param>
+        /// <param name="collider">Collider object die kijkt of er een collision gebeurt</param>
+        /// <param name="currentLevel">Level object dat ons huidig level bevat</param>
         public void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider,ref Level currentLevel)
         {
             mouseState = Mouse.GetState();
@@ -79,11 +106,23 @@ namespace _2DMonogame.Screens
             prevMouseState = mouseState;
         }
 
+        /// <summary>
+        /// Reset het aantal van collected collectables van de hero
+        /// </summary>
+        /// <param name="hero">Hero object dat we besturen</param>
         private void ResetHeroCollectedStars(Hero hero)
         {
             hero.amountOfStarsCollected = 0;
         }
 
+        /// <summary>
+        /// Laad een nieuw level
+        /// </summary>
+        /// <param name="nextLevel">Volgende level dat geladen moet worden</param>
+        /// <param name="spawnPosHero">Start positie van hero</param>
+        /// <param name="currentLevel">Huidige level</param>
+        /// <param name="collisionObjects">Lijst met objecten dat kunnen colliden</param>
+        /// <param name="hero">Hero object dat we besturen</param>
         private void LoadLevel(Level nextLevel, Vector2 spawnPosHero, ref Level currentLevel, List<ICollide> collisionObjects, Hero hero)
         {
             collisionObjects.Clear();
@@ -92,6 +131,11 @@ namespace _2DMonogame.Screens
             SetHeroSpawnLocation(spawnPosHero, hero);
         }
 
+        /// <summary>
+        /// Zet de hero start positie
+        /// </summary>
+        /// <param name="spawnPosHero">Start positie van de hero</param>
+        /// <param name="hero">Hero object dat we besturen</param>
         private void SetHeroSpawnLocation(Vector2 spawnPosHero, Hero hero)
         {
             hero.RespawnLocation = spawnPosHero;

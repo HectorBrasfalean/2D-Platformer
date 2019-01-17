@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace _2DMonogame.Screens
 {
+    /// <summary>
+    /// Verantwoordelijk voor elke screen state
+    /// </summary>
     interface IScreenState
     {
         void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider,ref Level currentLevel);

@@ -37,7 +37,7 @@ namespace _2DMonogame
                     movingCollision.ChangePosition(movingCollision.Position.X - movingCollision.MovingSpeed - movingCollision.CurrentCollisionBlock.MovingSpeed, null);
                 else
                     movingCollision.ChangePosition(movingCollision.Position.X - movingCollision.MovingSpeed, null);
-                movingCollision.ChangeVelocity(0, null);
+               movingCollision.ChangeVelocity(0, null);
         
             }
             if (movingCollision.TouchingTop)

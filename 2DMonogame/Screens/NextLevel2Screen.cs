@@ -13,6 +13,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2DMonogame.Screens
 {
+    /// <summary>
+    /// Verantwoordelijk voor het scherm als we level 2 hebben afgewerkt
+    /// </summary>
     class NextLevel2Screen : IScreenState
     {
         ScreenManager screenManager;
@@ -26,6 +29,14 @@ namespace _2DMonogame.Screens
             this.screenManager = screenManager;
         }
 
+        /// <summary>
+        /// Tekent het scherm als we level 2 hebben afgewerkt
+        /// </summary>
+        /// <param name="spriteBatch">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
+        /// <param name="camera">Camera2D object dat de hero volgt</param>
+        /// <param name="hero">Hero object dat we besturen</param>
+        /// <param name="background">Background object voor de game</param>
+        /// <param name="currentLevel">Level object dat ons huidig level bevat</param>
         public void Draw(SpriteBatch spriteBatch, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
         {
             spriteBatch.Draw(level2CompleteScreen, Vector2.Zero, new Rectangle(0, 0, level2CompleteScreen.Width, level2CompleteScreen.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
@@ -35,6 +46,11 @@ namespace _2DMonogame.Screens
             spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
         }
 
+
+        /// <summary>
+        /// Laden van de content voor het scherm als we level 2 afgewerkt hebben
+        /// </summary>
+        /// <param name="content">ContentManager object dat we gebruiken om textures te laden</param>
         public void Load(ContentManager content)
         {
             level2CompleteScreen = content.Load<Texture2D>("level2CompleteMenu");
@@ -49,6 +65,16 @@ namespace _2DMonogame.Screens
             mainMenuButton.Load(content, "mainmenubutton");
         }
 
+        /// <summary>
+        /// Update het scherm als we level 2 hebben afgewerkt
+        /// </summary>
+        /// <param name="gameTime">GameTime object dat ervoor zorgt dat we iets op een bepaalde tijd kunnen afspelen</param>
+        /// <param name="camera">Camera2D object dat de hero volgt</param>
+        /// <param name="hero">Hero object dat we besturen</param>
+        /// <param name="collisionObjects">Lijst met alle objecten die kunnen colliden</param>
+        /// <param name="background">Background object voor de game</param>
+        /// <param name="collider">Collider object die kijkt of er een collision gebeurt</param>
+        /// <param name="currentLevel">Level object dat ons huidig level bevat</param>
         public void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider,ref Level currentLevel)
         {
             mouseState = Mouse.GetState();

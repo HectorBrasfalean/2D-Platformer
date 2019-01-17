@@ -17,7 +17,6 @@ namespace _2DMonogame
     /// </summary>
     public class Game1 : Game
     {
-        bool escapeReleased = true,loadNextLevel;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Background background;
@@ -64,7 +63,7 @@ namespace _2DMonogame
 
             background = new Background(new Vector2(-150,-250));
 
-            screenManager = new ScreenManager(Content,this);
+            screenManager = new ScreenManager(Content);
 
             base.Initialize();
         }
@@ -98,6 +97,9 @@ namespace _2DMonogame
         protected override void Update(GameTime gameTime)
         {
             screenManager.Update(gameTime, camera, hero, collisionObjects, background, collider,ref currentLevel);
+            if (screenManager.CloseGame)
+                this.Exit();
+            this.IsMouseVisible = screenManager.MouseVisible;
             base.Update(gameTime);
         }
 

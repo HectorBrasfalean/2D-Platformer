@@ -13,6 +13,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _2DMonogame.Screens
 {
+    /// <summary>
+    /// Verantwoordelijk voor het pauze scherm
+    /// </summary>
     class PauseScreen : IScreenState
     {
         ScreenManager screenManager;
@@ -28,6 +31,15 @@ namespace _2DMonogame.Screens
             this.screenManager = screenManager;
         }
 
+
+        /// <summary>
+        /// Tekent het pauze scherm
+        /// </summary>
+        /// <param name="spriteBatch">SpriteBatch object dat we gebruiken om dingen om het scherm te tekenen</param>
+        /// <param name="camera">Camera2D object dat de hero volgt</param>
+        /// <param name="hero">Hero object dat we besturen</param>
+        /// <param name="background">Background object voor de game</param>
+        /// <param name="currentLevel">Level object dat ons huidig level bevat</param>
         public void Draw(SpriteBatch spriteBatch, Camera2D camera, Hero hero, Background background,ref Level currentLevel)
         {
             spriteBatch.Draw(pausedImage, Vector2.Zero, new Rectangle(0, 0, pausedImage.Width, pausedImage.Height), Color.AliceBlue, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
@@ -37,6 +49,10 @@ namespace _2DMonogame.Screens
             spriteBatch.Draw(quitText, new Rectangle(850, 450, quitText.Width, quitText.Height), Color.White);
         }
 
+        /// <summary>
+        /// Laden van de content voor het pauze scherm
+        /// </summary>
+        /// <param name="content">ContentManager object dat we gebruiken om textures te laden</param>
         public void Load(ContentManager content)
         {
             this.content = content;
@@ -55,6 +71,16 @@ namespace _2DMonogame.Screens
             resumeButton.Load(content, "resumebutton");
         }
 
+        /// <summary>
+        /// Update het pauze scherm
+        /// </summary>
+        /// <param name="gameTime">GameTime object dat ervoor zorgt dat we iets op een bepaalde tijd kunnen afspelen</param>
+        /// <param name="camera">Camera2D object dat de hero volgt</param>
+        /// <param name="hero">Hero object dat we besturen</param>
+        /// <param name="collisionObjects">Lijst met alle objecten die kunnen colliden</param>
+        /// <param name="background">Background object voor de game</param>
+        /// <param name="collider">Collider object die kijkt of er een collision gebeurt</param>
+        /// <param name="currentLevel">Level object dat ons huidig level bevat</param>
         public void Update(GameTime gameTime, Camera2D camera, Hero hero, List<ICollide> collisionObjects, Background background, Collider collider,ref Level currentLevel)
         {
             mouseState = Mouse.GetState();
@@ -88,16 +114,19 @@ namespace _2DMonogame.Screens
         /// Zet de hero zijn spawnlocatie op een bepaalde locatie
         /// </summary>
         /// <param name="spawnPos">de positie waar de hero zou moeten spawnen</param>
+        /// <param name="hero">Hero object dat we besturen</param>
         private void SetHeroSpawnLocation(Vector2 spawnPos, Hero hero)
         {
             hero.RespawnLocation = spawnPos;
             hero.Position = hero.RespawnLocation;
         }
         /// <summary>
-        /// Laad nieuw level
+        /// Restart level
         /// </summary>
-        /// <param name="nextLevel">het volgende level dat geladen moet worden</param>
-        /// <param name="spawnPosHero">de spawn locatie van de hero</param>
+        /// <param name="spawnPosHero">Start positie van de hero</param>
+        /// <param name="currentLevel">Huidige level</param>
+        /// <param name="collisionObjects">Lijst met alle objecten die kunnen colliden</param>
+        /// <param name="hero">Hero object dat we besturen</param>
         private void RestartLevel(Vector2 spawnPosHero,ref Level currentLevel, List<ICollide> collisionObjects, Hero hero)
         {
             collisionObjects.Clear();
@@ -106,13 +135,19 @@ namespace _2DMonogame.Screens
             SetHeroSpawnLocation(spawnPosHero, hero);
         }
 
+        /// <summary>
+        /// Reset het aantal van collected collectables van de hero
+        /// </summary>
+        /// <param name="hero">Hero object dat we besturen</param>
         private void ResetHeroCollectedStars(Hero hero)
         {
             hero.amountOfStarsCollected = 0;
         }
+
         /// <summary>
         /// Reset het aantal levens van de hero
         /// </summary>
+        /// <param name="hero">Hero object dat we besturen</param>
         private void ResetHeroLives(Hero hero)
         {
             hero.AmountOfLives = 3;
