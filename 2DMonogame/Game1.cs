@@ -35,6 +35,7 @@ namespace _2DMonogame
             graphics.PreferredBackBufferHeight = 780;
             graphics.PreferredBackBufferWidth = 1280;
             Content.RootDirectory = "Content";
+            //graphics.ToggleFullScreen();
             this.IsMouseVisible = true;
         }
       

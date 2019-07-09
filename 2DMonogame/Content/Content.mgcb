@@ -397,18 +397,6 @@
 /processorParam:TextureFormat=Color
 /build:GreenGoblinSprite.png
 
-#begin ../../../../../../../../Downloads/Monogame/Levels/Elements/star.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../../../Downloads/Monogame/Levels/Elements/star.png
-
 #begin star.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -439,42 +427,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:legeBlok.png
-
-#begin ../../../../../../../../Downloads/Monogame/Sprites/BlackGoblin.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../../../Downloads/Monogame/Sprites/BlackGoblin.png
-
-#begin ../../../../../../../../Downloads/Monogame/Sprites/BlueMonster.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../../../Downloads/Monogame/Sprites/BlueMonster.png
-
-#begin ../../../../../../../../Downloads/Monogame/Sprites/GiantSprite.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../../../../Downloads/Monogame/Sprites/GiantSprite.png
 
 #begin LavaFireballSprite.png
 /importer:TextureImporter
